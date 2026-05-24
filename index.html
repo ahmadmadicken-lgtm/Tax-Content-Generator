@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pajak Content Generator — Konsultasi Pajak Gratis</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0b0c10;
+    --surface: #13151c;
+    --surface2: #1a1d28;
+    --border: #252836;
+    --accent: #f97316;
+    --accent2: #fb923c;
+    --accent-glow: rgba(249,115,22,0.18);
+    --text: #f0f0f5;
+    --muted: #8a8fa8;
+    --green: #22d3a0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .label, .tag {
+    font-family: 'Syne', sans-serif;
+  }
+
+  /* Noise grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  /* Header */
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-glow);
+    border: 1px solid rgba(249,115,22,0.3);
+    color: var(--accent2);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .header-badge span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:focus-within {
+    border-color: rgba(249,115,22,0.4);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Input */
+  input[type="text"], textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: none;
+  }
+
+  input[type="text"]:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  input[type="text"]::placeholder, textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.7;
+  }
+
+  /* Pill toggles */
+  .pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--muted);
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .pill:hover {
+    border-color: var(--accent);
+    color: var(--accent2);
+  }
+
+  .pill.active {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Pillar grid */
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+  }
+
+  .pillar-card {
+    cursor: pointer;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    color: var(--muted);
+    transition: all 0.15s;
+    line-height: 1.3;
+    user-select: none;
+  }
+
+  .pillar-card:hover {
+    border-color: var(--accent);
+    color: var(--accent2);
+  }
+
+  .pillar-card.active {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .pillar-num {
+    display: block;
+    font-size: 10px;
+    opacity: 0.5;
+    margin-bottom: 2px;
+  }
+
+  /* Generate button */
+  .btn-generate {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 0.9rem 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-generate::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .btn-generate:hover {
+    background: var(--accent2);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(249,115,22,0.35);
+  }
+
+  .btn-generate:active {
+    transform: translateY(0);
+  }
+
+  .btn-generate:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Output */
+  .output-section {
+    display: none;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .output-section.visible {
+    display: block;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .output-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .output-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .output-title::before {
+    content: '✦';
+    font-size: 10px;
+  }
+
+  .btn-copy {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+
+  .btn-copy:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .btn-copy.copied {
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(34,211,160,0.08);
+  }
+
+  .prompt-output {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 520px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .prompt-output::-webkit-scrollbar { width: 4px; }
+  .prompt-output::-webkit-scrollbar-track { background: transparent; }
+  .prompt-output::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+  .prompt-tag {
+    display: inline-block;
+    background: rgba(249,115,22,0.12);
+    color: var(--accent2);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Separator */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0.5rem 0 1.5rem;
+  }
+
+  /* Loading spinner */
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+
+  .btn-generate.loading .spinner { display: block; }
+  .btn-generate.loading .btn-text { display: none; }
+
+  /* Glow decoration */
+  .glow-orb {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    top: -80px;
+    right: -100px;
+    z-index: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container { padding: 1.5rem 1rem 4rem; }
+    .pillar-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-orb"></div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-badge"><span></span> Pajak Content Generator</div>
+  <h1>Buat Konten <em>Pajak</em><br>yang Viral & Convert</h1>
+  <p class="subtitle">Generate structured prompt untuk Instagram, Threads, & lebih banyak lagi — powered by brand voice Konsultasi Pajak Gratis.</p>
+
+  <!-- Input Topik -->
+  <div class="card">
+    <div class="section-label">01 — Topik Konten</div>
+    <input type="text" id="topicInput" placeholder="Contoh: UMKM belum punya NPWP, freelancer kena PPh 21, denda telat lapor..." />
+  </div>
+
+  <!-- Tipe Konten -->
+  <div class="card">
+    <div class="section-label">02 — Tipe Konten</div>
+    <div class="pill-group" id="contentTypeGroup">
+      <div class="pill active" data-value="carousel">🎠 Carousel Instagram</div>
+      <div class="pill" data-value="threads">🧵 Threads</div>
+      <div class="pill" data-value="hook">🪝 Hook</div>
+      <div class="pill" data-value="cta">📣 CTA</div>
+      <div class="pill" data-value="caption">✍️ Caption</div>
+    </div>
+  </div>
+
+  <!-- Tone -->
+  <div class="card">
+    <div class="section-label">03 — Tone</div>
+    <div class="pill-group" id="toneGroup">
+      <div class="pill active" data-value="edukasi">📚 Edukasi</div>
+      <div class="pill" data-value="fear">😱 Fear</div>
+      <div class="pill" data-value="viral">🔥 Viral</div>
+      <div class="pill" data-value="storytelling">💬 Storytelling</div>
+    </div>
+  </div>
+
+  <!-- Content Pillar -->
+  <div class="card">
+    <div class="section-label">04 — Pilar Konten (Opsional)</div>
+    <div class="pillar-grid" id="pillarGroup">
+      <div class="pillar-card" data-value="Kesalahan pajak umum"><span class="pillar-num">01</span>Kesalahan Pajak Umum</div>
+      <div class="pillar-card" data-value="Pajak UMKM"><span class="pillar-num">02</span>Pajak UMKM</div>
+      <div class="pillar-card" data-value="Pajak freelancer"><span class="pillar-num">03</span>Pajak Freelancer</div>
+      <div class="pillar-card" data-value="Tax myth"><span class="pillar-num">04</span>Tax Myth</div>
+      <div class="pillar-card" data-value="Cerita denda pajak"><span class="pillar-num">05</span>Cerita Denda Pajak</div>
+      <div class="pillar-card" data-value="Tips legal hemat pajak"><span class="pillar-num">06</span>Tips Hemat Pajak Legal</div>
+      <div class="pillar-card" data-value="Update aturan pajak"><span class="pillar-num">07</span>Update Aturan Pajak</div>
+      <div class="pillar-card" data-value="Studi kasus"><span class="pillar-num">08</span>Studi Kasus</div>
+      <div class="pillar-card" data-value="Checklist pajak"><span class="pillar-num">09</span>Checklist Pajak</div>
+      <div class="pillar-card" data-value="FAQ pajak"><span class="pillar-num">10</span>FAQ Pajak</div>
+    </div>
+  </div>
+
+  <!-- Target Audience -->
+  <div class="card">
+    <div class="section-label">05 — Target Audience (Opsional)</div>
+    <div class="pill-group" id="audienceGroup">
+      <div class="pill" data-value="UMKM">🏪 UMKM</div>
+      <div class="pill" data-value="Freelancer">💻 Freelancer</div>
+      <div class="pill" data-value="Pebisnis Online">📦 Pebisnis Online</div>
+      <div class="pill" data-value="Agency Owner">🏢 Agency Owner</div>
+      <div class="pill" data-value="Karyawan">👔 Karyawan</div>
+      <div class="pill" data-value="Orang Awam">🙋 Orang Awam</div>
+    </div>
+  </div>
+
+  <!-- Generate Button -->
+  <button class="btn-generate" id="generateBtn" onclick="generatePrompt()">
+    <div class="spinner"></div>
+    <span class="btn-text">✦ Generate Prompt</span>
+  </button>
+
+  <!-- Output -->
+  <div class="output-section" id="outputSection">
+    <div style="height:1.5rem"></div>
+    <div class="card">
+      <div class="output-header">
+        <div class="output-title">Prompt Siap Dipakai</div>
+        <button class="btn-copy" id="copyBtn" onclick="copyPrompt()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy Prompt
+        </button>
+      </div>
+      <!-- Carousel size badge — shown only for carousel type -->
+      <div id="carouselBadge" style="display:none; margin-bottom: 0.9rem;">
+        <div style="
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background: rgba(99,102,241,0.1);
+          border: 1px solid rgba(99,102,241,0.3);
+          border-radius: 10px;
+          padding: 8px 14px;
+          width: 100%;
+        ">
+          <!-- Slide aspect ratio preview -->
+          <div style="
+            flex-shrink: 0;
+            width: 20px;
+            height: 25px;
+            border: 2px solid rgba(129,140,248,0.7);
+            border-radius: 3px;
+            background: rgba(99,102,241,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          ">
+            <div style="width: 8px; height: 1.5px; background: rgba(129,140,248,0.8); box-shadow: 0 3px 0 rgba(129,140,248,0.5), 0 6px 0 rgba(129,140,248,0.3);"></div>
+          </div>
+          <div>
+            <div style="font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; color: #818cf8; letter-spacing: 0.05em;">UKURAN SLIDE CAROUSEL</div>
+            <div style="font-size: 12px; color: #a5b4fc; margin-top: 1px;">
+              1080 × 1350 px &nbsp;·&nbsp; Rasio 4:5 &nbsp;·&nbsp; Portrait &nbsp;·&nbsp; Safe zone 80px
+            </div>
+          </div>
+          <div style="margin-left: auto; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; color: #6366f1; background: rgba(99,102,241,0.15); padding: 3px 8px; border-radius: 5px; white-space: nowrap;">4:5</div>
+        </div>
+      </div>
+      <div class="prompt-output" id="promptOutput"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Single-select pills
+  function setupSingleSelect(groupId) {
+    const group = document.getElementById(groupId);
+    group.querySelectorAll('.pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+      });
+    });
+  }
+
+  // Toggle select for pillar cards and audience pills
+  function setupToggle(groupId) {
+    const group = document.getElementById(groupId);
+    group.querySelectorAll('.pill, .pillar-card').forEach(el => {
+      el.addEventListener('click', () => {
+        el.classList.toggle('active');
+      });
+    });
+  }
+
+  setupSingleSelect('contentTypeGroup');
+  setupSingleSelect('toneGroup');
+  setupToggle('pillarGroup');
+  setupToggle('audienceGroup');
+
+  function getActive(groupId, selector = '.pill, .pillar-card') {
+    const group = document.getElementById(groupId);
+    const actives = [...group.querySelectorAll(`${selector}.active`)];
+    return actives.map(el => el.dataset.value);
+  }
+
+  // Brand Knowledge Base
+  const hooks = [
+    "Banyak orang baru sadar ini setelah kena denda pajak",
+    "Jangan sampai bisnis Anda kena masalah karena hal ini",
+    "Kesalahan pajak yang sering dilakukan UMKM",
+    "90% freelancer salah soal pajak ini",
+    "Banyak UMKM baru sadar ini setelah kena denda",
+    "Hal yang jarang dijelaskan konsultan pajak",
+    "Pajak sebenarnya tidak serumit ini",
+    "Kalau penghasilan segini, kena pajak tidak?",
+  ];
+
+  const ctas = [
+    "Bingung soal pajak? Konsultasi gratis di konsultasipajakgratis.com",
+    "Takut salah lapor pajak? Konsultasi dulu gratis.",
+    "Mau tahu pajak bisnis Anda aman atau tidak? Cek gratis sekarang.",
+    "Banyak orang baru sadar masalah pajak setelah terlambat. Jangan tunggu kena masalah.",
+  ];
+
+  const toneInstructions = {
+    edukasi: `Gunakan tone edukatif yang friendly. Mulai dengan fakta atau data menarik. Jelaskan konsep dengan analogi sederhana. Hindari jargon teknis. Buat pembaca merasa "oh ternyata begitu" — bukan intimidated.`,
+    fear: `Gunakan tone fear → solution. Mulai dengan skenario buruk yang relatable (kena denda, diaudit, rugi). Bangun tension. Lalu berikan solusi yang clear. Ending harus hopeful, bukan menakut-nakuti berlebihan.`,
+    viral: `Gunakan tone viral — kontroversial, bikin penasaran, atau mengejutkan. Hook harus scroll-stopping. Gunakan angka, persentase, atau klaim bold. Format harus skimmable. Buat orang mau share.`,
+    storytelling: `Gunakan pendekatan storytelling. Mulai dengan karakter spesifik ("Seorang freelancer, 3 tahun jualan online..."). Bangun situasi yang relatable. Tunjukkan masalah dan konsekuensinya. Resolusi yang satisfying. Akhiri dengan pelajaran dan CTA.`,
+  };
+
+  const contentTypeInstructions = {
+    carousel: `
+FORMAT OUTPUT:
+- Cover slide: Hook kuat (1 kalimat)
+- Slide 2–7: Isi konten, 1 poin per slide, maks 2–3 kalimat per slide
+- Slide terakhir: CTA + website
+- Sertakan juga: judul setiap slide, visual direction singkat (optional)
+- Total: 8–10 slides
+
+📐 SPESIFIKASI UKURAN SLIDE:
+- Ukuran canvas: 1080 x 1350 px (rasio 4:5 — optimal untuk Instagram feed)
+- Orientasi: Portrait
+- Margin aman: 80px dari setiap sisi (safe zone untuk tidak terpotong)
+- Area konten aktif: 920 x 1190 px
+- Rekomendasi font size: Heading 60–80px / Body 36–48px / Caption kecil 28–32px
+- Elemen teks jangan lebih dari 60% area slide — beri ruang visual
+- Setiap slide harus bisa dibaca tanpa perlu zoom`,
+
+    threads: `
+FORMAT OUTPUT:
+- Thread pertama: Hook + opening (buat orang mau klik "show more")
+- Thread 2–6: Isi poin per thread, maks 280 karakter per thread
+- Thread terakhir: CTA + website
+- Gunakan line break dan white space
+- Total: 6–8 threads`,
+
+    hook: `
+FORMAT OUTPUT:
+Buat 5 variasi hook dengan pendekatan berbeda:
+1. Hook rasa penasaran
+2. Hook fear
+3. Hook angka/statistik
+4. Hook kontra-intuitif
+5. Hook storytelling
+Tiap hook maks 1–2 kalimat. Bold dan langsung.`,
+
+    cta: `
+FORMAT OUTPUT:
+Buat 4 variasi CTA:
+1. CTA soft (informational)
+2. CTA urgency
+3. CTA curiosity-based
+4. CTA problem-aware
+Tiap CTA: 2–3 kalimat + URL: konsultasipajakgratis.com`,
+
+    caption: `
+FORMAT OUTPUT:
+- Opening hook: 1 kalimat kuat
+- Body: 4–6 kalimat isi
+- Bridge ke CTA: 1 kalimat
+- CTA: URL konsultasipajakgratis.com
+- Hashtag: 15–20 hashtag relevan (campuran niche + broad)
+- Panjang total: 150–200 kata`,
+  };
+
+  function getRandomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function generatePrompt() {
+    const topic = document.getElementById('topicInput').value.trim();
+    if (!topic) {
+      document.getElementById('topicInput').focus();
+      document.getElementById('topicInput').style.borderColor = 'var(--accent)';
+      setTimeout(() => document.getElementById('topicInput').style.borderColor = '', 1500);
+      return;
+    }
+
+    const contentType = getActive('contentTypeGroup')[0] || 'carousel';
+    const tone = getActive('toneGroup')[0] || 'edukasi';
+    const pillars = getActive('pillarGroup');
+    const audiences = getActive('audienceGroup');
+
+    const btn = document.getElementById('generateBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    setTimeout(() => {
+      const prompt = buildPrompt({ topic, contentType, tone, pillars, audiences });
+      document.getElementById('promptOutput').textContent = prompt;
+      document.getElementById('outputSection').classList.add('visible');
+      // Show carousel size badge only when carousel type is selected
+      document.getElementById('carouselBadge').style.display = contentType === 'carousel' ? 'block' : 'none';
+      document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      btn.classList.remove('loading');
+      btn.disabled = false;
+
+      // Reset copy button
+      const copyBtn = document.getElementById('copyBtn');
+      copyBtn.classList.remove('copied');
+      copyBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Prompt`;
+    }, 600);
+  }
+
+  function buildPrompt({ topic, contentType, tone, pillars, audiences }) {
+    const toneInstr = toneInstructions[tone];
+    const contentInstr = contentTypeInstructions[contentType];
+    const sampleHook = getRandomItem(hooks);
+    const sampleCTA = getRandomItem(ctas);
+
+    const pillarLine = pillars.length > 0
+      ? `\nContent Pillar: ${pillars.join(', ')}`
+      : '';
+
+    const audienceLine = audiences.length > 0
+      ? `\nTarget Audience Spesifik: ${audiences.join(', ')}`
+      : '\nTarget Audience: UMKM, Freelancer, Pebisnis Online';
+
+    const contentTypeLabel = {
+      carousel: 'Carousel Instagram',
+      threads: 'Threads',
+      hook: 'Hook',
+      cta: 'CTA',
+      caption: 'Caption Instagram',
+    }[contentType];
+
+    const toneLabel = {
+      edukasi: 'Edukasi',
+      fear: 'Fear → Solution',
+      viral: 'Viral',
+      storytelling: 'Storytelling',
+    }[tone];
+
+    return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAJAK CONTENT GENERATOR
+Brand: Konsultasi Pajak Gratis
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📌 BRIEF KONTEN
+───────────────
+Topik: ${topic}
+Tipe Konten: ${contentTypeLabel}
+Tone: ${toneLabel}${pillarLine}${audienceLine}
+
+🎯 BRAND VOICE
+───────────────
+Kamu adalah content creator untuk brand "Konsultasi Pajak Gratis" — platform edukasi pajak untuk masyarakat Indonesia.
+
+Panduan menulis:
+• Bahasa Indonesia sehari-hari, tidak formal
+• Kalimat pendek dan to the point
+• Tidak menggurui — seperti teman yang tahu pajak
+• Fokus pada pain point audiens
+• Gunakan storytelling ringan dan contoh nyata
+• Selalu ada hook kuat di awal
+• Hindari jargon pajak yang rumit — kalau perlu dijelaskan, buat analogi sederhana
+
+🔥 TONE DIRECTION
+───────────────
+${toneInstr}
+
+✍️ FORMAT KONTEN
+───────────────
+Buat konten berupa: ${contentTypeLabel}
+${contentInstr}
+
+💡 REFERENSI HOOK
+───────────────
+Contoh hook yang bisa diadaptasi:
+"${sampleHook}"
+
+📣 CTA YANG DIGUNAKAN
+───────────────
+Akhiri konten dengan CTA natural. Contoh:
+"${sampleCTA}"
+
+URL: konsultasipajakgratis.com
+
+⚡ INSTRUKSI TAMBAHAN
+───────────────
+• Gunakan angka konkret kalau memungkinkan
+• Tambahkan 1–2 contoh kasus nyata yang relatable
+• Hindari bullet point terlalu panjang — maksimal 3–4 kata per poin
+• Ending harus berasa actionable, bukan cuma informatif
+• Jangan terlalu panjang — fokus pada value per kalimat
+
+Sekarang buat konten untuk topik: "${topic}"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+  }
+
+  function copyPrompt() {
+    const text = document.getElementById('promptOutput').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.classList.add('copied');
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tersalin!`;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Prompt`;
+      }, 2500);
+    });
+  }
+
+  // Allow Enter key to trigger generate from input
+  document.getElementById('topicInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') generatePrompt();
+  });
+</script>
+</body>
+</html>
