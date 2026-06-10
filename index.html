@@ -1566,14 +1566,20 @@ Sekarang buat Threads untuk topik: "${topic}"
     const list = document.getElementById('historyList');
     const count = document.getElementById('historyCount');
 
+    // Always show panel
+    panel.style.display = 'block';
     count.textContent = history.length;
 
     if (history.length === 0) {
-      panel.style.display = 'none';
+      list.innerHTML = `
+        <div class="history-empty">
+          <div class="history-empty-icon">🕐</div>
+          <div>Belum ada riwayat.</div>
+          <div style="font-size:12px;margin-top:4px;opacity:0.6;">Generate pertama kamu akan tersimpan di sini.</div>
+        </div>`;
       return;
     }
 
-    panel.style.display = 'block';
     list.innerHTML = history.map(entry => `
       <div class="history-item" onclick="recallHistory(${entry.id})" title="Klik untuk load ulang">
         <div class="history-item-icon">${typeIcons[entry.contentType] || '📄'}</div>
