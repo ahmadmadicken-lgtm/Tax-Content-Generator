@@ -2502,6 +2502,154 @@
   }
 
   .bank-stat strong { color: var(--text); }
+
+  /* ── Topic Picker (inline di card 01) ── */
+  .picker-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    border-radius: 7px;
+    padding: 5px 11px;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .picker-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .picker-toggle.open { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+  .picker-panel {
+    margin-top: 10px;
+    display: none;
+    animation: fadeUp 0.2s ease;
+  }
+
+  .picker-panel.open { display: block; }
+
+  /* Pilar tabs — scrollable horizontal */
+  .picker-tabs {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+    scrollbar-width: none;
+  }
+
+  .picker-tabs::-webkit-scrollbar { display: none; }
+
+  .picker-tab {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.12s;
+    flex-shrink: 0;
+  }
+
+  .picker-tab.active, .picker-tab:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  /* Topic list */
+  .picker-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    padding-right: 4px;
+  }
+
+  .picker-list::-webkit-scrollbar { width: 3px; }
+  .picker-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+  .picker-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.1s;
+    border: 1px solid transparent;
+  }
+
+  .picker-item:hover { background: var(--surface2); border-color: var(--border); }
+  .picker-item.selected { background: var(--accent-glow); border-color: rgba(249,115,22,0.35); }
+  .picker-item.done-topic { opacity: 0.5; }
+
+  .picker-item-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--muted);
+    min-width: 20px;
+    flex-shrink: 0;
+  }
+
+  .picker-item-text {
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.35;
+    flex: 1;
+  }
+
+  .picker-item.selected .picker-item-text { color: var(--accent); font-weight: 600; }
+
+  .picker-item-done {
+    font-size: 10px;
+    color: var(--green);
+    flex-shrink: 0;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+  }
+
+  .picker-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+  }
+
+  .picker-search {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    padding: 6px 10px;
+    outline: none;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .picker-search:focus { border-color: var(--accent); }
+  .picker-search::placeholder { color: var(--muted); opacity: 0.6; }
 </style>
 </head>
 <body>
@@ -2619,6 +2767,29 @@
       <button class="btn-star-topic" id="diceBtn" onclick="randomTopic()" title="Topik random 🎲" style="right:2.4rem;">🎲</button>
       <button class="btn-star-topic" id="starBtn" onclick="toggleFavorite()" title="Simpan ke favorit">⭐</button>
       <div class="suggest-dropdown" id="suggestDropdown" style="display:none;"></div>
+    </div>
+
+    <!-- Picker toggle -->
+    <div class="picker-toggle" id="pickerToggle" onclick="togglePicker()">
+      <span id="pickerToggleIcon">▾</span> Pilih dari daftar topik
+    </div>
+
+    <!-- Picker panel -->
+    <div class="picker-panel" id="pickerPanel">
+      <!-- Search inside picker -->
+      <input type="text" class="picker-search" id="pickerSearch" placeholder="Cari topik..." oninput="renderPickerList()" autocomplete="off" />
+
+      <!-- Pillar tabs -->
+      <div class="picker-tabs" id="pickerTabs"></div>
+
+      <!-- Topic list -->
+      <div class="picker-list" id="pickerList"></div>
+
+      <!-- Footer -->
+      <div class="picker-footer">
+        <span id="pickerFooterCount"></span>
+        <span style="color:var(--accent);font-weight:700;cursor:pointer;" onclick="randomTopic()">🎲 Random</span>
+      </div>
     </div>
   </div>
 
@@ -3147,6 +3318,7 @@
     renderSnippets();
     renderPinned();
     renderBank();
+    renderPickerTabs();
     updateStarBtn();
     renderCalGrid();
     updatePreview();
@@ -4985,6 +5157,7 @@ Sekarang buat Threads untuk topik: "${topic}"
     renderProgress();
     renderStats();
     renderBankGrid(); // sync done badges
+    if (pickerOpen) renderPickerList(); // sync picker ✓ badges
   }
 
   function setProgressFilter(f) {
@@ -5151,6 +5324,7 @@ Sekarang buat Threads untuk topik: "${topic}"
     renderSnippets();
     renderPinned();
     renderBank();
+    renderPickerTabs();
   }
 
   function renderSnippets() {
@@ -5595,11 +5769,13 @@ ${entry.prompt}
     document.getElementById('bankTopicInput').value = '';
     toggleBankAddForm();
     renderBank();
+    renderPickerTabs();
   }
 
   function deleteCustomTopic(id) {
     saveCustomTopics(loadCustomTopics().filter(t => t.id !== id));
     renderBank();
+    renderPickerTabs();
   }
 
   function toggleBankAddForm() {
@@ -5672,6 +5848,7 @@ ${entry.prompt}
     });
     saveCustomTopics(list);
     renderBank();
+    renderPickerTabs();
     alert(`${added} topik berhasil diimport.`);
   }
 
@@ -5786,6 +5963,117 @@ ${entry.prompt}
       });
     }
   });
+
+  // ── Topic Picker ─────────────────────────────────────────────
+  let pickerActivePillar = 'Semua';
+  let pickerOpen = false;
+
+  const PICKER_PILLARS = ['Semua', ...Object.keys(PROGRESS_TOPICS)];
+
+  function togglePicker() {
+    pickerOpen = !pickerOpen;
+    const panel = document.getElementById('pickerPanel');
+    const toggle = document.getElementById('pickerToggle');
+    const icon = document.getElementById('pickerToggleIcon');
+    panel.classList.toggle('open', pickerOpen);
+    toggle.classList.toggle('open', pickerOpen);
+    icon.textContent = pickerOpen ? '▴' : '▾';
+    if (pickerOpen) {
+      renderPickerTabs();
+      renderPickerList();
+      setTimeout(() => document.getElementById('pickerSearch').focus(), 100);
+    }
+  }
+
+  function setPickerPillar(pillar) {
+    pickerActivePillar = pillar;
+    document.getElementById('pickerSearch').value = '';
+    renderPickerTabs();
+    renderPickerList();
+  }
+
+  function renderPickerTabs() {
+    const tabs = document.getElementById('pickerTabs');
+    const progressData = loadProgress();
+    const builtinList = getBuiltinBankTopics();
+
+    tabs.innerHTML = PICKER_PILLARS.map(p => {
+      let count;
+      if (p === 'Semua') {
+        count = Object.values(PROGRESS_TOPICS).flat().length + loadCustomTopics().length;
+      } else {
+        count = (PROGRESS_TOPICS[p] || []).length;
+      }
+      return `<div class="picker-tab ${p === pickerActivePillar ? 'active' : ''}" onclick="setPickerPillar('${p.replace(/'/g,'\'')}')">${p} <span style="opacity:0.6;font-size:9px;">${count}</span></div>`;
+    }).join('');
+  }
+
+  function renderPickerList() {
+    const list = document.getElementById('pickerList');
+    const footer = document.getElementById('pickerFooterCount');
+    const q = (document.getElementById('pickerSearch')?.value || '').toLowerCase().trim();
+    const progressData = loadProgress();
+    const builtinList = getBuiltinBankTopics();
+    const currentTopic = document.getElementById('topicInput').value.trim();
+
+    // Build topic pool
+    let pool = [];
+    if (pickerActivePillar === 'Semua') {
+      // Builtin topics
+      let idx = 0;
+      Object.entries(PROGRESS_TOPICS).forEach(([pillar, topics]) => {
+        topics.forEach(text => { pool.push({ text, pillar, idx: idx++, custom: false }); });
+      });
+      // Custom topics
+      loadCustomTopics().forEach(t => pool.push({ text: t.text, pillar: t.pillar + ' ✏️', idx: -1, custom: true }));
+    } else {
+      const topics = PROGRESS_TOPICS[pickerActivePillar] || [];
+      let startIdx = 0;
+      Object.entries(PROGRESS_TOPICS).forEach(([pillar, tList]) => {
+        if (pillar === pickerActivePillar) return;
+        startIdx += tList.length;
+      });
+      topics.forEach((text, i) => pool.push({ text, pillar: pickerActivePillar, idx: startIdx + i, custom: false }));
+      // Custom in same pillar
+      loadCustomTopics().filter(t => t.pillar === pickerActivePillar).forEach(t => pool.push({ text: t.text, pillar: t.pillar, idx: -1, custom: true }));
+    }
+
+    // Apply search
+    if (q) pool = pool.filter(t => t.text.toLowerCase().includes(q));
+
+    footer.textContent = `${pool.length} topik`;
+
+    if (!pool.length) {
+      list.innerHTML = '<div style="padding:12px;text-align:center;font-size:12px;color:var(--muted);font-style:italic;">Tidak ada topik ditemukan.</div>';
+      return;
+    }
+
+    list.innerHTML = pool.map((t, i) => {
+      const isDone = !t.custom && t.idx >= 0 && !!progressData[t.idx];
+      const isSelected = t.text === currentTopic;
+      return `
+        <div class="picker-item ${isSelected ? 'selected' : ''} ${isDone ? 'done-topic' : ''}"
+          onclick="selectPickerTopic(${JSON.stringify(t.text)})">
+          <span class="picker-item-num">${String(i + 1).padStart(2, '0')}</span>
+          <span class="picker-item-text">${highlight(t.text, q)}</span>
+          ${isDone ? '<span class="picker-item-done">✓</span>' : ''}
+          ${t.custom ? '<span style="font-size:9px;color:#60a5fa;font-family:Syne,sans-serif;font-weight:700;">✏️</span>' : ''}
+        </div>`;
+    }).join('');
+  }
+
+  function selectPickerTopic(text) {
+    document.getElementById('topicInput').value = text;
+    closeSuggest();
+    updateStarBtn();
+    updatePreview();
+    // Refresh picker to show selected state
+    renderPickerList();
+    // Brief pulse on input
+    const input = document.getElementById('topicInput');
+    input.style.borderColor = 'var(--accent)';
+    setTimeout(() => input.style.borderColor = '', 800);
+  }
 
   // ── Theme toggle ─────────────────────────────────────────────
   function applyTheme(mode) {
