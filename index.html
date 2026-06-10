@@ -2247,6 +2247,261 @@
   }
   .btn-pin-output:hover { border-color: #f59e0b; color: #f59e0b; }
   .btn-pin-output.pinned { color: #f59e0b; border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.08); }
+
+  /* ── Bank Topik ── */
+  .bank-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .bank-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .bank-search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 320px;
+  }
+
+  .bank-search {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 7px 12px 7px 32px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .bank-search:focus { border-color: var(--accent); }
+  .bank-search::placeholder { color: var(--muted); opacity: 0.7; }
+
+  .bank-search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  .bank-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  /* Category tabs */
+  .bank-cats {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .bank-cat {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .bank-cat.active, .bank-cat:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .bank-cat-count {
+    font-size: 9px;
+    background: var(--surface);
+    border-radius: 99px;
+    padding: 0 5px;
+    color: var(--muted);
+  }
+
+  /* Add topic form */
+  .bank-add-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    display: none;
+    animation: fadeUp 0.2s ease;
+  }
+
+  .bank-add-form.visible { display: block; }
+
+  .bank-add-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .bank-add-fields { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+
+  .bank-field-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+
+  .bank-select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 7px 10px;
+    outline: none;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+
+  .bank-select:focus { border-color: var(--accent); }
+
+  /* Topic cards grid */
+  .bank-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+
+  .bank-topic-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    transition: border-color 0.15s;
+    position: relative;
+  }
+
+  .bank-topic-card:hover { border-color: rgba(249,115,22,0.3); }
+
+  .bank-topic-card.custom-topic { border-color: rgba(96,165,250,0.25); }
+  .bank-topic-card.custom-topic:hover { border-color: rgba(96,165,250,0.5); }
+
+  .bank-topic-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--muted);
+    min-width: 22px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .bank-topic-body { flex: 1; min-width: 0; }
+
+  .bank-topic-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.45;
+    margin-bottom: 5px;
+    word-break: break-word;
+  }
+
+  .bank-topic-meta {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .bank-badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+  }
+
+  .bank-badge.custom { color: #60a5fa; border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.08); }
+  .bank-badge.done { color: var(--green); border-color: rgba(34,211,160,0.3); background: rgba(34,211,160,0.07); }
+
+  .bank-topic-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.1s;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+
+  .bank-topic-card:hover .bank-topic-actions { opacity: 1; }
+
+  .btn-bank-action {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--muted);
+    font-size: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    padding: 3px 7px;
+    cursor: pointer;
+    transition: all 0.1s;
+    white-space: nowrap;
+  }
+
+  .btn-bank-action:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-bank-action.del:hover { border-color: #f87171; color: #f87171; }
+
+  .bank-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  .bank-stats-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .bank-stat {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  .bank-stat strong { color: var(--text); }
 </style>
 </head>
 <body>
@@ -2750,6 +3005,83 @@
     <div class="snippets-grid" id="snippetsGrid"></div>
   </div>
 
+  <!-- Bank Topik -->
+  <div class="bank-section" id="bankSection">
+
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.4rem;flex-wrap:wrap;gap:8px;">
+      <div>
+        <div class="progress-title">🗃️ Bank Topik</div>
+        <div class="progress-subtitle">Semua topik dalam satu tempat — bawaan + kustom buatan kamu</div>
+      </div>
+    </div>
+
+    <!-- Stats row -->
+    <div class="bank-stats-row" id="bankStatsRow"></div>
+
+    <!-- Toolbar -->
+    <div class="bank-toolbar">
+      <div class="bank-search-wrap">
+        <span class="bank-search-icon">🔍</span>
+        <input type="text" class="bank-search" id="bankSearch" placeholder="Cari topik..." oninput="renderBank()" autocomplete="off" />
+      </div>
+      <div class="bank-actions">
+        <button class="btn-cal" onclick="toggleBankAddForm()" id="bankAddBtn">+ Tambah Topik</button>
+        <button class="btn-cal" onclick="exportBankMd()">⬇ Export</button>
+        <button class="btn-cal" onclick="importBankTopics()" title="Import dari teks, satu per baris">⬆ Import</button>
+      </div>
+    </div>
+
+    <!-- Add form -->
+    <div class="bank-add-form" id="bankAddForm">
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:0.75rem;">✏️ Tambah Topik Kustom</div>
+      <div class="bank-add-row">
+        <div class="bank-add-fields">
+          <div>
+            <div class="bank-field-label">Topik</div>
+            <input type="text" id="bankTopicInput" placeholder="Contoh: UMKM sektor kuliner kena PPh berapa?" style="font-size:13px;" autocomplete="off" />
+          </div>
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;">
+              <div class="bank-field-label">Pillar / Kategori</div>
+              <select class="bank-select" id="bankCatSelect">
+                <option value="Kustom">🗂 Kustom</option>
+                <option value="Kesalahan Pajak Umum">Kesalahan Pajak Umum</option>
+                <option value="Pajak UMKM">Pajak UMKM</option>
+                <option value="Pajak Freelancer">Pajak Freelancer</option>
+                <option value="Tax Myth">Tax Myth</option>
+                <option value="Cerita Denda Pajak">Cerita Denda Pajak</option>
+                <option value="Tips Legal Hemat Pajak">Tips Legal Hemat Pajak</option>
+                <option value="Update Aturan Pajak">Update Aturan Pajak</option>
+                <option value="Studi Kasus">Studi Kasus</option>
+                <option value="Checklist Pajak">Checklist Pajak</option>
+                <option value="FAQ Pajak">FAQ Pajak</option>
+              </select>
+            </div>
+            <div style="flex:1;">
+              <div class="bank-field-label">Prioritas</div>
+              <select class="bank-select" id="bankPrioSelect">
+                <option value="normal">Normal</option>
+                <option value="high">🔥 Tinggi</option>
+                <option value="low">💤 Rendah</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <button class="btn-generate" style="width:auto;padding:9px 18px;font-size:12px;" onclick="addBankTopic()">Simpan</button>
+          <button class="btn-cal" onclick="toggleBankAddForm()">Batal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category filter -->
+    <div class="bank-cats" id="bankCats"></div>
+
+    <!-- Topic grid -->
+    <div class="bank-grid" id="bankGrid"></div>
+
+  </div>
+
 </div>
 
 <script>
@@ -2814,6 +3146,7 @@
     renderProgress();
     renderSnippets();
     renderPinned();
+    renderBank();
     updateStarBtn();
     renderCalGrid();
     updatePreview();
@@ -4650,7 +4983,8 @@ Sekarang buat Threads untuk topik: "${topic}"
     data[topicId] = !data[topicId];
     saveProgress(data);
     renderProgress();
-    renderStats(); // update stats count
+    renderStats();
+    renderBankGrid(); // sync done badges
   }
 
   function setProgressFilter(f) {
@@ -4816,6 +5150,7 @@ Sekarang buat Threads untuk topik: "${topic}"
     });
     renderSnippets();
     renderPinned();
+    renderBank();
   }
 
   function renderSnippets() {
@@ -5212,6 +5547,245 @@ ${entry.prompt}
       </div>
     `).join('');
   }
+
+  // ── Bank Topik ───────────────────────────────────────────────
+  const BANK_KEY = 'pajak_bank_custom';
+  let bankActiveCat = 'Semua';
+
+  // Built-in topics — flatten from PROGRESS_TOPICS with pillar info
+  function getBuiltinBankTopics() {
+    const out = [];
+    let idx = 0;
+    Object.entries(PROGRESS_TOPICS).forEach(([pillar, topics]) => {
+      topics.forEach(text => {
+        out.push({ id: 'b_' + idx, text, pillar, custom: false, priority: 'normal' });
+        idx++;
+      });
+    });
+    return out;
+  }
+
+  function loadCustomTopics() {
+    try { return JSON.parse(localStorage.getItem(BANK_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveCustomTopics(list) {
+    localStorage.setItem(BANK_KEY, JSON.stringify(list));
+  }
+
+  function getAllBankTopics() {
+    const builtin = getBuiltinBankTopics();
+    const custom = loadCustomTopics();
+    return [...custom, ...builtin];
+  }
+
+  function addBankTopic() {
+    const text = document.getElementById('bankTopicInput').value.trim();
+    if (!text) { document.getElementById('bankTopicInput').focus(); return; }
+    const pillar = document.getElementById('bankCatSelect').value;
+    const priority = document.getElementById('bankPrioSelect').value;
+    const list = loadCustomTopics();
+    // no duplicate
+    if (list.find(t => t.text.toLowerCase() === text.toLowerCase())) {
+      alert('Topik ini sudah ada di bank.'); return;
+    }
+    list.unshift({ id: 'c_' + Date.now(), text, pillar, custom: true, priority, createdAt: new Date().toISOString() });
+    saveCustomTopics(list);
+    document.getElementById('bankTopicInput').value = '';
+    toggleBankAddForm();
+    renderBank();
+  }
+
+  function deleteCustomTopic(id) {
+    saveCustomTopics(loadCustomTopics().filter(t => t.id !== id));
+    renderBank();
+  }
+
+  function toggleBankAddForm() {
+    const form = document.getElementById('bankAddForm');
+    const btn = document.getElementById('bankAddBtn');
+    const visible = form.classList.toggle('visible');
+    btn.textContent = visible ? '✕ Tutup' : '+ Tambah Topik';
+    if (visible) setTimeout(() => document.getElementById('bankTopicInput').focus(), 50);
+  }
+
+  function setBankCat(cat) {
+    bankActiveCat = cat;
+    document.querySelectorAll('.bank-cat').forEach(el => {
+      el.classList.toggle('active', el.dataset.cat === cat);
+    });
+    renderBankGrid();
+  }
+
+  function exportBankMd() {
+    const all = getAllBankTopics();
+    let md = `# 🗃️ Bank Topik — Konsultasi Pajak Gratis
+
+`;
+    const grouped = {};
+    all.forEach(t => {
+      if (!grouped[t.pillar]) grouped[t.pillar] = [];
+      grouped[t.pillar].push(t);
+    });
+    Object.entries(grouped).forEach(([pillar, topics]) => {
+      md += `## ${pillar}
+
+`;
+      topics.forEach((t, i) => {
+        const done = (() => {
+          const data = loadProgress();
+          const idx = getBuiltinBankTopics().findIndex(b => b.text === t.text);
+          return idx >= 0 && !!data[idx];
+        })();
+        md += `- [${done ? 'x' : ' '}] ${t.text}${t.custom ? ' *(kustom)*' : ''}${t.priority === 'high' ? ' 🔥' : ''}
+`;
+      });
+      md += '
+';
+    });
+    md += `---
+*konsultasipajakgratis.com*
+`;
+    const blob = new Blob([md], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bank-topik-pajak-${new Date().toISOString().slice(0,10)}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importBankTopics() {
+    const raw = prompt('Paste topik di sini (satu per baris). Akan ditambahkan ke kategori "Kustom":');
+    if (!raw) return;
+    const lines = raw.split('
+').map(l => l.trim()).filter(l => l.length > 3);
+    if (!lines.length) return;
+    const list = loadCustomTopics();
+    let added = 0;
+    lines.forEach(text => {
+      if (!list.find(t => t.text.toLowerCase() === text.toLowerCase())) {
+        list.unshift({ id: 'c_' + Date.now() + '_' + added, text, pillar: 'Kustom', custom: true, priority: 'normal', createdAt: new Date().toISOString() });
+        added++;
+      }
+    });
+    saveCustomTopics(list);
+    renderBank();
+    alert(`${added} topik berhasil diimport.`);
+  }
+
+  function renderBank() {
+    const searchQ = (document.getElementById('bankSearch')?.value || '').toLowerCase().trim();
+    const all = getAllBankTopics();
+    const progressData = loadProgress();
+    const builtinList = getBuiltinBankTopics();
+
+    // Build category counts
+    const catCounts = { 'Semua': all.length, 'Kustom': 0 };
+    all.forEach(t => {
+      catCounts[t.pillar] = (catCounts[t.pillar] || 0) + 1;
+      if (t.custom) catCounts['Kustom']++;
+    });
+
+    // Render category tabs
+    const cats = ['Semua', 'Kustom', ...Object.keys(PROGRESS_TOPICS)];
+    document.getElementById('bankCats').innerHTML = cats.map(cat => `
+      <div class="bank-cat ${cat === bankActiveCat ? 'active' : ''}" data-cat="${cat}" onclick="setBankCat('${cat}')">
+        ${cat === 'Semua' ? '🗂' : cat === 'Kustom' ? '✏️' : ''} ${cat}
+        <span class="bank-cat-count">${catCounts[cat] || 0}</span>
+      </div>
+    `).join('');
+
+    // Stats
+    const doneCount = builtinList.filter((_, i) => progressData[i]).length;
+    const customCount = loadCustomTopics().length;
+    document.getElementById('bankStatsRow').innerHTML = `
+      <span class="bank-stat"><strong>${all.length}</strong> total topik</span>
+      <span class="bank-stat"><strong>${customCount}</strong> kustom</span>
+      <span class="bank-stat"><strong>${doneCount}</strong> sudah diposting</span>
+      <span class="bank-stat"><strong>${all.length - doneCount}</strong> belum</span>
+    `;
+
+    renderBankGrid(searchQ);
+  }
+
+  function renderBankGrid(searchQ) {
+    searchQ = searchQ !== undefined ? searchQ : (document.getElementById('bankSearch')?.value || '').toLowerCase().trim();
+    const all = getAllBankTopics();
+    const progressData = loadProgress();
+    const builtinList = getBuiltinBankTopics();
+
+    let filtered = all;
+    if (bankActiveCat !== 'Semua') {
+      if (bankActiveCat === 'Kustom') filtered = filtered.filter(t => t.custom);
+      else filtered = filtered.filter(t => t.pillar === bankActiveCat);
+    }
+    if (searchQ) filtered = filtered.filter(t => t.text.toLowerCase().includes(searchQ));
+
+    const grid = document.getElementById('bankGrid');
+    if (!filtered.length) {
+      grid.innerHTML = '<div class="bank-empty">Tidak ada topik yang cocok.</div>';
+      return;
+    }
+
+    grid.innerHTML = filtered.map((t, displayIdx) => {
+      const builtinIdx = builtinList.findIndex(b => b.text === t.text);
+      const isDone = builtinIdx >= 0 && !!progressData[builtinIdx];
+      const prioIcon = t.priority === 'high' ? '🔥' : t.priority === 'low' ? '💤' : '';
+      const shortText = t.text.length > 80 ? t.text.slice(0, 80) + '…' : t.text;
+
+      return `
+        <div class="bank-topic-card ${t.custom ? 'custom-topic' : ''}">
+          <div class="bank-topic-num">${String(displayIdx + 1).padStart(2,'0')}</div>
+          <div class="bank-topic-body">
+            <div class="bank-topic-text" title="${escapeHtml(t.text)}">${escapeHtml(shortText)} ${prioIcon}</div>
+            <div class="bank-topic-meta">
+              <span class="bank-badge ${t.custom ? 'custom' : ''}">${t.custom ? '✏️ Kustom' : t.pillar}</span>
+              ${isDone ? '<span class="bank-badge done">✓ Diposting</span>' : ''}
+            </div>
+          </div>
+          <div class="bank-topic-actions">
+            <button class="btn-bank-action" onclick="useBankTopic(${JSON.stringify(t.text)})" title="Pakai topik ini">▶</button>
+            <button class="btn-bank-action" onclick="addBankToFav(${JSON.stringify(t.text)})" title="Tambah ke favorit">⭐</button>
+            ${t.custom ? `<button class="btn-bank-action del" onclick="deleteCustomTopic('${t.id}')" title="Hapus">✕</button>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function useBankTopic(text) {
+    document.getElementById('topicInput').value = text;
+    closeSuggest();
+    updateStarBtn();
+    updatePreview();
+    document.getElementById('topicInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Briefly highlight input
+    const input = document.getElementById('topicInput');
+    input.style.borderColor = 'var(--accent)';
+    setTimeout(() => input.style.borderColor = '', 1000);
+  }
+
+  function addBankToFav(text) {
+    const favs = loadFavorites();
+    if (!favs.includes(text)) {
+      favs.unshift(text);
+      saveFavorites(favs.slice(0, 20));
+      renderFavorites();
+    }
+  }
+
+  // Enter key in bank add form
+  document.addEventListener('DOMContentLoaded', () => {
+    const bankInput = document.getElementById('bankTopicInput');
+    if (bankInput) {
+      bankInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') addBankTopic();
+        if (e.key === 'Escape') toggleBankAddForm();
+      });
+    }
+  });
 
   // ── Theme toggle ─────────────────────────────────────────────
   function applyTheme(mode) {
