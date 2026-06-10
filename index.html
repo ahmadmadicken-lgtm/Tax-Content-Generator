@@ -2503,132 +2503,172 @@
 
   .bank-stat strong { color: var(--text); }
 
-  /* ── Topic Picker (inline di card 01) ── */
-  .picker-toggle {
-    display: inline-flex;
+  /* ── Topic Picker (standalone card) ── */
+  .picker-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .picker-header-left {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .picker-acak {
+    display: flex;
     align-items: center;
     gap: 5px;
-    margin-top: 10px;
     font-family: 'Syne', sans-serif;
     font-size: 11px;
     font-weight: 700;
     color: var(--muted);
     cursor: pointer;
-    border: 1px solid var(--border);
     background: var(--surface2);
-    border-radius: 7px;
-    padding: 5px 11px;
-    transition: all 0.15s;
-    user-select: none;
-  }
-
-  .picker-toggle:hover { border-color: var(--accent); color: var(--accent); }
-  .picker-toggle.open { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
-
-  .picker-panel {
-    margin-top: 10px;
-    display: none;
-    animation: fadeUp 0.2s ease;
-  }
-
-  .picker-panel.open { display: block; }
-
-  /* Pilar tabs — scrollable horizontal */
-  .picker-tabs {
-    display: flex;
-    gap: 5px;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    margin-bottom: 8px;
-    scrollbar-width: none;
-  }
-
-  .picker-tabs::-webkit-scrollbar { display: none; }
-
-  .picker-tab {
-    font-family: 'Syne', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 6px;
     border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 5px 10px;
+    transition: all 0.15s;
+  }
+
+  .picker-acak:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Category pills */
+  .picker-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .picker-cat {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 13px;
+    border-radius: 99px;
+    border: 1.5px solid var(--border);
     background: var(--surface2);
     color: var(--muted);
     cursor: pointer;
+    transition: all 0.15s;
     white-space: nowrap;
-    transition: all 0.12s;
-    flex-shrink: 0;
   }
 
-  .picker-tab.active, .picker-tab:hover {
+  .picker-cat:hover { border-color: var(--accent); color: var(--accent2); }
+  .picker-cat.active {
+    background: var(--accent);
     border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-glow);
+    color: #fff;
   }
 
   /* Topic list */
   .picker-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    max-height: 260px;
+    gap: 0;
+    max-height: 340px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
-    padding-right: 4px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    overflow-y: auto;
   }
 
-  .picker-list::-webkit-scrollbar { width: 3px; }
+  .picker-list::-webkit-scrollbar { width: 4px; }
   .picker-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
   .picker-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 7px 10px;
-    border-radius: 8px;
+    gap: 12px;
+    padding: 14px 16px;
     cursor: pointer;
     transition: background 0.1s;
-    border: 1px solid transparent;
+    border-bottom: 1px solid var(--border);
+    position: relative;
   }
 
-  .picker-item:hover { background: var(--surface2); border-color: var(--border); }
-  .picker-item.selected { background: var(--accent-glow); border-color: rgba(249,115,22,0.35); }
-  .picker-item.done-topic { opacity: 0.5; }
+  .picker-item:last-child { border-bottom: none; }
+  .picker-item:hover { background: var(--surface2); }
+  .picker-item.selected { background: var(--accent-glow); }
 
-  .picker-item-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 9px;
-    font-weight: 800;
-    color: var(--muted);
-    min-width: 20px;
+  .picker-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
     flex-shrink: 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
   }
 
-  .picker-item-text {
-    font-size: 12.5px;
+  .picker-item.selected .picker-item-icon {
+    background: var(--accent-glow);
+    border-color: rgba(249,115,22,0.3);
+  }
+
+  .picker-item-body { flex: 1; min-width: 0; }
+
+  .picker-item-title {
+    font-size: 14px;
+    font-weight: 500;
     color: var(--text);
     line-height: 1.35;
-    flex: 1;
+    margin-bottom: 3px;
   }
 
-  .picker-item.selected .picker-item-text { color: var(--accent); font-weight: 600; }
+  .picker-item.selected .picker-item-title { color: var(--accent); font-weight: 600; }
 
-  .picker-item-done {
+  .picker-item-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .picker-tag {
     font-size: 10px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  .picker-tag + .picker-tag::before {
+    content: '·';
+    margin-right: 5px;
+  }
+
+  .picker-done-badge {
+    font-size: 11px;
     color: var(--green);
-    flex-shrink: 0;
     font-family: 'Syne', sans-serif;
     font-weight: 700;
+    flex-shrink: 0;
   }
 
   .picker-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid var(--border);
+    margin-top: 10px;
     font-size: 11px;
     color: var(--muted);
     font-family: 'Syne', sans-serif;
@@ -2638,13 +2678,13 @@
     width: 100%;
     background: var(--surface2);
     border: 1px solid var(--border);
-    border-radius: 7px;
+    border-radius: 9px;
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    padding: 6px 10px;
+    font-size: 13px;
+    padding: 8px 12px;
     outline: none;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     transition: border-color 0.2s;
   }
 
@@ -2759,37 +2799,37 @@
     </div>
   </div>
 
+  <!-- Bank Topik Picker -->
+  <div class="picker-card">
+    <div class="picker-header">
+      <span class="picker-header-left">🗃 Bank Topik</span>
+      <button class="picker-acak" onclick="randomTopic()">↺ Acak topik</button>
+    </div>
+
+    <!-- Category pills -->
+    <div class="picker-cats" id="pickerCats"></div>
+
+    <!-- Search -->
+    <input type="text" class="picker-search" id="pickerSearch" placeholder="Cari topik..." oninput="renderPickerList()" autocomplete="off" />
+
+    <!-- Topic list -->
+    <div class="picker-list" id="pickerList"></div>
+
+    <!-- Footer -->
+    <div class="picker-footer">
+      <span id="pickerFooterCount" style="color:var(--muted);"></span>
+      <span style="color:var(--muted);">Klik topik untuk memilih</span>
+    </div>
+  </div>
+
   <!-- Input Topik -->
   <div class="card">
     <div class="section-label">01 — Topik Konten</div>
     <div class="input-star-wrap" style="position:relative;">
-      <input type="text" id="topicInput" placeholder="Contoh: UMKM belum punya NPWP, freelancer kena PPh 21, denda telat lapor..." style="padding-right:4.5rem;" autocomplete="off" />
+      <input type="text" id="topicInput" placeholder="Atau ketik topik sendiri di sini..." style="padding-right:4.5rem;" autocomplete="off" />
       <button class="btn-star-topic" id="diceBtn" onclick="randomTopic()" title="Topik random 🎲" style="right:2.4rem;">🎲</button>
       <button class="btn-star-topic" id="starBtn" onclick="toggleFavorite()" title="Simpan ke favorit">⭐</button>
       <div class="suggest-dropdown" id="suggestDropdown" style="display:none;"></div>
-    </div>
-
-    <!-- Picker toggle -->
-    <div class="picker-toggle" id="pickerToggle" onclick="togglePicker()">
-      <span id="pickerToggleIcon">▾</span> Pilih dari daftar topik
-    </div>
-
-    <!-- Picker panel -->
-    <div class="picker-panel" id="pickerPanel">
-      <!-- Search inside picker -->
-      <input type="text" class="picker-search" id="pickerSearch" placeholder="Cari topik..." oninput="renderPickerList()" autocomplete="off" />
-
-      <!-- Pillar tabs -->
-      <div class="picker-tabs" id="pickerTabs"></div>
-
-      <!-- Topic list -->
-      <div class="picker-list" id="pickerList"></div>
-
-      <!-- Footer -->
-      <div class="picker-footer">
-        <span id="pickerFooterCount"></span>
-        <span style="color:var(--accent);font-weight:700;cursor:pointer;" onclick="randomTopic()">🎲 Random</span>
-      </div>
     </div>
   </div>
 
@@ -3319,6 +3359,7 @@
     renderPinned();
     renderBank();
     renderPickerTabs();
+    renderPickerList();
     updateStarBtn();
     renderCalGrid();
     updatePreview();
@@ -5157,7 +5198,7 @@ Sekarang buat Threads untuk topik: "${topic}"
     renderProgress();
     renderStats();
     renderBankGrid(); // sync done badges
-    if (pickerOpen) renderPickerList(); // sync picker ✓ badges
+    refreshPickerIfVisible(); // sync picker ✓ badges
   }
 
   function setProgressFilter(f) {
@@ -5325,6 +5366,7 @@ Sekarang buat Threads untuk topik: "${topic}"
     renderPinned();
     renderBank();
     renderPickerTabs();
+    renderPickerList();
   }
 
   function renderSnippets() {
@@ -5770,12 +5812,14 @@ ${entry.prompt}
     toggleBankAddForm();
     renderBank();
     renderPickerTabs();
+    renderPickerList();
   }
 
   function deleteCustomTopic(id) {
     saveCustomTopics(loadCustomTopics().filter(t => t.id !== id));
     renderBank();
     renderPickerTabs();
+    renderPickerList();
   }
 
   function toggleBankAddForm() {
@@ -5849,6 +5893,961 @@ ${entry.prompt}
     saveCustomTopics(list);
     renderBank();
     renderPickerTabs();
+    renderPickerList();
+    alert(`${added} topik berhasil diimport.`);
+  }
+
+  function renderBank() {
+    const searchQ = (document.getElementById('bankSearch')?.value || '').toLowerCase().trim();
+    const all = getAllBankTopics();
+    const progressData = loadProgress();
+    const builtinList = getBuiltinBankTopics();
+
+    // Build category counts
+    const catCounts = { 'Semua': all.length, 'Kustom': 0 };
+    all.forEach(t => {
+      catCounts[t.pillar] = (catCounts[t.pillar] || 0) + 1;
+      if (t.custom) catCounts['Kustom']++;
+    });
+
+    // Render category tabs
+    const cats = ['Semua', 'Kustom', ...Object.keys(PROGRESS_TOPICS)];
+    document.getElementById('bankCats').innerHTML = cats.map(cat => `
+      <div class="bank-cat ${cat === bankActiveCat ? 'active' : ''}" data-cat="${cat}" onclick="setBankCat('${cat}')">
+        ${cat === 'Semua' ? '🗂' : cat === 'Kustom' ? '✏️' : ''} ${cat}
+        <span class="bank-cat-count">${catCounts[cat] || 0}</span>
+      </div>
+    `).join('');
+
+    // Stats
+    const doneCount = builtinList.filter((_, i) => progressData[i]).length;
+    const customCount = loadCustomTopics().length;
+    document.getElementById('bankStatsRow').innerHTML = `
+      <span class="bank-stat"><strong>${all.length}</strong> total topik</span>
+      <span class="bank-stat"><strong>${customCount}</strong> kustom</span>
+      <span class="bank-stat"><strong>${doneCount}</strong> sudah diposting</span>
+      <span class="bank-stat"><strong>${all.length - doneCount}</strong> belum</span>
+    `;
+
+    renderBankGrid(searchQ);
+  }
+
+  function renderBankGrid(searchQ) {
+    searchQ = searchQ !== undefined ? searchQ : (document.getElementById('bankSearch')?.value || '').toLowerCase().trim();
+    const all = getAllBankTopics();
+    const progressData = loadProgress();
+    const builtinList = getBuiltinBankTopics();
+
+    let filtered = all;
+    if (bankActiveCat !== 'Semua') {
+      if (bankActiveCat === 'Kustom') filtered = filtered.filter(t => t.custom);
+      else filtered = filtered.filter(t => t.pillar === bankActiveCat);
+    }
+    if (searchQ) filtered = filtered.filter(t => t.text.toLowerCase().includes(searchQ));
+
+    const grid = document.getElementById('bankGrid');
+    if (!filtered.length) {
+      grid.innerHTML = '<div class="bank-empty">Tidak ada topik yang cocok.</div>';
+      return;
+    }
+
+    grid.innerHTML = filtered.map((t, displayIdx) => {
+      const builtinIdx = builtinList.findIndex(b => b.text === t.text);
+      const isDone = builtinIdx >= 0 && !!progressData[builtinIdx];
+      const prioIcon = t.priority === 'high' ? '🔥' : t.priority === 'low' ? '💤' : '';
+      const shortText = t.text.length > 80 ? t.text.slice(0, 80) + '…' : t.text;
+
+      return `
+        <div class="bank-topic-card ${t.custom ? 'custom-topic' : ''}">
+          <div class="bank-topic-num">${String(displayIdx + 1).padStart(2,'0')}</div>
+          <div class="bank-topic-body">
+            <div class="bank-topic-text" title="${escapeHtml(t.text)}">${escapeHtml(shortText)} ${prioIcon}</div>
+            <div class="bank-topic-meta">
+              <span class="bank-badge ${t.custom ? 'custom' : ''}">${t.custom ? '✏️ Kustom' : t.pillar}</span>
+              ${isDone ? '<span class="bank-badge done">✓ Diposting</span>' : ''}
+            </div>
+          </div>
+          <div class="bank-topic-actions">
+            <button class="btn-bank-action" onclick="useBankTopic(${JSON.stringify(t.text)})" title="Pakai topik ini">▶</button>
+            <button class="btn-bank-action" onclick="addBankToFav(${JSON.stringify(t.text)})" title="Tambah ke favorit">⭐</button>
+            ${t.custom ? `<button class="btn-bank-action del" onclick="deleteCustomTopic('${t.id}')" title="Hapus">✕</button>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function useBankTopic(text) {
+    document.getElementById('topicInput').value = text;
+    closeSuggest();
+    updateStarBtn();
+    updatePreview();
+    document.getElementById('topicInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Briefly highlight input
+    const input = document.getElementById('topicInput');
+    input.style.borderColor = 'var(--accent)';
+    setTimeout(() => input.style.borderColor = '', 1000);
+  }
+
+  function addBankToFav(text) {
+    const favs = loadFavorites();
+    if (!favs.includes(text)) {
+      favs.unshift(text);
+      saveFavorites(favs.slice(0, 20));
+      renderFavorites();
+    }
+  }
+
+  // Enter key in bank add form
+  document.addEventListener('DOMContentLoaded', () => {
+    const bankInput = document.getElementById('bankTopicInput');
+    if (bankInput) {
+      bankInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') addBankTopic();
+        if (e.key === 'Escape') toggleBankAddForm();
+      });
+    }
+  });
+
+  // ── Topic Picker ─────────────────────────────────────────────
+  let pickerActivePillar = 'Semua';
+
+  const PILLAR_ICONS = {
+    'Semua': '🗂',
+    'Kesalahan Pajak Umum': '⚠️',
+    'Pajak UMKM': '🏪',
+    'Pajak Freelancer': '💻',
+    'Tax Myth': '👻',
+    'Cerita Denda Pajak': '😰',
+    'Tips Legal Hemat Pajak': '💡',
+    'Update Aturan Pajak': '📰',
+    'Studi Kasus': '📊',
+    'Checklist Pajak': '✅',
+    'FAQ Pajak': '❓',
+    'Kustom': '✏️',
+  };
+
+  // Keyword tags per pillar — shown under each topic
+  const PILLAR_TAGS = {
+    'Kesalahan Pajak Umum': ['kesalahan', 'wajib pajak'],
+    'Pajak UMKM': ['umkm', 'usaha kecil'],
+    'Pajak Freelancer': ['freelancer', 'penghasilan'],
+    'Tax Myth': ['mitos', 'fakta pajak'],
+    'Cerita Denda Pajak': ['denda', 'kasus nyata'],
+    'Tips Legal Hemat Pajak': ['hemat pajak', 'legal'],
+    'Update Aturan Pajak': ['regulasi', 'terbaru'],
+    'Studi Kasus': ['studi kasus', 'contoh nyata'],
+    'Checklist Pajak': ['checklist', 'panduan'],
+    'FAQ Pajak': ['tanya jawab', 'umum'],
+    'Kustom': ['topik kustom'],
+  };
+
+  function setPickerPillar(pillar) {
+    pickerActivePillar = pillar;
+    document.querySelectorAll('.picker-cat').forEach(el => {
+      el.classList.toggle('active', el.dataset.pillar === pillar);
+    });
+    document.getElementById('pickerSearch').value = '';
+    renderPickerList();
+  }
+
+  function renderPickerTabs() {
+    const cats = document.getElementById('pickerCats');
+    if (!cats) return;
+    const pillars = ['Semua', ...Object.keys(PROGRESS_TOPICS)];
+    // Add Kustom if there are any
+    if (loadCustomTopics().length > 0) pillars.push('Kustom');
+    cats.innerHTML = pillars.map(p => `
+      <div class="picker-cat ${p === pickerActivePillar ? 'active' : ''}"
+        data-pillar="${p}"
+        onclick="setPickerPillar('${p.replace(/'/g, "\'")}')">
+        ${p}
+      </div>
+    `).join('');
+  }
+
+  function renderPickerList() {
+    const list = document.getElementById('pickerList');
+    const footer = document.getElementById('pickerFooterCount');
+    const q = (document.getElementById('pickerSearch')?.value || '').toLowerCase().trim();
+    const progressData = loadProgress();
+    const builtinList = getBuiltinBankTopics();
+    const currentTopic = document.getElementById('topicInput').value.trim();
+
+    // Build pool
+    let pool = [];
+    let globalIdx = 0;
+    if (pickerActivePillar === 'Semua') {
+      Object.entries(PROGRESS_TOPICS).forEach(([pillar, topics]) => {
+        topics.forEach(text => {
+          pool.push({ text, pillar, idx: globalIdx++, custom: false });
+        });
+      });
+      loadCustomTopics().forEach(t => {
+        pool.push({ text: t.text, pillar: 'Kustom', idx: -1, custom: true, priority: t.priority });
+      });
+    } else if (pickerActivePillar === 'Kustom') {
+      loadCustomTopics().forEach(t => {
+        pool.push({ text: t.text, pillar: 'Kustom', idx: -1, custom: true, priority: t.priority });
+      });
+    } else {
+      // Calculate start idx for this pillar
+      Object.entries(PROGRESS_TOPICS).forEach(([pillar, topics]) => {
+        if (pillar === pickerActivePillar) {
+          topics.forEach(text => pool.push({ text, pillar, idx: globalIdx++, custom: false }));
+        } else {
+          globalIdx += topics.length;
+        }
+      });
+    }
+
+    if (q) pool = pool.filter(t => t.text.toLowerCase().includes(q));
+
+    footer.textContent = `${pool.length} topik`;
+
+    if (!pool.length) {
+      list.innerHTML = '<div style="padding:20px;text-align:center;font-size:13px;color:var(--muted);font-style:italic;">Tidak ada topik ditemukan.</div>';
+      return;
+    }
+
+    list.innerHTML = pool.map((t, i) => {
+      const isDone = !t.custom && t.idx >= 0 && !!progressData[t.idx];
+      const isSelected = t.text === currentTopic;
+      const icon = PILLAR_ICONS[t.pillar] || '📌';
+      const tags = PILLAR_TAGS[t.pillar] || [t.pillar.toLowerCase()];
+      const prioTag = t.priority === 'high' ? '🔥 prioritas tinggi' : '';
+
+      // Highlight matching text
+      const displayText = q ? highlight(t.text, q) : escapeHtml(t.text);
+
+      return `
+        <div class="picker-item ${isSelected ? 'selected' : ''}"
+          onclick="selectPickerTopic(${JSON.stringify(t.text)})">
+          <div class="picker-item-icon">${icon}</div>
+          <div class="picker-item-body">
+            <div class="picker-item-title">${displayText}</div>
+            <div class="picker-item-tags">
+              ${tags.map(tag => `<span class="picker-tag">${escapeHtml(tag)}</span>`).join('')}
+              ${prioTag ? `<span class="picker-tag" style="color:var(--accent);">${prioTag}</span>` : ''}
+            </div>
+          </div>
+          ${isDone ? '<span class="picker-done-badge">✓ selesai</span>' : ''}
+        </div>`;
+    }).join('');
+  }
+
+  function selectPickerTopic(text) {
+    document.getElementById('topicInput').value = text;
+    closeSuggest();
+    updateStarBtn();
+    updatePreview();
+    renderPickerList(); // refresh selected state
+    // Scroll to input and highlight
+    const input = document.getElementById('topicInput');
+    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    input.style.borderColor = 'var(--accent)';
+    setTimeout(() => input.style.borderColor = '', 1000);
+  }
+
+  // Sync picker when progress toggled
+  function refreshPickerIfVisible() {
+    renderPickerList();
+  }
+  }
+
+  function setProgressFilter(f) {
+    progressFilter = f;
+    document.querySelectorAll('.progress-filter').forEach(el => {
+      el.classList.toggle('active', el.dataset.filter === f);
+    });
+    renderProgress();
+  }
+
+  function resetProgress() {
+    if (!confirm('Reset semua progress? Semua centang akan hilang.')) return;
+    localStorage.removeItem(PROGRESS_KEY);
+    renderProgress();
+  }
+
+  function useTopicInGenerator(text) {
+    document.getElementById('topicInput').value = text;
+    updateStarBtn();
+    updatePreview();
+    closeSuggest();
+    // Scroll up to generator
+    document.getElementById('topicInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function renderProgress() {
+    const data = loadProgress();
+    const allTopics = Object.values(PROGRESS_TOPICS).flat();
+    const doneCount = allTopics.filter((_, i) => data[i]).length;
+    const total = allTopics.length;
+    const pct = Math.round(doneCount / total * 100);
+
+    // Bar + stats
+    document.getElementById('progressBarFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+    document.getElementById('progressStatsRow').innerHTML = `
+      <span class="progress-stat"><strong>${doneCount}</strong> sudah diposting</span>
+      <span class="progress-stat"><strong>${total - doneCount}</strong> belum</span>
+      <span class="progress-stat"><strong>${total}</strong> total topik</span>
+    `;
+
+    // Topic list
+    const list = document.getElementById('progressList');
+    let globalIdx = 0;
+    let html = '';
+
+    Object.entries(PROGRESS_TOPICS).forEach(([pillar, topics]) => {
+      const pillarTopics = topics.map((text, i) => ({ text, idx: globalIdx + i }));
+      globalIdx += topics.length;
+
+      const filtered = pillarTopics.filter(t => {
+        if (progressFilter === 'done') return !!data[t.idx];
+        if (progressFilter === 'todo') return !data[t.idx];
+        return true;
+      });
+
+      if (!filtered.length) return;
+
+      const pillarDone = pillarTopics.filter(t => !!data[t.idx]).length;
+      const pillarDoneClass = pillarDone === topics.length ? 'done' : '';
+
+      html += `<div class="progress-pillar">
+        <div class="progress-pillar-header">
+          ${escapeHtml(pillar)}
+          <span class="progress-pillar-count ${pillarDoneClass}">${pillarDone}/${topics.length}</span>
+        </div>`;
+
+      filtered.forEach(({ text, idx }) => {
+        const done = !!data[idx];
+        html += `
+          <div class="progress-topic-item ${done ? 'done' : ''}" onclick="toggleTopic(${idx})">
+            <div class="progress-checkbox">${done ? '✓' : ''}</div>
+            <div class="progress-topic-text">${escapeHtml(text)}</div>
+            <div class="progress-topic-actions">
+              <button class="btn-topic-action" onclick="event.stopPropagation();useTopicInGenerator(${JSON.stringify(text)})" title="Pakai topik ini">▶ Pakai</button>
+            </div>
+          </div>`;
+      });
+
+      html += `</div>`;
+    });
+
+    list.innerHTML = html || '<div style="padding:1rem;font-size:13px;color:var(--muted);font-style:italic;">Tidak ada topik untuk filter ini.</div>';
+  }
+
+  // ── Topik Random ─────────────────────────────────────────────
+  function randomTopic() {
+    const allTopics = Object.values(PROGRESS_TOPICS).flat();
+    const current = document.getElementById('topicInput').value.trim();
+    let pick;
+    // avoid same topic twice in a row
+    do { pick = allTopics[Math.floor(Math.random() * allTopics.length)]; }
+    while (pick === current && allTopics.length > 1);
+
+    const input = document.getElementById('topicInput');
+    input.value = '';
+    // Animate: shake then fill
+    const dice = document.getElementById('diceBtn');
+    dice.style.transform = 'translateY(-50%) rotate(180deg)';
+    setTimeout(() => {
+      dice.style.transform = 'translateY(-50%) rotate(0deg)';
+      input.value = pick;
+      updateStarBtn();
+      updatePreview();
+      closeSuggest();
+      input.focus();
+    }, 250);
+  }
+
+  // ── Quick Copy Snippets ──────────────────────────────────────
+  let activeSnippetTab = 'hook';
+
+  const SNIPPETS = {
+    hook: [
+      { type: 'Fear',      text: 'Banyak orang baru sadar ini setelah kena denda pajak.' },
+      { type: 'Curiosity', text: 'Kalau penghasilan segini, kena pajak tidak?' },
+      { type: 'Viral',     text: '90% freelancer salah soal pajak ini.' },
+      { type: 'Fear',      text: 'Jangan sampai bisnis Anda kena masalah karena hal ini.' },
+      { type: 'Curiosity', text: 'Hal yang jarang dijelaskan konsultan pajak.' },
+      { type: 'Edukasi',   text: 'Pajak sebenarnya tidak serumit ini.' },
+      { type: 'Viral',     text: 'Banyak UMKM baru sadar ini setelah kena denda.' },
+      { type: 'Fear',      text: 'Kesalahan pajak yang sering dilakukan UMKM — dan cara menghindarinya.' },
+      { type: 'Curiosity', text: 'Ini alasan kenapa pajak terasa ribet.' },
+      { type: 'Viral',     text: 'Ternyata ini yang bikin freelancer kena masalah pajak.' },
+      { type: 'Fear',      text: 'Satu kesalahan ini bisa bikin bisnis kamu kena audit.' },
+      { type: 'Curiosity', text: 'Sudah bayar pajak, tapi masih bisa kena denda?' },
+    ],
+    cta: [
+      { type: 'Soft',     text: 'Bingung soal pajak? Konsultasi gratis di konsultasipajakgratis.com' },
+      { type: 'Urgency',  text: 'Takut salah lapor pajak? Konsultasi dulu gratis.' },
+      { type: 'Curiosity',text: 'Mau tahu pajak bisnis Anda aman atau tidak? Cek gratis sekarang.' },
+      { type: 'Fear',     text: 'Banyak orang baru sadar masalah pajak setelah terlambat. Jangan tunggu kena masalah.' },
+      { type: 'Soft',     text: 'Ada pertanyaan soal pajak? Tanya langsung — gratis di konsultasipajakgratis.com' },
+      { type: 'Urgency',  text: 'SPT deadline semakin dekat. Konsultasi sekarang sebelum terlambat.' },
+      { type: 'Soft',     text: 'Kalau masih bingung, konsultasi gratis dulu aja — konsultasipajakgratis.com' },
+      { type: 'Social',   text: 'Share ke teman yang butuh tahu ini. Gratis konsultasi di konsultasipajakgratis.com' },
+    ],
+    opening: [
+      { type: 'Story',    text: 'Seorang freelancer desainer, 3 tahun jualan online. Belum pernah lapor pajak sekalipun.' },
+      { type: 'Data',     text: 'Tahun lalu, ribuan UMKM di Indonesia kena surat teguran dari DJP.' },
+      { type: 'Question', text: 'Kalau saya tanya "sudah lapor pajak tahun ini?" — jujur, apa jawaban kamu?' },
+      { type: 'Shock',    text: 'Ada yang baru sadar bisnis online-nya kena pajak setelah omzet 2 miliar.' },
+      { type: 'Relatable',text: 'Pajak itu bukan soal takut kena denda. Tapi soal ngerti aturan mainnya.' },
+      { type: 'Story',    text: 'Klien datang panik. Baru terima surat dari DJP. Padahal bisnis baru 2 tahun.' },
+      { type: 'Myth',     text: 'Banyak yang masih percaya: "jualan online tidak keliatan sama pajak." Ini salah.' },
+      { type: 'Relatable',text: 'Nggak ada yang diajarkan soal pajak di sekolah. Wajar kalau bingung.' },
+    ],
+    closing: [
+      { type: 'Action',   text: 'Mulai dari yang kecil: pastikan NPWP kamu aktif dan SPT tahun ini sudah dilaporkan.' },
+      { type: 'Takeaway', text: 'Intinya: lapor meski penghasilan kecil. Lebih aman daripada nanti repot.' },
+      { type: 'Empathy',  text: 'Pajak memang ribet. Tapi bukan tidak bisa dipahami. Butuh bantuan? DM saja.' },
+      { type: 'Urgency',  text: 'Jangan tunggu surat dari DJP baru bergerak. Itu sudah terlambat.' },
+      { type: 'Hope',     text: 'Kalau kamu baca ini sampai selesai, berarti kamu sudah selangkah lebih siap dari kebanyakan orang.' },
+      { type: 'CTA soft', text: 'Save dulu, baca pelan-pelan. Dan kalau ada yang mau ditanyain, konsultasipajakgratis.com buka gratis.' },
+      { type: 'Action',   text: 'Satu hal yang bisa kamu lakukan hari ini: cek status NPWP kamu di djponline.pajak.go.id' },
+    ],
+  };
+
+  function setSnippetTab(tab) {
+    activeSnippetTab = tab;
+    document.querySelectorAll('.snippets-tab').forEach(el => {
+      el.classList.toggle('active', el.dataset.tab === tab);
+    });
+    renderSnippets();
+    renderPinned();
+    renderBank();
+    renderPickerTabs();
+    renderPickerList();
+  }
+
+  function renderSnippets() {
+    const grid = document.getElementById('snippetsGrid');
+    if (!grid) return;
+    const items = SNIPPETS[activeSnippetTab] || [];
+    grid.innerHTML = items.map((s, i) => `
+      <div class="snippet-card" id="snippet-${activeSnippetTab}-${i}" onclick="copySnippet('${activeSnippetTab}', ${i})">
+        <div class="snippet-type">
+          <span>${activeSnippetTab === 'hook' ? '🪝' : activeSnippetTab === 'cta' ? '📣' : activeSnippetTab === 'opening' ? '✍️' : '🎯'}</span>
+          ${escapeHtml(s.type)}
+        </div>
+        <div class="snippet-text">${escapeHtml(s.text)}</div>
+        <div class="snippet-copy-hint">Klik untuk copy</div>
+        <div class="snippet-copied-badge">✓ Tersalin</div>
+      </div>
+    `).join('');
+  }
+
+  function copySnippet(tab, idx) {
+    const s = SNIPPETS[tab]?.[idx];
+    if (!s) return;
+    navigator.clipboard.writeText(s.text).then(() => {
+      const card = document.getElementById(`snippet-${tab}-${idx}`);
+      card.classList.add('copied');
+      setTimeout(() => card.classList.remove('copied'), 2000);
+    });
+  }
+
+  // ── Prompt Quality Checker ───────────────────────────────────
+  function runQualityCheck(prompt, contentType, tone, topic) {
+    const p = prompt.toLowerCase();
+    const t = topic.toLowerCase();
+
+    const checks = [
+      {
+        label: 'Ada hook kuat',
+        pass: /hook|banyak orang|jangan sampai|kesalahan|90%|ternyata|rahasia|sadar|kena denda/i.test(p),
+      },
+      {
+        label: 'Ada CTA & URL',
+        pass: p.includes('konsultasipajakgratis.com'),
+      },
+      {
+        label: 'Ada tone direction',
+        pass: p.includes('tone') || p.includes('fear') || p.includes('edukasi') || p.includes('viral') || p.includes('storytelling'),
+      },
+      {
+        label: 'Ada brand voice',
+        pass: p.includes('konsultasi pajak gratis') || p.includes('brand voice'),
+      },
+      {
+        label: 'Topik spesifik',
+        pass: topic.length >= 15,
+      },
+      {
+        label: 'Ada format output',
+        pass: p.includes('format') || p.includes('slide') || p.includes('utas') || p.includes('caption'),
+      },
+      {
+        label: 'Ada instruksi audiens',
+        pass: p.includes('umkm') || p.includes('freelancer') || p.includes('audience') || p.includes('target'),
+      },
+      {
+        label: contentType === 'carousel' || contentType === 'wa_flyer' ? 'Ada spek ukuran' : 'Ada panjang output',
+        pass: p.includes('px') || p.includes('karakter') || p.includes('slide') || p.includes('1080'),
+      },
+    ];
+
+    const passCount = checks.filter(c => c.pass).length;
+    const score = Math.round(passCount / checks.length * 100);
+
+    // Score badge
+    let badgeColor, badgeLabel;
+    if (score >= 90) { badgeColor = 'rgba(34,211,160,0.15)'; badgeLabel = `${score}% Excellent ✦`; }
+    else if (score >= 70) { badgeColor = 'rgba(249,115,22,0.15)'; badgeLabel = `${score}% Good`; }
+    else { badgeColor = 'rgba(248,113,113,0.15)'; badgeLabel = `${score}% Perlu perbaikan`; }
+
+    const badge = document.getElementById('qualityBadge');
+    badge.textContent = badgeLabel;
+    badge.style.background = badgeColor;
+    badge.style.color = score >= 90 ? 'var(--green)' : score >= 70 ? 'var(--accent)' : '#f87171';
+
+    document.getElementById('qualityChecks').innerHTML = checks.map(c => `
+      <div class="quality-check ${c.pass ? 'pass' : 'fail'}">
+        <div class="quality-dot"></div>
+        ${escapeHtml(c.label)}
+      </div>
+    `).join('');
+
+    document.getElementById('qualityBar').classList.add('visible');
+  }
+
+  // ── Onboarding ───────────────────────────────────────────────
+  const ONBOARD_KEY = 'pajak_onboarded';
+  let onboardStep = 0;
+
+  const ONBOARD_STEPS = [
+    {
+      icon: '👋',
+      title: 'Selamat datang di Pajak Content Generator!',
+      desc: 'Tool ini membantu kamu membuat prompt konten pajak untuk Instagram, WhatsApp, dan Threads — siap di-paste ke Claude atau ChatGPT.',
+    },
+    {
+      icon: '✍️',
+      title: 'Ketik topik, pilih tipe & tone',
+      desc: 'Masukkan topik pajak yang mau dibahas, pilih platform (IG/WA/Threads), pilih tone (Edukasi, Fear, Viral, Storytelling), lalu tekan Generate.',
+    },
+    {
+      icon: '🎲',
+      title: 'Kehabisan ide topik?',
+      desc: 'Klik tombol 🎲 di input untuk topik random dari 100 daftar topik. Atau ketik 2 huruf untuk autocomplete dari riwayat & favorit.',
+    },
+    {
+      icon: '📅',
+      title: 'Jadwalkan konten minggu ini',
+      desc: 'Content Calendar di bawah membantu jadwalkan topik per hari. Drag & drop dari panel topik ke hari yang diinginkan.',
+    },
+    {
+      icon: '✅',
+      title: 'Tracking progress 100 topik',
+      desc: 'Progress Tracker di paling bawah mencatat topik mana yang sudah diposting. Centang satu per satu — data tersimpan otomatis.',
+    },
+  ];
+
+  function startOnboard() {
+    onboardStep = 0;
+    renderOnboardStep();
+    document.getElementById('onboardOverlay').style.display = 'flex';
+  }
+
+  function renderOnboardStep() {
+    const s = ONBOARD_STEPS[onboardStep];
+    const total = ONBOARD_STEPS.length;
+    document.getElementById('onboardStepBadge').textContent = `Step ${onboardStep + 1} / ${total}`;
+    document.getElementById('onboardIcon').textContent = s.icon;
+    document.getElementById('onboardTitle').textContent = s.title;
+    document.getElementById('onboardDesc').textContent = s.desc;
+    document.getElementById('onboardNextBtn').textContent = onboardStep === total - 1 ? 'Mulai! 🚀' : 'Lanjut →';
+    // Dots
+    document.getElementById('onboardDots').innerHTML = ONBOARD_STEPS
+      .map((_, i) => `<div class="onboard-dot ${i === onboardStep ? 'active' : ''}"></div>`).join('');
+  }
+
+  function nextOnboard() {
+    if (onboardStep < ONBOARD_STEPS.length - 1) {
+      onboardStep++;
+      renderOnboardStep();
+    } else {
+      skipOnboard();
+    }
+  }
+
+  function skipOnboard() {
+    document.getElementById('onboardOverlay').style.display = 'none';
+    localStorage.setItem(ONBOARD_KEY, '1');
+    // Show shortcut bar briefly after onboarding
+    const bar = document.getElementById('shortcutBar');
+    bar.classList.add('visible');
+    setTimeout(() => bar.classList.remove('visible'), 6000);
+  }
+
+  // Show onboard on first visit
+  if (!localStorage.getItem(ONBOARD_KEY)) {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(startOnboard, 400));
+  }
+
+  // Show shortcut bar with ? key
+  document.addEventListener('keydown', e => {
+    if (e.key === '?' && !e.metaKey && !e.ctrlKey) {
+      const bar = document.getElementById('shortcutBar');
+      bar.classList.toggle('visible');
+    }
+  });
+
+  // ── Export Batch ─────────────────────────────────────────────
+  function exportBatch() {
+    const history = loadHistory();
+    if (!history.length) {
+      alert('Belum ada riwayat generate untuk diekspor.');
+      return;
+    }
+
+    let md = `# 📦 Batch Export — Pajak Content Generator
+`;
+    md += `Digenerate: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+`;
+    md += `Total: ${history.length} prompt
+
+---
+
+`;
+
+    history.forEach((entry, i) => {
+      md += `## ${i + 1}. ${entry.topic}
+`;
+      md += `**Tipe:** ${typeLabels[entry.contentType] || entry.contentType} · **Tone:** ${entry.tone} · ${entry.ts}
+
+`;
+      md += `\`\`\`
+${entry.prompt}
+\`\`\`
+
+---
+
+`;
+    });
+
+    md += `*konsultasipajakgratis.com*
+`;
+
+    // Download as .md file
+    const blob = new Blob([md], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pajak-content-export-${new Date().toISOString().slice(0,10)}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // ── Tone Preview ─────────────────────────────────────────────
+  const TONE_PREVIEWS = {
+    edukasi: {
+      example: '"Ternyata ada 3 jenis penghasilan yang sering lupa dilaporkan di SPT. Yang paling banyak dilewatkan adalah penghasilan dari freelance sampingan."',
+      desc: 'Friendly, informatif, tidak menggurui — seperti teman yang tahu pajak',
+    },
+    fear: {
+      example: '"Seorang pemilik warung kopi baru tahu bisnis 3 tahunnya bermasalah setelah terima surat dari DJP. Dendanya? 200 juta."',
+      desc: 'Bangun tension dulu, kasih solusi setelahnya — hopeful di akhir',
+    },
+    viral: {
+      example: '"90% freelancer Indonesia salah soal ini. Dan kesalahan ini bisa bikin kamu kena tagihan pajak yang nggak terduga."',
+      desc: 'Bold, scroll-stopping, pakai angka & klaim kuat — orang mau share',
+    },
+    storytelling: {
+      example: '"Namanya Dita. 4 tahun jualan online, omzet 50 juta per bulan. Hari ini dia dapat surat dari DJP untuk pertama kalinya."',
+      desc: 'Karakter nyata, situasi relatable, resolusi satisfying di akhir',
+    },
+  };
+
+  let tonePreviewTimer = null;
+
+  function showTonePreview(tone, el) {
+    clearTimeout(tonePreviewTimer);
+    const popup = document.getElementById('tonePreviewPopup');
+    const data = TONE_PREVIEWS[tone];
+    if (!data) return;
+    popup.innerHTML = `
+      <div class="tone-preview-example">${escapeHtml(data.example)}</div>
+      <div class="tone-preview-desc">${escapeHtml(data.desc)}</div>
+    `;
+    popup.classList.add('visible');
+  }
+
+  function hideTonePreview() {
+    tonePreviewTimer = setTimeout(() => {
+      document.getElementById('tonePreviewPopup').classList.remove('visible');
+    }, 200);
+  }
+
+  // ── Related Topics ────────────────────────────────────────────
+  function getRelatedTopics(topic, contentType) {
+    const t = topic.toLowerCase();
+    const allTopics = Object.values(PROGRESS_TOPICS).flat();
+
+    // Find topics in same pillar first, then keyword overlap
+    let related = allTopics
+      .filter(tp => tp !== topic)
+      .map(tp => {
+        const words = t.split(/\s+/).filter(w => w.length > 3);
+        const overlap = words.filter(w => tp.toLowerCase().includes(w)).length;
+        return { tp, score: overlap };
+      })
+      .filter(x => x.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5)
+      .map(x => x.tp);
+
+    // Pad with random if not enough
+    if (related.length < 4) {
+      const extras = allTopics
+        .filter(tp => tp !== topic && !related.includes(tp))
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 4 - related.length);
+      related = [...related, ...extras];
+    }
+
+    return related.slice(0, 4);
+  }
+
+  function renderRelatedTopics(topic, contentType) {
+    const related = getRelatedTopics(topic, contentType);
+    const bar = document.getElementById('relatedBar');
+    const chips = document.getElementById('relatedChips');
+    chips.innerHTML = related.map(t => {
+      const short = t.length > 55 ? t.slice(0, 55) + '…' : t;
+      return `<div class="related-chip" onclick="useRelatedTopic(${JSON.stringify(t)})">${escapeHtml(short)}</div>`;
+    }).join('');
+    bar.classList.add('visible');
+  }
+
+  function useRelatedTopic(topic) {
+    document.getElementById('topicInput').value = topic;
+    updateStarBtn();
+    updatePreview();
+    closeSuggest();
+    document.getElementById('topicInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // ── Pinned Outputs ────────────────────────────────────────────
+  const PINNED_KEY = 'pajak_pinned';
+
+  function loadPinned() {
+    try { return JSON.parse(localStorage.getItem(PINNED_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function savePinned(list) { localStorage.setItem(PINNED_KEY, JSON.stringify(list)); }
+
+  function pinCurrentOutput() {
+    const prompt = document.getElementById('promptOutput').textContent.trim();
+    const topic = document.getElementById('topicInput').value.trim();
+    if (!prompt || !topic) return;
+
+    let contentType = 'carousel';
+    for (const gid of allTypeGroups) { const v = getActive(gid)[0]; if (v) { contentType = v; break; } }
+    const tone = getActive('toneGroup')[0] || 'edukasi';
+
+    const list = loadPinned();
+    // Toggle: if same topic+type already pinned, unpin
+    const existIdx = list.findIndex(p => p.topic === topic && p.contentType === contentType);
+    if (existIdx >= 0) {
+      list.splice(existIdx, 1);
+      savePinned(list);
+      document.getElementById('pinBtn').classList.remove('pinned');
+      document.getElementById('pinBtn').innerHTML = '📌 Pin Output';
+    } else {
+      list.unshift({ id: Date.now(), topic, contentType, tone, prompt, ts: new Date().toLocaleString('id-ID', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) });
+      savePinned(list.slice(0, 10));
+      document.getElementById('pinBtn').classList.add('pinned');
+      document.getElementById('pinBtn').innerHTML = '📌 Dipinned';
+    }
+    renderPinned();
+  }
+
+  function unpinItem(id) {
+    savePinned(loadPinned().filter(p => p.id !== id));
+    renderPinned();
+  }
+
+  function loadPinnedPrompt(id) {
+    const item = loadPinned().find(p => p.id === id);
+    if (!item) return;
+    document.getElementById('promptOutput').textContent = item.prompt;
+    document.getElementById('topicInput').value = item.topic;
+    const isImage = item.contentType === 'carousel' || item.contentType === 'wa_flyer';
+    document.querySelector('#outputPrompt .output-title').innerHTML = isImage ? '🎨 Image Generation Prompt (ChatGPT DALL-E)' : '✦ Prompt Siap Dipakai';
+    document.querySelector('#outputPrompt .output-title').style.color = isImage ? '#a78bfa' : 'var(--green)';
+    document.getElementById('chatgptTip').style.display = isImage ? 'flex' : 'none';
+    document.getElementById('outputPrompt').classList.add('visible');
+    document.getElementById('outputPrompt').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    updateStarBtn(); updatePreview();
+    document.getElementById('pinBtn').classList.add('pinned');
+    document.getElementById('pinBtn').innerHTML = '📌 Dipinned';
+  }
+
+  function clearAllPinned() {
+    if (!confirm('Hapus semua pinned output?')) return;
+    localStorage.removeItem(PINNED_KEY);
+    renderPinned();
+  }
+
+  function renderPinned() {
+    const list = loadPinned();
+    const section = document.getElementById('pinnedSection');
+    const listEl = document.getElementById('pinnedList');
+    const count = document.getElementById('pinnedCount');
+    if (!section) return;
+    count.textContent = list.length;
+    section.style.display = list.length ? 'block' : 'none';
+    if (!list.length) return;
+    listEl.innerHTML = list.map(p => `
+      <div class="pinned-item">
+        <div class="pinned-item-body">
+          <div class="pinned-item-topic">${escapeHtml(p.topic)}</div>
+          <div class="pinned-item-preview">${escapeHtml(p.prompt.slice(0, 120))}…</div>
+        </div>
+        <div class="pinned-item-actions">
+          <button class="btn-pinned" onclick="loadPinnedPrompt(${p.id})">Load</button>
+          <button class="btn-pinned" onclick="navigator.clipboard.writeText(${JSON.stringify(p.prompt)})">Copy</button>
+          <button class="btn-pinned" onclick="unpinItem(${p.id})" style="color:#f87171;">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ── Bank Topik ───────────────────────────────────────────────
+  const BANK_KEY = 'pajak_bank_custom';
+  let bankActiveCat = 'Semua';
+
+  // Built-in topics — flatten from PROGRESS_TOPICS with pillar info
+  function getBuiltinBankTopics() {
+    const out = [];
+    let idx = 0;
+    Object.entries(PROGRESS_TOPICS).forEach(([pillar, topics]) => {
+      topics.forEach(text => {
+        out.push({ id: 'b_' + idx, text, pillar, custom: false, priority: 'normal' });
+        idx++;
+      });
+    });
+    return out;
+  }
+
+  function loadCustomTopics() {
+    try { return JSON.parse(localStorage.getItem(BANK_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveCustomTopics(list) {
+    localStorage.setItem(BANK_KEY, JSON.stringify(list));
+  }
+
+  function getAllBankTopics() {
+    const builtin = getBuiltinBankTopics();
+    const custom = loadCustomTopics();
+    return [...custom, ...builtin];
+  }
+
+  function addBankTopic() {
+    const text = document.getElementById('bankTopicInput').value.trim();
+    if (!text) { document.getElementById('bankTopicInput').focus(); return; }
+    const pillar = document.getElementById('bankCatSelect').value;
+    const priority = document.getElementById('bankPrioSelect').value;
+    const list = loadCustomTopics();
+    // no duplicate
+    if (list.find(t => t.text.toLowerCase() === text.toLowerCase())) {
+      alert('Topik ini sudah ada di bank.'); return;
+    }
+    list.unshift({ id: 'c_' + Date.now(), text, pillar, custom: true, priority, createdAt: new Date().toISOString() });
+    saveCustomTopics(list);
+    document.getElementById('bankTopicInput').value = '';
+    toggleBankAddForm();
+    renderBank();
+    renderPickerTabs();
+    renderPickerList();
+  }
+
+  function deleteCustomTopic(id) {
+    saveCustomTopics(loadCustomTopics().filter(t => t.id !== id));
+    renderBank();
+    renderPickerTabs();
+    renderPickerList();
+  }
+
+  function toggleBankAddForm() {
+    const form = document.getElementById('bankAddForm');
+    const btn = document.getElementById('bankAddBtn');
+    const visible = form.classList.toggle('visible');
+    btn.textContent = visible ? '✕ Tutup' : '+ Tambah Topik';
+    if (visible) setTimeout(() => document.getElementById('bankTopicInput').focus(), 50);
+  }
+
+  function setBankCat(cat) {
+    bankActiveCat = cat;
+    document.querySelectorAll('.bank-cat').forEach(el => {
+      el.classList.toggle('active', el.dataset.cat === cat);
+    });
+    renderBankGrid();
+  }
+
+  function exportBankMd() {
+    const all = getAllBankTopics();
+    let md = `# 🗃️ Bank Topik — Konsultasi Pajak Gratis
+
+`;
+    const grouped = {};
+    all.forEach(t => {
+      if (!grouped[t.pillar]) grouped[t.pillar] = [];
+      grouped[t.pillar].push(t);
+    });
+    Object.entries(grouped).forEach(([pillar, topics]) => {
+      md += `## ${pillar}
+
+`;
+      topics.forEach((t, i) => {
+        const done = (() => {
+          const data = loadProgress();
+          const idx = getBuiltinBankTopics().findIndex(b => b.text === t.text);
+          return idx >= 0 && !!data[idx];
+        })();
+        md += `- [${done ? 'x' : ' '}] ${t.text}${t.custom ? ' *(kustom)*' : ''}${t.priority === 'high' ? ' 🔥' : ''}
+`;
+      });
+      md += '
+';
+    });
+    md += `---
+*konsultasipajakgratis.com*
+`;
+    const blob = new Blob([md], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bank-topik-pajak-${new Date().toISOString().slice(0,10)}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importBankTopics() {
+    const raw = prompt('Paste topik di sini (satu per baris). Akan ditambahkan ke kategori "Kustom":');
+    if (!raw) return;
+    const lines = raw.split('
+').map(l => l.trim()).filter(l => l.length > 3);
+    if (!lines.length) return;
+    const list = loadCustomTopics();
+    let added = 0;
+    lines.forEach(text => {
+      if (!list.find(t => t.text.toLowerCase() === text.toLowerCase())) {
+        list.unshift({ id: 'c_' + Date.now() + '_' + added, text, pillar: 'Kustom', custom: true, priority: 'normal', createdAt: new Date().toISOString() });
+        added++;
+      }
+    });
+    saveCustomTopics(list);
+    renderBank();
+    renderPickerTabs();
+    renderPickerList();
     alert(`${added} topik berhasil diimport.`);
   }
 
@@ -5970,7 +6969,7 @@ ${entry.prompt}
 
   const PICKER_PILLARS = ['Semua', ...Object.keys(PROGRESS_TOPICS)];
 
-  function togglePicker() {
+  function togglePicker_UNUSED() {
     pickerOpen = !pickerOpen;
     const panel = document.getElementById('pickerPanel');
     const toggle = document.getElementById('pickerToggle');
