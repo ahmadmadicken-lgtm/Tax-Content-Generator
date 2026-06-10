@@ -31,11 +31,8 @@
     min-height: 100vh;
   }
 
-  h1, h2, h3, .label, .tag {
-    font-family: 'Syne', sans-serif;
-  }
+  h1, h2, h3, .label, .tag { font-family: 'Syne', sans-serif; }
 
-  /* Noise grain overlay */
   body::before {
     content: '';
     position: fixed;
@@ -54,7 +51,6 @@
     padding: 2.5rem 1.25rem 5rem;
   }
 
-  /* Header */
   .header-badge {
     display: inline-flex;
     align-items: center;
@@ -86,10 +82,7 @@
     margin-bottom: 0.5rem;
   }
 
-  h1 em {
-    font-style: normal;
-    color: var(--accent);
-  }
+  h1 em { font-style: normal; color: var(--accent); }
 
   .subtitle {
     color: var(--muted);
@@ -97,7 +90,6 @@
     margin-bottom: 2.5rem;
   }
 
-  /* Card */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -107,9 +99,7 @@
     transition: border-color 0.2s;
   }
 
-  .card:focus-within {
-    border-color: rgba(249,115,22,0.4);
-  }
+  .card:focus-within { border-color: rgba(249,115,22,0.4); }
 
   .section-label {
     font-size: 11px;
@@ -130,7 +120,6 @@
     background: var(--border);
   }
 
-  /* Input */
   input[type="text"], textarea {
     width: 100%;
     background: var(--surface2);
@@ -150,17 +139,9 @@
     box-shadow: 0 0 0 3px var(--accent-glow);
   }
 
-  input[type="text"]::placeholder, textarea::placeholder {
-    color: var(--muted);
-    opacity: 0.7;
-  }
+  input[type="text"]::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.7; }
 
-  /* Pill toggles */
-  .pill-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+  .pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
 
   .pill {
     cursor: pointer;
@@ -176,18 +157,9 @@
     user-select: none;
   }
 
-  .pill:hover {
-    border-color: var(--accent);
-    color: var(--accent2);
-  }
+  .pill:hover { border-color: var(--accent); color: var(--accent2); }
+  .pill.active { background: var(--accent-glow); border-color: var(--accent); color: var(--accent); }
 
-  .pill.active {
-    background: var(--accent-glow);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* Pillar grid */
   .pillar-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -209,25 +181,11 @@
     user-select: none;
   }
 
-  .pillar-card:hover {
-    border-color: var(--accent);
-    color: var(--accent2);
-  }
+  .pillar-card:hover { border-color: var(--accent); color: var(--accent2); }
+  .pillar-card.active { background: var(--accent-glow); border-color: var(--accent); color: var(--accent); }
 
-  .pillar-card.active {
-    background: var(--accent-glow);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
+  .pillar-num { display: block; font-size: 10px; opacity: 0.5; margin-bottom: 2px; }
 
-  .pillar-num {
-    display: block;
-    font-size: 10px;
-    opacity: 0.5;
-    margin-bottom: 2px;
-  }
-
-  /* Generate button */
   .btn-generate {
     width: 100%;
     background: var(--accent);
@@ -257,32 +215,13 @@
     pointer-events: none;
   }
 
-  .btn-generate:hover {
-    background: var(--accent2);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(249,115,22,0.35);
-  }
-
-  .btn-generate:active {
-    transform: translateY(0);
-  }
-
-  .btn-generate:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
+  .btn-generate:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(249,115,22,0.35); }
+  .btn-generate:active { transform: translateY(0); }
+  .btn-generate:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
   /* Output */
-  .output-section {
-    display: none;
-    animation: fadeUp 0.3s ease;
-  }
-
-  .output-section.visible {
-    display: block;
-  }
+  .output-section { display: none; animation: fadeUp 0.3s ease; }
+  .output-section.visible { display: block; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
@@ -306,10 +245,7 @@
     gap: 6px;
   }
 
-  .output-title::before {
-    content: '✦';
-    font-size: 10px;
-  }
+  .output-title::before { content: '✦'; font-size: 10px; }
 
   .btn-copy {
     background: var(--surface2);
@@ -327,17 +263,10 @@
     transition: all 0.15s;
   }
 
-  .btn-copy:hover {
-    border-color: var(--green);
-    color: var(--green);
-  }
+  .btn-copy:hover { border-color: var(--green); color: var(--green); }
+  .btn-copy.copied { border-color: var(--green); color: var(--green); background: rgba(34,211,160,0.08); }
 
-  .btn-copy.copied {
-    border-color: var(--green);
-    color: var(--green);
-    background: rgba(34,211,160,0.08);
-  }
-
+  /* Prompt output (non-threads) */
   .prompt-output {
     background: var(--surface2);
     border: 1px solid var(--border);
@@ -358,30 +287,145 @@
   .prompt-output::-webkit-scrollbar-track { background: transparent; }
   .prompt-output::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
-  .prompt-tag {
-    display: inline-block;
-    background: rgba(249,115,22,0.12);
-    color: var(--accent2);
-    border-radius: 4px;
-    padding: 1px 6px;
+  /* ── Threads output ── */
+  .threads-wrapper { display: flex; flex-direction: column; gap: 0; }
+
+  .thread-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    transition: border-color 0.15s;
+    margin-bottom: 4px;
+  }
+
+  .thread-card:hover { border-color: rgba(249,115,22,0.35); }
+
+  .thread-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .thread-num {
     font-family: 'Syne', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(249,115,22,0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
   }
 
-  /* Separator */
-  .divider {
-    height: 1px;
+  .thread-char {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  .thread-char.over { color: #f87171; }
+
+  .thread-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .thread-connector {
+    height: 16px;
+    display: flex;
+    align-items: center;
+    padding-left: 18px;
+    margin: 0;
+  }
+
+  .thread-connector-line {
+    width: 1.5px;
+    height: 100%;
     background: var(--border);
-    margin: 0.5rem 0 1.5rem;
   }
 
-  /* Loading spinner */
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+  /* Copy all bar */
+  .threads-copy-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(34,211,160,0.05);
+    border: 1px solid rgba(34,211,160,0.2);
+    border-radius: 10px;
+    padding: 10px 16px;
+    margin-top: 12px;
   }
+
+  .threads-copy-info {
+    font-size: 12px;
+    color: var(--green);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  .threads-copy-info span {
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  .btn-copy-all {
+    background: var(--green);
+    color: #0b0c10;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 18px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-copy-all:hover { background: #34d399; transform: translateY(-1px); }
+  .btn-copy-all.copied { background: #34d399; }
+
+  /* Skeleton loading */
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .skeleton-line {
+    background: linear-gradient(90deg, var(--surface2) 25%, #2a2d3e 50%, var(--surface2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.3s infinite;
+    border-radius: 5px;
+    height: 13px;
+    margin-bottom: 8px;
+  }
+
+  .skeleton-line.short { width: 60%; }
+  .skeleton-line.medium { width: 85%; }
+  .skeleton-line.long { width: 100%; }
+
+  .threads-loading { display: flex; flex-direction: column; gap: 10px; }
+
+  .threads-loading-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+
+  /* Glow/spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   .spinner {
     width: 16px;
@@ -396,7 +440,6 @@
   .btn-generate.loading .spinner { display: block; }
   .btn-generate.loading .btn-text { display: none; }
 
-  /* Glow decoration */
   .glow-orb {
     position: fixed;
     width: 400px;
@@ -409,7 +452,6 @@
     z-index: 0;
   }
 
-  /* Responsive */
   @media (max-width: 600px) {
     .container { padding: 1.5rem 1rem 4rem; }
     .pillar-grid { grid-template-columns: repeat(2, 1fr); }
@@ -422,7 +464,6 @@
 
 <div class="container">
 
-  <!-- Header -->
   <div class="header-badge"><span></span> Pajak Content Generator</div>
   <h1>Buat Konten <em>Pajak</em><br>yang Viral & Convert</h1>
   <p class="subtitle">Generate structured prompt untuk Instagram, Threads, & lebih banyak lagi — powered by brand voice Konsultasi Pajak Gratis.</p>
@@ -436,12 +477,27 @@
   <!-- Tipe Konten -->
   <div class="card">
     <div class="section-label">02 — Tipe Konten</div>
-    <div class="pill-group" id="contentTypeGroup">
-      <div class="pill active" data-value="carousel">🎠 Carousel Instagram</div>
-      <div class="pill" data-value="threads">🧵 Threads</div>
-      <div class="pill" data-value="hook">🪝 Hook</div>
-      <div class="pill" data-value="cta">📣 CTA</div>
-      <div class="pill" data-value="caption">✍️ Caption</div>
+    <div style="margin-bottom:0.6rem;">
+      <div style="font-size:10px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;text-transform:uppercase;">📸 Instagram</div>
+      <div class="pill-group" id="contentTypeGroup">
+        <div class="pill active" data-value="carousel">🎠 Carousel</div>
+        <div class="pill" data-value="caption">✍️ Caption IG</div>
+        <div class="pill" data-value="hook">🪝 Hook</div>
+        <div class="pill" data-value="cta">📣 CTA</div>
+      </div>
+    </div>
+    <div style="margin-bottom:0.6rem;margin-top:0.9rem;">
+      <div style="font-size:10px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;text-transform:uppercase;">💬 WhatsApp</div>
+      <div class="pill-group" id="contentTypeGroupWA">
+        <div class="pill" data-value="wa_caption">📝 WA Status Caption</div>
+        <div class="pill" data-value="wa_flyer">🖼️ WA Status Flyer</div>
+      </div>
+    </div>
+    <div style="margin-top:0.9rem;">
+      <div style="font-size:10px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;text-transform:uppercase;">🧵 Threads</div>
+      <div class="pill-group" id="contentTypeGroupThreads">
+        <div class="pill" data-value="threads">🧵 Threads</div>
+      </div>
     </div>
   </div>
 
@@ -487,65 +543,110 @@
   </div>
 
   <!-- Generate Button -->
-  <button class="btn-generate" id="generateBtn" onclick="generatePrompt()">
+  <button class="btn-generate" id="generateBtn" onclick="handleGenerate()">
     <div class="spinner"></div>
-    <span class="btn-text">✦ Generate Prompt</span>
+    <span class="btn-text">✦ Generate</span>
   </button>
 
-  <!-- Output -->
-  <div class="output-section" id="outputSection">
+  <!-- Output: Prompt (non-threads) -->
+  <div class="output-section" id="outputPrompt">
     <div style="height:1.5rem"></div>
     <div class="card">
       <div class="output-header">
         <div class="output-title">Prompt Siap Dipakai</div>
-        <button class="btn-copy" id="copyBtn" onclick="copyPrompt()">
+        <button class="btn-copy" id="copyPromptBtn" onclick="copyPrompt()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
           Copy Prompt
         </button>
       </div>
-      <!-- Carousel size badge — shown only for carousel type -->
+      <!-- Carousel size badge -->
       <div id="carouselBadge" style="display:none; margin-bottom: 0.9rem;">
-        <div style="
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          background: rgba(99,102,241,0.1);
-          border: 1px solid rgba(99,102,241,0.3);
-          border-radius: 10px;
-          padding: 8px 14px;
-          width: 100%;
-        ">
-          <!-- Slide aspect ratio preview -->
-          <div style="
-            flex-shrink: 0;
-            width: 20px;
-            height: 25px;
-            border: 2px solid rgba(129,140,248,0.7);
-            border-radius: 3px;
-            background: rgba(99,102,241,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          ">
-            <div style="width: 8px; height: 1.5px; background: rgba(129,140,248,0.8); box-shadow: 0 3px 0 rgba(129,140,248,0.5), 0 6px 0 rgba(129,140,248,0.3);"></div>
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:10px;padding:8px 14px;width:100%;">
+          <div style="flex-shrink:0;width:20px;height:25px;border:2px solid rgba(129,140,248,0.7);border-radius:3px;background:rgba(99,102,241,0.15);display:flex;align-items:center;justify-content:center;">
+            <div style="width:8px;height:1.5px;background:rgba(129,140,248,0.8);box-shadow:0 3px 0 rgba(129,140,248,0.5),0 6px 0 rgba(129,140,248,0.3);"></div>
           </div>
           <div>
-            <div style="font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; color: #818cf8; letter-spacing: 0.05em;">UKURAN SLIDE CAROUSEL</div>
-            <div style="font-size: 12px; color: #a5b4fc; margin-top: 1px;">
-              1080 × 1350 px &nbsp;·&nbsp; Rasio 4:5 &nbsp;·&nbsp; Portrait &nbsp;·&nbsp; Safe zone 80px
-            </div>
+            <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#818cf8;letter-spacing:0.05em;">UKURAN SLIDE CAROUSEL</div>
+            <div style="font-size:12px;color:#a5b4fc;margin-top:1px;">1080 × 1350 px &nbsp;·&nbsp; Rasio 4:5 &nbsp;·&nbsp; Portrait &nbsp;·&nbsp; Safe zone 80px</div>
           </div>
-          <div style="margin-left: auto; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; color: #6366f1; background: rgba(99,102,241,0.15); padding: 3px 8px; border-radius: 5px; white-space: nowrap;">4:5</div>
+          <div style="margin-left:auto;font-family:'Syne',sans-serif;font-size:11px;font-weight:800;color:#6366f1;background:rgba(99,102,241,0.15);padding:3px 8px;border-radius:5px;white-space:nowrap;">4:5</div>
         </div>
       </div>
       <div class="prompt-output" id="promptOutput"></div>
     </div>
   </div>
 
+  <!-- Output: Threads -->
+  <div class="output-section" id="outputThreads">
+    <div style="height:1.5rem"></div>
+
+    <!-- Step 1: Prompt card -->
+    <div class="card" id="threadsPromptCard">
+      <div class="output-header">
+        <div class="output-title">Prompt Threads</div>
+        <button class="btn-copy" id="copyThreadsPromptBtn" onclick="copyThreadsPrompt()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy Prompt
+        </button>
+      </div>
+      <div class="prompt-output" id="threadsPromptOutput"></div>
+    </div>
+
+    <!-- Step 2: Paste result -->
+    <div class="card" style="margin-top:0;" id="threadsPasteCard">
+      <div class="section-label">Paste Hasil dari Claude</div>
+      <textarea
+        id="threadsPasteArea"
+        rows="6"
+        placeholder="Paste hasil konten Threads dari Claude di sini, lalu klik Render Utas..."
+        style="font-size:13px;line-height:1.7;"
+      ></textarea>
+      <button onclick="parseAndRenderThreads()" style="
+        margin-top:10px;
+        background:var(--surface2);
+        border:1px solid var(--border);
+        border-radius:9px;
+        color:var(--text);
+        font-family:'Syne',sans-serif;
+        font-size:12px;
+        font-weight:700;
+        padding:7px 18px;
+        cursor:pointer;
+        transition:all 0.15s;
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+      " onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+        ↓ Render Utas
+      </button>
+    </div>
+
+    <!-- Step 3: Rendered thread cards -->
+    <div id="threadsRendered" style="display:none;">
+      <div class="card" style="margin-top:0;">
+        <div class="output-header">
+          <div class="output-title">Threads Siap Diposting</div>
+          <span id="threadsCount" style="font-size:11px;color:var(--muted);font-family:'Syne',sans-serif;font-weight:600;"></span>
+        </div>
+        <div id="threadsList" class="threads-wrapper"></div>
+        <div id="threadsCopyBar" class="threads-copy-bar" style="display:none;margin-top:12px;">
+          <div class="threads-copy-info">
+            Semua utas siap dicopy
+            <span id="threadsTotalChar"></span>
+          </div>
+          <button class="btn-copy-all" id="copyAllBtn" onclick="copyAllThreads()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy Semua Utas
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-  // Single-select pills
+  // ── Pill setup ──────────────────────────────────────────────
   function setupSingleSelect(groupId) {
     const group = document.getElementById(groupId);
     group.querySelectorAll('.pill').forEach(pill => {
@@ -556,7 +657,6 @@
     });
   }
 
-  // Toggle select for pillar cards
   function setupToggle(groupId) {
     const group = document.getElementById(groupId);
     group.querySelectorAll('.pillar-card').forEach(el => {
@@ -564,7 +664,6 @@
     });
   }
 
-  // Toggle select for audience pills (multi-select pills)
   function setupTogglePills(groupId) {
     const group = document.getElementById(groupId);
     group.querySelectorAll('.pill').forEach(el => {
@@ -572,7 +671,27 @@
     });
   }
 
-  setupSingleSelect('contentTypeGroup');
+  // All content type groups — single-select across all three groups
+  const allTypeGroups = ['contentTypeGroup', 'contentTypeGroupWA', 'contentTypeGroupThreads'];
+
+  function setupAllTypeGroups() {
+    allTypeGroups.forEach(gid => {
+      const group = document.getElementById(gid);
+      if (!group) return;
+      group.querySelectorAll('.pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          // Deactivate ALL pills across all type groups
+          allTypeGroups.forEach(id => {
+            const g = document.getElementById(id);
+            if (g) g.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+          });
+          pill.classList.add('active');
+        });
+      });
+    });
+  }
+
+  setupAllTypeGroups();
   setupSingleSelect('toneGroup');
   setupToggle('pillarGroup');
   setupTogglePills('audienceGroup');
@@ -593,7 +712,7 @@
       .filter(Boolean);
   }
 
-  // Brand Knowledge Base
+  // ── Brand knowledge ─────────────────────────────────────────
   const hooks = [
     "Banyak orang baru sadar ini setelah kena denda pajak",
     "Jangan sampai bisnis Anda kena masalah karena hal ini",
@@ -637,14 +756,6 @@ FORMAT OUTPUT:
 - Elemen teks jangan lebih dari 60% area slide — beri ruang visual
 - Setiap slide harus bisa dibaca tanpa perlu zoom`,
 
-    threads: `
-FORMAT OUTPUT:
-- Thread pertama: Hook + opening (buat orang mau klik "show more")
-- Thread 2–6: Isi poin per thread, maks 280 karakter per thread
-- Thread terakhir: CTA + website
-- Gunakan line break dan white space
-- Total: 6–8 threads`,
-
     hook: `
 FORMAT OUTPUT:
 Buat 5 variasi hook dengan pendekatan berbeda:
@@ -672,13 +783,64 @@ FORMAT OUTPUT:
 - CTA: URL konsultasipajakgratis.com
 - Hashtag: 15–20 hashtag relevan (campuran niche + broad)
 - Panjang total: 150–200 kata`,
+
+    wa_caption: `
+FORMAT OUTPUT — WHATSAPP STATUS CAPTION:
+WhatsApp Status hanya tampil 24 jam. Teks harus langsung nyangkut.
+
+Struktur:
+- Baris 1: Hook kuat (1 kalimat, maks 60 karakter — langsung keliatan tanpa di-tap)
+- Baris 2–4: Isi singkat, 1–2 kalimat per baris, pakai line break
+- Baris terakhir: CTA + konsultasipajakgratis.com
+
+Aturan:
+• Total teks maks 200 karakter (ideal untuk status WA)
+• Pakai emoji secukupnya untuk visual rhythm
+• Kalimat super pendek — cocok dibaca dalam 3 detik
+• Tidak perlu hashtag
+• Nada casual seperti update dari teman`,
+
+    wa_flyer: `
+FORMAT OUTPUT — BRIEF DESAIN FLYER WHATSAPP STATUS:
+Ukuran canvas: 1080 x 1920 px (rasio 9:16 — fullscreen WA Status)
+
+Buat brief desain flyer yang lengkap:
+
+[HEADLINE]
+Teks utama flyer — max 6 kata, besar, bold, langsung ngena
+
+[SUBHEADLINE]
+1 kalimat pendukung — maks 12 kata
+
+[BODY POINTS]
+3–5 poin singkat yang tampil di flyer (maks 5 kata per poin)
+
+[CTA FLYER]
+Teks CTA di bagian bawah flyer — 1 kalimat + URL: konsultasipajakgratis.com
+
+[CAPTION WA]
+Teks caption yang ditulis saat posting status (terpisah dari desain flyer):
+Hook + 2 kalimat konteks + CTA link
+
+[ARAHAN VISUAL]
+- Palet warna yang disarankan
+- Mood/style desain
+- Posisi elemen (headline di atas/tengah/bawah)
+- Rekomendasi font style (bold, serif, dll)
+- Background direction (solid, gradient, foto, pattern)
+
+Spesifikasi teknis:
+• Ukuran: 1080 × 1920 px (9:16)
+• Safe zone teks: 80px dari setiap sisi
+• Area utama konten: 920 × 1760 px`,
   };
 
   function getRandomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  function generatePrompt() {
+  // ── Main handler ────────────────────────────────────────────
+  function handleGenerate() {
     const topic = document.getElementById('topicInput').value.trim();
     if (!topic) {
       document.getElementById('topicInput').focus();
@@ -687,68 +849,66 @@ FORMAT OUTPUT:
       return;
     }
 
-    const contentType = getActive('contentTypeGroup')[0] || 'carousel';
+    // Find active pill across all content type groups
+    let contentType = 'carousel';
+    for (const gid of ['contentTypeGroup', 'contentTypeGroupWA', 'contentTypeGroupThreads']) {
+      const val = getActive(gid)[0];
+      if (val) { contentType = val; break; }
+    }
     const tone = getActive('toneGroup')[0] || 'edukasi';
     const pillars = getActivePillars();
     const audiences = getActive('audienceGroup');
 
+    // Hide both outputs first
+    document.getElementById('outputPrompt').classList.remove('visible');
+    document.getElementById('outputThreads').classList.remove('visible');
+
+    if (contentType === 'threads') {
+      generateThreads({ topic, tone, pillars, audiences });
+    } else {
+      generatePrompt({ topic, contentType, tone, pillars, audiences });
+    }
+  }
+
+  // ── Prompt generator (non-threads) ──────────────────────────
+  function generatePrompt({ topic, contentType, tone, pillars, audiences }) {
     const btn = document.getElementById('generateBtn');
     btn.classList.add('loading');
     btn.disabled = true;
 
     setTimeout(() => {
-      const prompt = buildPrompt({ topic, contentType, tone, pillars, audiences });
-      document.getElementById('promptOutput').textContent = prompt;
-      document.getElementById('outputSection').classList.add('visible');
-      // Show carousel size badge only when carousel type is selected
-      document.getElementById('carouselBadge').style.display = contentType === 'carousel' ? 'block' : 'none';
-      document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const toneInstr = toneInstructions[tone];
+      const contentInstr = contentTypeInstructions[contentType];
+      const sampleHook = getRandomItem(hooks);
+      const sampleCTA = getRandomItem(ctas);
 
-      btn.classList.remove('loading');
-      btn.disabled = false;
+      const pillarLine = pillars.length > 0 ? `\nContent Pillar: ${pillars.join(', ')}` : '';
+      const audienceLine = audiences.length > 0
+        ? `\nTarget Audience Spesifik: ${audiences.join(', ')}`
+        : '\nTarget Audience: UMKM, Freelancer, Pebisnis Online';
 
-      // Reset copy button
-      const copyBtn = document.getElementById('copyBtn');
-      copyBtn.classList.remove('copied');
-      copyBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Prompt`;
-    }, 600);
-  }
+      const contentTypeLabel = {
+        carousel: 'Carousel Instagram',
+        hook: 'Hook',
+        cta: 'CTA',
+        caption: 'Caption Instagram',
+        wa_caption: 'WhatsApp Status Caption',
+        wa_flyer: 'WhatsApp Status Flyer (Brief Desain)',
+      }[contentType] || contentType;
+      const toneLabel = { edukasi: 'Edukasi', fear: 'Fear → Solution', viral: 'Viral', storytelling: 'Storytelling' }[tone];
 
-  function buildPrompt({ topic, contentType, tone, pillars, audiences }) {
-    const toneInstr = toneInstructions[tone];
-    const contentInstr = contentTypeInstructions[contentType];
-    const sampleHook = getRandomItem(hooks);
-    const sampleCTA = getRandomItem(ctas);
+      const platformIcon = {
+        carousel: '📸', caption: '📸', hook: '📸', cta: '📸',
+        wa_caption: '💬', wa_flyer: '💬',
+        threads: '🧵',
+      }[contentType] || '📌';
 
-    const pillarLine = pillars.length > 0
-      ? `\nContent Pillar: ${pillars.join(', ')}`
-      : '';
-
-    const audienceLine = audiences.length > 0
-      ? `\nTarget Audience Spesifik: ${audiences.join(', ')}`
-      : '\nTarget Audience: UMKM, Freelancer, Pebisnis Online';
-
-    const contentTypeLabel = {
-      carousel: 'Carousel Instagram',
-      threads: 'Threads',
-      hook: 'Hook',
-      cta: 'CTA',
-      caption: 'Caption Instagram',
-    }[contentType];
-
-    const toneLabel = {
-      edukasi: 'Edukasi',
-      fear: 'Fear → Solution',
-      viral: 'Viral',
-      storytelling: 'Storytelling',
-    }[tone];
-
-    return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      const prompt = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PAJAK CONTENT GENERATOR
 Brand: Konsultasi Pajak Gratis
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-📌 BRIEF KONTEN
+${platformIcon} BRIEF KONTEN
 ───────────────
 Topik: ${topic}
 Tipe Konten: ${contentTypeLabel}
@@ -796,14 +956,241 @@ URL: konsultasipajakgratis.com
 • Ending harus berasa actionable, bukan cuma informatif
 • Jangan terlalu panjang — fokus pada value per kalimat
 
-Sekarang buat konten untuk topik: "${topic}"
+Sekarang buat ${contentTypeLabel} untuk topik: "${topic}"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+      document.getElementById('promptOutput').textContent = prompt;
+      document.getElementById('carouselBadge').style.display = (contentType === 'carousel' || contentType === 'wa_flyer') ? 'block' : 'none';
+      // Update badge text for WA flyer
+      if (contentType === 'wa_flyer') {
+        document.querySelector('#carouselBadge div div:last-child').style.display='none';
+        document.querySelector('#carouselBadge div').innerHTML = `
+          <div style="flex-shrink:0;width:16px;height:28px;border:2px solid rgba(129,140,248,0.7);border-radius:3px;background:rgba(99,102,241,0.15);display:flex;align-items:center;justify-content:center;"><div style="width:6px;height:1.5px;background:rgba(129,140,248,0.8);box-shadow:0 4px 0 rgba(129,140,248,0.5),0 8px 0 rgba(129,140,248,0.3);"></div></div>
+          <div><div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#818cf8;letter-spacing:0.05em;">UKURAN FLYER WA STATUS</div><div style="font-size:12px;color:#a5b4fc;margin-top:1px;">1080 × 1920 px &nbsp;·&nbsp; Rasio 9:16 &nbsp;·&nbsp; Portrait &nbsp;·&nbsp; Safe zone 80px</div></div>
+          <div style="margin-left:auto;font-family:'Syne',sans-serif;font-size:11px;font-weight:800;color:#6366f1;background:rgba(99,102,241,0.15);padding:3px 8px;border-radius:5px;white-space:nowrap;">9:16</div>
+        `;
+      } else if (contentType === 'carousel') {
+        document.querySelector('#carouselBadge div').innerHTML = `
+          <div style="flex-shrink:0;width:20px;height:25px;border:2px solid rgba(129,140,248,0.7);border-radius:3px;background:rgba(99,102,241,0.15);display:flex;align-items:center;justify-content:center;"><div style="width:8px;height:1.5px;background:rgba(129,140,248,0.8);box-shadow:0 3px 0 rgba(129,140,248,0.5),0 6px 0 rgba(129,140,248,0.3);"></div></div>
+          <div><div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#818cf8;letter-spacing:0.05em;">UKURAN SLIDE CAROUSEL</div><div style="font-size:12px;color:#a5b4fc;margin-top:1px;">1080 × 1350 px &nbsp;·&nbsp; Rasio 4:5 &nbsp;·&nbsp; Portrait &nbsp;·&nbsp; Safe zone 80px</div></div>
+          <div style="margin-left:auto;font-family:'Syne',sans-serif;font-size:11px;font-weight:800;color:#6366f1;background:rgba(99,102,241,0.15);padding:3px 8px;border-radius:5px;white-space:nowrap;">4:5</div>
+        `;
+      }
+      document.getElementById('outputPrompt').classList.add('visible');
+      document.getElementById('outputPrompt').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Reset copy button
+      const copyBtn = document.getElementById('copyPromptBtn');
+      copyBtn.classList.remove('copied');
+      copyBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Prompt`;
+
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }, 500);
   }
 
+  // ── Threads generator (API) ──────────────────────────────────
+  let threadsData = [];
+
+  function generateThreads({ topic, tone, pillars, audiences }) {
+    const btn = document.getElementById('generateBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    setTimeout(() => {
+      const toneLabel = { edukasi: 'Edukasi', fear: 'Fear → Solution', viral: 'Viral', storytelling: 'Storytelling' }[tone];
+      const toneInstr = toneInstructions[tone];
+      const pillarLine = pillars.length > 0 ? `\nContent Pillar: ${pillars.join(', ')}` : '';
+      const audienceLine = audiences.length > 0
+        ? `\nTarget Audience Spesifik: ${audiences.join(', ')}`
+        : '\nTarget Audience: UMKM, Freelancer, Pebisnis Online';
+      const sampleHook = getRandomItem(hooks);
+      const sampleCTA = getRandomItem(ctas);
+
+      const prompt = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAJAK CONTENT GENERATOR — THREADS
+Brand: Konsultasi Pajak Gratis
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📌 BRIEF KONTEN
+───────────────
+Topik: ${topic}
+Tipe Konten: Threads
+Tone: ${toneLabel}${pillarLine}${audienceLine}
+
+🎯 BRAND VOICE
+───────────────
+Kamu adalah content creator untuk brand "Konsultasi Pajak Gratis" — platform edukasi pajak Indonesia.
+
+Panduan menulis:
+• Bahasa Indonesia sehari-hari, tidak formal
+• Kalimat pendek dan to the point
+• Tidak menggurui — seperti teman yang tahu pajak
+• Fokus pada pain point audiens
+• Gunakan storytelling ringan dan contoh nyata
+• Selalu ada hook kuat di awal
+
+🔥 TONE DIRECTION
+───────────────
+${toneInstr}
+
+🧵 FORMAT OUTPUT — THREADS
+───────────────
+Buat thread Threads.app terdiri dari 6–8 utas.
+
+WAJIB gunakan format ini persis (pisahkan tiap utas dengan "---"):
+
+[UTAS 1]
+Hook kuat 1–2 kalimat. Bikin orang scroll berhenti.
+
+---
+
+[UTAS 2]
+Isi poin. Maks 280 karakter.
+
+---
+
+[UTAS 3]
+Isi poin. Maks 280 karakter.
+
+---
+
+(lanjutkan sampai utas terakhir)
+
+---
+
+[UTAS TERAKHIR]
+CTA natural + konsultasipajakgratis.com
+
+Aturan:
+• Utas 1: hook yang scroll-stopping, max 200 karakter
+• Utas 2 hingga sebelum terakhir: 1 poin per utas, maks 280 karakter
+• Utas terakhir: CTA yang natural, bukan hard-sell
+• Boleh pakai line break di dalam utas untuk white space
+• Jangan pakai nomor urut di awal teks utas
+• Jangan pakai tanda kutip di awal/akhir utas
+
+💡 REFERENSI HOOK
+───────────────
+Adaptasi dari: "${sampleHook}"
+
+📣 CTA REFERENSI
+───────────────
+Adaptasi dari: "${sampleCTA}"
+
+⚡ INSTRUKSI TAMBAHAN
+───────────────
+• Gunakan angka konkret kalau memungkinkan
+• 1–2 contoh kasus nyata yang relatable
+• Setiap utas harus bisa berdiri sendiri tapi mengalir sebagai satu cerita
+• Ending utas terakhir harus actionable
+
+Sekarang buat Threads untuk topik: "${topic}"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+      document.getElementById('threadsPromptOutput').textContent = prompt;
+      document.getElementById('threadsRendered').style.display = 'none';
+      document.getElementById('threadsPasteArea').value = '';
+      document.getElementById('outputThreads').classList.add('visible');
+      document.getElementById('outputThreads').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Reset copy prompt button
+      const cpBtn = document.getElementById('copyThreadsPromptBtn');
+      cpBtn.classList.remove('copied');
+      cpBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Prompt`;
+
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }, 500);
+  }
+
+  function parseAndRenderThreads() {
+    const raw = document.getElementById('threadsPasteArea').value.trim();
+    if (!raw) return;
+
+    // Split by separator lines: ---, ———, or blank line between [UTAS N] blocks
+    // Strategy: split by lines that are only dashes/hyphens (3+) or "---"
+    let parts;
+
+    // Try splitting by --- separator first
+    if (raw.includes('---')) {
+      parts = raw.split(/\n\s*---+\s*\n/);
+    } else if (raw.includes('[UTAS')) {
+      // Split by [UTAS N] markers
+      parts = raw.split(/\[UTAS\s*\d+\]/i).filter(s => s.trim());
+    } else {
+      // Fallback: split by double newlines
+      parts = raw.split(/\n\s*\n\s*\n/);
+    }
+
+    // Clean each part: remove [UTAS N] labels, trim
+    const threads = parts
+      .map(p => p.replace(/^\[UTAS\s*\d+\]\s*/i, '').trim())
+      .filter(p => p.length > 0);
+
+    if (threads.length === 0) return;
+
+    threadsData = threads;
+    renderThreads(threads);
+
+    // Scroll to rendered section
+    document.getElementById('threadsRendered').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderThreads(threads) {
+    document.getElementById('threadsRendered').style.display = 'block';
+
+    const list = document.getElementById('threadsList');
+    list.innerHTML = '';
+
+    threads.forEach((text, i) => {
+      const charCount = text.length;
+      const isOver = charCount > 280;
+      const isLast = i === threads.length - 1;
+
+      // Thread card
+      const card = document.createElement('div');
+      card.className = 'thread-card';
+      card.innerHTML = `
+        <div class="thread-meta">
+          <div class="thread-num">UTAS ${i + 1}</div>
+          <div class="thread-char ${isOver ? 'over' : ''}">${charCount} / 280</div>
+        </div>
+        <div class="thread-text">${escapeHtml(text)}</div>
+      `;
+      list.appendChild(card);
+
+      // Connector line between cards (not after last)
+      if (!isLast) {
+        const connector = document.createElement('div');
+        connector.className = 'thread-connector';
+        connector.innerHTML = '<div class="thread-connector-line"></div>';
+        list.appendChild(connector);
+      }
+    });
+
+    // Update count label
+    document.getElementById('threadsCount').textContent = `${threads.length} utas`;
+
+    // Show copy bar
+    document.getElementById('threadsCopyBar').style.display = 'flex';
+    document.getElementById('threadsTotalChar').textContent = `· ${threads.reduce((a, t) => a + t.length, 0)} total karakter`;
+
+    // Reset copy all button
+    const copyAllBtn = document.getElementById('copyAllBtn');
+    copyAllBtn.classList.remove('copied');
+    copyAllBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Semua Utas`;
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // ── Copy functions ───────────────────────────────────────────
   function copyPrompt() {
     const text = document.getElementById('promptOutput').textContent;
     navigator.clipboard.writeText(text).then(() => {
-      const btn = document.getElementById('copyBtn');
+      const btn = document.getElementById('copyPromptBtn');
       btn.classList.add('copied');
       btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tersalin!`;
       setTimeout(() => {
@@ -813,9 +1200,37 @@ Sekarang buat konten untuk topik: "${topic}"
     });
   }
 
-  // Allow Enter key to trigger generate from input
+  function copyThreadsPrompt() {
+    const text = document.getElementById('threadsPromptOutput').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyThreadsPromptBtn');
+      btn.classList.add('copied');
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tersalin!`;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Prompt`;
+      }, 2500);
+    });
+  }
+
+  function copyAllThreads() {
+    if (!threadsData.length) return;
+    // Format: setiap utas dipisah baris kosong, tanpa separator ekstra — langsung paste per utas
+    const text = threadsData.join('\n\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyAllBtn');
+      btn.classList.add('copied');
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tersalin!`;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Semua Utas`;
+      }, 2500);
+    });
+  }
+
+  // Enter key
   document.getElementById('topicInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') generatePrompt();
+    if (e.key === 'Enter') handleGenerate();
   });
 </script>
 </body>
