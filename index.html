@@ -3296,6 +3296,129 @@
 </div>
 
 <script>
+  const PROGRESS_TOPICS = {
+    'Kesalahan Pajak Umum': [
+      "Sudah bayar pajak tapi tidak lapor SPT — apakah tetap kena denda?",
+      "Salah mengisi status PTKP di SPT tahunan",
+      "Lupa mencantumkan penghasilan sampingan di SPT",
+      "Bayar pajak mepet deadline — risiko yang jarang disadari",
+      "Bukti potong hilang — apa yang harus dilakukan?",
+      "Melaporkan omzet lebih kecil dari kenyataan — konsekuensinya",
+      "Tidak tahu perbedaan SPT Tahunan dan SPT Masa",
+      "Salah pilih tarif pajak — terlalu besar bayar, atau malah kurang bayar",
+      "NPWP tidak aktif tapi masih terima penghasilan — aman atau tidak?",
+      "Menganggap tidak perlu lapor SPT karena sudah dipotong perusahaan",
+    ],
+    'Pajak UMKM': [
+      "UMKM omzet di bawah 500 juta — wajib bayar pajak atau tidak?",
+      "Cara hitung pajak UMKM 0,5% dengan benar",
+      "Kapan UMKM harus beralih dari PPh Final ke pajak normal?",
+      "UMKM jualan online — pajaknya beda dengan toko offline?",
+      "UMKM belum punya NPWP — risiko dan cara mengurusnya",
+      "Biaya operasional UMKM bisa dikurangi dari pajak — caranya?",
+      "Warung makan kecil kena pajak juga? Ini penjelasannya",
+      "UMKM dapat omzet dari marketplace — pajaknya bagaimana?",
+      "Perbedaan UMKM perseorangan vs badan dalam urusan pajak",
+      "UMKM baru buka usaha — kapan mulai wajib lapor pajak?",
+    ],
+    'Pajak Freelancer': [
+      "Freelancer dapat fee dari klien — kena pajak berapa persen?",
+      "Freelancer belum punya NPWP — boleh terima bayaran atau tidak?",
+      "Klien potong PPh 21 dari fee — apakah freelancer masih perlu lapor?",
+      "Freelancer kerja untuk klien luar negeri — pajaknya bagaimana?",
+      "Content creator dapat endorse — dianggap penghasilan dan kena pajak?",
+      "Perbedaan PPh 21 dan PPh 23 untuk freelancer",
+      "Freelancer multi-klien — cara menghitung total pajak tahunan",
+      "Designer, copywriter, programmer — tarif pajaknya sama atau beda?",
+      "Freelancer penghasilan tidak tetap — cara hitung pajak yang benar",
+      "Freelancer dapat honor dari lembaga pemerintah — pajaknya beda?",
+    ],
+    'Tax Myth': [
+      "Mitos: penghasilan di bawah 5 juta tidak kena pajak sama sekali",
+      "Mitos: kalau tidak ditagih DJP, berarti tidak ada masalah pajak",
+      "Mitos: UMKM kecil pasti aman dari pemeriksaan pajak",
+      "Mitos: bayar pajak lewat aplikasi sama saja dengan lapor SPT",
+      "Mitos: pajak hanya urusan orang kaya dan perusahaan besar",
+      "Mitos: freelancer tidak wajib punya NPWP",
+      "Mitos: kalau rugi, tidak perlu lapor SPT",
+      "Mitos: penghasilan dari jualan online tidak terdeteksi pajak",
+      "Mitos: konsultan pajak hanya untuk perusahaan besar",
+      "Mitos: sudah dipotong PPh otomatis berarti urusan pajak selesai",
+    ],
+    'Cerita Denda Pajak': [
+      "Warung kopi omzet 300 juta kena denda karena tidak lapor SPT 3 tahun",
+      "Freelancer desainer kaget tagihan pajak tiba-tiba 40 juta",
+      "Toko online viral di TikTok lupa urus pajak akhirnya kena audit",
+      "UMKM kuliner kena SP2DK dari DJP — ini yang terjadi",
+      "Karyawan resign dapat pesangon besar tidak tahu kena pajak",
+      "Pebisnis property kena pajak penjualan yang tidak diperhitungkan",
+      "Agency kena pemeriksaan pajak — yang bisa dipelajari",
+      "Influencer kena pajak endorse yang belum pernah dilaporkan",
+      "Bisnis online 5 tahun tidak pernah lapor pajak — apa yang terjadi?",
+      "UMKM dapat pinjaman modal — ternyata mempengaruhi urusan pajak",
+    ],
+    'Tips Legal Hemat Pajak': [
+      "Cara legal kurangi pajak dengan biaya jabatan",
+      "Manfaatkan PTKP untuk tanggungan keluarga — caranya?",
+      "UMKM bisa pakai pembukuan sederhana untuk hemat pajak",
+      "Pisahkan rekening bisnis dan pribadi — ini manfaat pajaknya",
+      "Investasi yang bisa kurangi beban pajak secara legal",
+      "Biaya operasional apa saja yang bisa jadi pengurang pajak?",
+      "Cara benar mencatat pengeluaran bisnis supaya diakui fiskus",
+      "Pindah ke PPh Final UMKM 0,5% — kapan ini menguntungkan?",
+      "Manfaat menikah untuk perhitungan PTKP dan pajak",
+      "Minta Bukti Potong dari semua klien — kenapa ini penting banget?",
+    ],
+    'Update Aturan Pajak': [
+      "Perubahan batas PTKP terbaru — apakah penghasilan Anda kena pajak?",
+      "Core Tax System DJP — apa artinya buat UMKM dan freelancer?",
+      "Aturan baru pajak marketplace dan platform digital",
+      "PPN terbaru — apa yang berubah untuk konsumen dan pebisnis?",
+      "Aturan pajak untuk crypto dan aset digital di Indonesia",
+      "Pajak penghasilan dari YouTube, TikTok, dan platform konten",
+      "Pembaruan aturan e-SPT dan pelaporan online DJP",
+      "Insentif pajak UMKM — program pemerintah yang jarang diketahui",
+      "Aturan pajak untuk bisnis dropship dan reseller",
+      "Perubahan tarif PPh Badan — dampaknya ke bisnis skala kecil",
+    ],
+    'Studi Kasus': [
+      "Studi kasus: freelancer desainer optimasi pajak dari nol",
+      "Studi kasus: UMKM kuliner dari tidak lapor pajak ke compliant",
+      "Studi kasus: pebisnis online omzet 1M per bulan pajaknya seperti apa",
+      "Studi kasus: karyawan dengan bisnis sampingan cara lapor yang benar",
+      "Studi kasus: agency owner pisahkan entitas untuk efisiensi pajak",
+      "Studi kasus: influencer 500K followers urus pajak endorse pertama kali",
+      "Studi kasus: bisnis keluarga yang baru daftarkan badan usaha",
+      "Studi kasus: UMKM dapat KUR — dampak ke pelaporan pajak",
+      "Studi kasus: freelancer kerja remote untuk startup asing",
+      "Studi kasus: penjual Tokopedia omzet naik drastis pajak ikut naik?",
+    ],
+    'Checklist Pajak': [
+      "Checklist SPT Tahunan untuk karyawan — jangan sampai ada yang ketinggalan",
+      "Checklist pajak untuk UMKM baru daftar",
+      "Checklist dokumen yang harus disiapkan sebelum konsultasi pajak",
+      "Checklist akhir tahun pajak untuk freelancer",
+      "Checklist bukti transaksi yang wajib disimpan untuk keperluan pajak",
+      "Checklist pajak untuk pebisnis online sebelum audit",
+      "Checklist saat terima surat SP2DK dari DJP — harus apa saja?",
+      "Checklist pembukuan bulanan untuk UMKM dan freelancer",
+      "Checklist pajak sebelum tutup atau jual bisnis",
+      "Checklist perpajakan untuk bisnis yang mau scale up",
+    ],
+    'FAQ Pajak': [
+      "Berapa penghasilan minimal yang kena pajak di Indonesia?",
+      "Apa bedanya NPWP, NIK, dan NITKU?",
+      "Apakah penghasilan dari warisan dan hadiah kena pajak?",
+      "Bagaimana kalau saya terlambat lapor SPT — apa yang harus dilakukan?",
+      "Apakah penghasilan pasif (kos-kosan, deposito) kena pajak juga?",
+      "Apa itu SP2DK dan bagaimana cara meresponsnya?",
+      "Beda Wajib Pajak Orang Pribadi dan Badan — mana yang lebih cocok?",
+      "Apakah penghasilan dari jual barang bekas online kena pajak?",
+      "Apa itu pemeriksaan pajak dan kapan biasanya dilakukan?",
+      "Bagaimana cara lapor pajak pertama kali kalau belum pernah sama sekali?",
+    ],
+  };
+
   // ── Pill setup ──────────────────────────────────────────────
   function setupSingleSelect(groupId) {
     const group = document.getElementById(groupId);
@@ -5061,128 +5184,7 @@ Sekarang buat Threads untuk topik: "${topic}"
   const PROGRESS_KEY = 'pajak_progress';
   let progressFilter = 'all';
 
-  const PROGRESS_TOPICS = {
-    'Kesalahan Pajak Umum': [
-      "Sudah bayar pajak tapi tidak lapor SPT — apakah tetap kena denda?",
-      "Salah mengisi status PTKP di SPT tahunan",
-      "Lupa mencantumkan penghasilan sampingan di SPT",
-      "Bayar pajak mepet deadline — risiko yang jarang disadari",
-      "Bukti potong hilang — apa yang harus dilakukan?",
-      "Melaporkan omzet lebih kecil dari kenyataan — konsekuensinya",
-      "Tidak tahu perbedaan SPT Tahunan dan SPT Masa",
-      "Salah pilih tarif pajak — terlalu besar bayar, atau malah kurang bayar",
-      "NPWP tidak aktif tapi masih terima penghasilan — aman atau tidak?",
-      "Menganggap tidak perlu lapor SPT karena sudah dipotong perusahaan",
-    ],
-    'Pajak UMKM': [
-      "UMKM omzet di bawah 500 juta — wajib bayar pajak atau tidak?",
-      "Cara hitung pajak UMKM 0,5% dengan benar",
-      "Kapan UMKM harus beralih dari PPh Final ke pajak normal?",
-      "UMKM jualan online — pajaknya beda dengan toko offline?",
-      "UMKM belum punya NPWP — risiko dan cara mengurusnya",
-      "Biaya operasional UMKM bisa dikurangi dari pajak — caranya?",
-      "Warung makan kecil kena pajak juga? Ini penjelasannya",
-      "UMKM dapat omzet dari marketplace — pajaknya bagaimana?",
-      "Perbedaan UMKM perseorangan vs badan dalam urusan pajak",
-      "UMKM baru buka usaha — kapan mulai wajib lapor pajak?",
-    ],
-    'Pajak Freelancer': [
-      "Freelancer dapat fee dari klien — kena pajak berapa persen?",
-      "Freelancer belum punya NPWP — boleh terima bayaran atau tidak?",
-      "Klien potong PPh 21 dari fee — apakah freelancer masih perlu lapor?",
-      "Freelancer kerja untuk klien luar negeri — pajaknya bagaimana?",
-      "Content creator dapat endorse — dianggap penghasilan dan kena pajak?",
-      "Perbedaan PPh 21 dan PPh 23 untuk freelancer",
-      "Freelancer multi-klien — cara menghitung total pajak tahunan",
-      "Designer, copywriter, programmer — tarif pajaknya sama atau beda?",
-      "Freelancer penghasilan tidak tetap — cara hitung pajak yang benar",
-      "Freelancer dapat honor dari lembaga pemerintah — pajaknya beda?",
-    ],
-    'Tax Myth': [
-      "Mitos: penghasilan di bawah 5 juta tidak kena pajak sama sekali",
-      "Mitos: kalau tidak ditagih DJP, berarti tidak ada masalah pajak",
-      "Mitos: UMKM kecil pasti aman dari pemeriksaan pajak",
-      "Mitos: bayar pajak lewat aplikasi sama saja dengan lapor SPT",
-      "Mitos: pajak hanya urusan orang kaya dan perusahaan besar",
-      "Mitos: freelancer tidak wajib punya NPWP",
-      "Mitos: kalau rugi, tidak perlu lapor SPT",
-      "Mitos: penghasilan dari jualan online tidak terdeteksi pajak",
-      "Mitos: konsultan pajak hanya untuk perusahaan besar",
-      "Mitos: sudah dipotong PPh otomatis berarti urusan pajak selesai",
-    ],
-    'Cerita Denda Pajak': [
-      "Warung kopi omzet 300 juta kena denda karena tidak lapor SPT 3 tahun",
-      "Freelancer desainer kaget tagihan pajak tiba-tiba 40 juta",
-      "Toko online viral di TikTok lupa urus pajak akhirnya kena audit",
-      "UMKM kuliner kena SP2DK dari DJP — ini yang terjadi",
-      "Karyawan resign dapat pesangon besar tidak tahu kena pajak",
-      "Pebisnis property kena pajak penjualan yang tidak diperhitungkan",
-      "Agency kena pemeriksaan pajak — yang bisa dipelajari",
-      "Influencer kena pajak endorse yang belum pernah dilaporkan",
-      "Bisnis online 5 tahun tidak pernah lapor pajak — apa yang terjadi?",
-      "UMKM dapat pinjaman modal — ternyata mempengaruhi urusan pajak",
-    ],
-    'Tips Legal Hemat Pajak': [
-      "Cara legal kurangi pajak dengan biaya jabatan",
-      "Manfaatkan PTKP untuk tanggungan keluarga — caranya?",
-      "UMKM bisa pakai pembukuan sederhana untuk hemat pajak",
-      "Pisahkan rekening bisnis dan pribadi — ini manfaat pajaknya",
-      "Investasi yang bisa kurangi beban pajak secara legal",
-      "Biaya operasional apa saja yang bisa jadi pengurang pajak?",
-      "Cara benar mencatat pengeluaran bisnis supaya diakui fiskus",
-      "Pindah ke PPh Final UMKM 0,5% — kapan ini menguntungkan?",
-      "Manfaat menikah untuk perhitungan PTKP dan pajak",
-      "Minta Bukti Potong dari semua klien — kenapa ini penting banget?",
-    ],
-    'Update Aturan Pajak': [
-      "Perubahan batas PTKP terbaru — apakah penghasilan Anda kena pajak?",
-      "Core Tax System DJP — apa artinya buat UMKM dan freelancer?",
-      "Aturan baru pajak marketplace dan platform digital",
-      "PPN terbaru — apa yang berubah untuk konsumen dan pebisnis?",
-      "Aturan pajak untuk crypto dan aset digital di Indonesia",
-      "Pajak penghasilan dari YouTube, TikTok, dan platform konten",
-      "Pembaruan aturan e-SPT dan pelaporan online DJP",
-      "Insentif pajak UMKM — program pemerintah yang jarang diketahui",
-      "Aturan pajak untuk bisnis dropship dan reseller",
-      "Perubahan tarif PPh Badan — dampaknya ke bisnis skala kecil",
-    ],
-    'Studi Kasus': [
-      "Studi kasus: freelancer desainer optimasi pajak dari nol",
-      "Studi kasus: UMKM kuliner dari tidak lapor pajak ke compliant",
-      "Studi kasus: pebisnis online omzet 1M per bulan pajaknya seperti apa",
-      "Studi kasus: karyawan dengan bisnis sampingan cara lapor yang benar",
-      "Studi kasus: agency owner pisahkan entitas untuk efisiensi pajak",
-      "Studi kasus: influencer 500K followers urus pajak endorse pertama kali",
-      "Studi kasus: bisnis keluarga yang baru daftarkan badan usaha",
-      "Studi kasus: UMKM dapat KUR — dampak ke pelaporan pajak",
-      "Studi kasus: freelancer kerja remote untuk startup asing",
-      "Studi kasus: penjual Tokopedia omzet naik drastis pajak ikut naik?",
-    ],
-    'Checklist Pajak': [
-      "Checklist SPT Tahunan untuk karyawan — jangan sampai ada yang ketinggalan",
-      "Checklist pajak untuk UMKM baru daftar",
-      "Checklist dokumen yang harus disiapkan sebelum konsultasi pajak",
-      "Checklist akhir tahun pajak untuk freelancer",
-      "Checklist bukti transaksi yang wajib disimpan untuk keperluan pajak",
-      "Checklist pajak untuk pebisnis online sebelum audit",
-      "Checklist saat terima surat SP2DK dari DJP — harus apa saja?",
-      "Checklist pembukuan bulanan untuk UMKM dan freelancer",
-      "Checklist pajak sebelum tutup atau jual bisnis",
-      "Checklist perpajakan untuk bisnis yang mau scale up",
-    ],
-    'FAQ Pajak': [
-      "Berapa penghasilan minimal yang kena pajak di Indonesia?",
-      "Apa bedanya NPWP, NIK, dan NITKU?",
-      "Apakah penghasilan dari warisan dan hadiah kena pajak?",
-      "Bagaimana kalau saya terlambat lapor SPT — apa yang harus dilakukan?",
-      "Apakah penghasilan pasif (kos-kosan, deposito) kena pajak juga?",
-      "Apa itu SP2DK dan bagaimana cara meresponsnya?",
-      "Beda Wajib Pajak Orang Pribadi dan Badan — mana yang lebih cocok?",
-      "Apakah penghasilan dari jual barang bekas online kena pajak?",
-      "Apa itu pemeriksaan pajak dan kapan biasanya dilakukan?",
-      "Bagaimana cara lapor pajak pertama kali kalau belum pernah sama sekali?",
-    ],
-  };
+
 
   function loadProgress() {
     try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
@@ -6057,13 +6059,14 @@ ${entry.prompt}
     const pillars = ['Semua', ...Object.keys(PROGRESS_TOPICS)];
     // Add Kustom if there are any
     if (loadCustomTopics().length > 0) pillars.push('Kustom');
-    cats.innerHTML = pillars.map(p => `
-      <div class="picker-cat ${p === pickerActivePillar ? 'active' : ''}"
+    cats.innerHTML = pillars.map(p => {
+      const safeP = p.replace(/'/g, '&#39;');
+      return `<div class="picker-cat ${p === pickerActivePillar ? 'active' : ''}"
         data-pillar="${p}"
-        onclick="setPickerPillar('${p.replace(/'/g, "\'")}')">
+        onclick="setPickerPillar('${safeP}')">
         ${p}
-      </div>
-    `).join('');
+      </div>`;
+    }).join('');
   }
 
   function renderPickerList() {
