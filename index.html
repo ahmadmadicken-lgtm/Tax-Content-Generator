@@ -638,11 +638,1645 @@
   }
 
   .history-empty-icon { font-size: 28px; margin-bottom: 8px; }
+
+  /* ── Favorites ── */
+  .fav-panel {
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .fav-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .fav-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 10px 5px 8px;
+    font-size: 12px;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    max-width: 280px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .fav-chip:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+    color: var(--accent2);
+  }
+
+  .fav-chip-star {
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .fav-chip-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .fav-chip-del {
+    font-size: 10px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-left: 2px;
+    line-height: 1;
+    padding: 1px 3px;
+    border-radius: 3px;
+    transition: color 0.1s, background 0.1s;
+  }
+
+  .fav-chip:hover .fav-chip-del {
+    color: #f87171;
+  }
+
+  /* Star button on topic input */
+  .input-star-wrap {
+    position: relative;
+  }
+
+  .btn-star-topic {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 4px;
+    border-radius: 6px;
+    transition: transform 0.2s;
+    opacity: 0.5;
+  }
+
+  .btn-star-topic:hover { opacity: 1; transform: translateY(-50%) scale(1.2); }
+  .btn-star-topic.starred { opacity: 1; }
+
+  .fav-empty {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    padding: 4px 0;
+  }
+
+  /* ── Variasi cepat ── */
+  .variasi-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .variasi-info {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+  }
+
+  .variasi-info strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .btn-variasi {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-variasi:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .btn-variasi:active {
+    transform: scale(0.97);
+  }
+
+  .btn-variasi .spin-icon {
+    display: inline-block;
+    transition: transform 0.4s ease;
+  }
+
+  .btn-variasi:hover .spin-icon {
+    transform: rotate(180deg);
+  }
+
+  .variasi-counter {
+    font-size: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 1px 7px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+
+  /* ── Content Calendar ── */
+  .cal-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .cal-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .cal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cal-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .cal-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-cal {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .btn-cal:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-cal.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-cal.primary:hover { background: var(--accent2); }
+
+  /* Week navigation */
+  .cal-week-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .cal-week-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    min-width: 160px;
+    text-align: center;
+  }
+
+  .btn-week-nav {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--muted);
+    font-size: 14px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .btn-week-nav:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Day grid */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+
+  .cal-day {
+    min-height: 130px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 8px;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+
+  .cal-day.drag-over {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .cal-day-header {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .cal-day-date {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .cal-day.today .cal-day-date {
+    color: var(--accent);
+  }
+
+  .cal-day.today {
+    border-color: rgba(249,115,22,0.4);
+  }
+
+  .cal-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .cal-slot {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 5px 7px;
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.3;
+    position: relative;
+    cursor: default;
+    transition: border-color 0.1s;
+    word-break: break-word;
+  }
+
+  .cal-slot:hover { border-color: var(--accent); }
+
+  .cal-slot-type {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+
+  .cal-slot-del {
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 10px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.1s;
+    line-height: 1;
+    padding: 1px 3px;
+    border-radius: 3px;
+  }
+
+  .cal-slot:hover .cal-slot-del { opacity: 1; }
+  .cal-slot-del:hover { color: #f87171; }
+
+  /* Add slot button */
+  .btn-add-slot {
+    width: 100%;
+    background: none;
+    border: 1px dashed var(--border);
+    border-radius: 7px;
+    color: var(--muted);
+    font-size: 16px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    margin-top: 4px;
+  }
+
+  .btn-add-slot:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+  /* Drag source */
+  .cal-drag-source {
+    padding: 0.9rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-top: 1rem;
+  }
+
+  .cal-drag-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .cal-draggable {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 4px 9px;
+    font-size: 11px;
+    color: var(--text);
+    cursor: grab;
+    margin: 3px;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .cal-draggable:hover { border-color: var(--accent); color: var(--accent2); }
+  .cal-draggable:active { cursor: grabbing; opacity: 0.7; }
+
+  @media (max-width: 700px) {
+    .cal-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .cal-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── Prompt Preview ── */
+  .preview-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    transition: border-color 0.3s, opacity 0.3s;
+    opacity: 0.5;
+  }
+
+  .preview-card.ready {
+    opacity: 1;
+    border-color: rgba(249,115,22,0.35);
+  }
+
+  .preview-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .preview-left { flex: 1; min-width: 0; }
+
+  .preview-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .preview-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 0.75rem;
+  }
+
+  .preview-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+  }
+
+  .preview-tag.type  { color: var(--accent);  border-color: rgba(249,115,22,0.3); background: var(--accent-glow); }
+  .preview-tag.tone  { color: #60a5fa; border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.08); }
+  .preview-tag.topic { color: var(--text); border-color: var(--border); max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .preview-metrics {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .preview-metric {
+    text-align: center;
+  }
+
+  .preview-metric-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .preview-metric-val.green { color: var(--green); }
+  .preview-metric-val.orange { color: var(--accent); }
+  .preview-metric-val.blue { color: #60a5fa; }
+
+  .preview-metric-label {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    margin-top: 2px;
+  }
+
+  /* Hook score bar */
+  .hook-score-wrap {
+    margin-top: 0.75rem;
+  }
+
+  .hook-score-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .hook-score-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .hook-score-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .hook-score-bar-bg {
+    height: 5px;
+    background: var(--surface2);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .hook-score-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1), background 0.3s;
+  }
+
+  .preview-empty {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── Template Kustom ── */
+  .tmpl-panel { margin-bottom: 1.25rem; }
+
+  .tmpl-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 0.6rem;
+  }
+
+  .tmpl-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    overflow: hidden;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    transition: border-color 0.15s;
+    cursor: pointer;
+  }
+
+  .tmpl-chip:hover { border-color: var(--accent); }
+
+  .tmpl-chip-body {
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .tmpl-chip-name {
+    color: var(--text);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+  }
+
+  .tmpl-chip-meta {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .tmpl-chip-tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--surface);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  .tmpl-chip-tag.t-type { color: var(--accent); border-color: rgba(249,115,22,0.3); background: var(--accent-glow); }
+  .tmpl-chip-tag.t-tone { color: #60a5fa; border-color: rgba(96,165,250,0.25); background: rgba(96,165,250,0.07); }
+
+  .tmpl-chip-del {
+    padding: 0 8px;
+    background: none;
+    border: none;
+    border-left: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    cursor: pointer;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    transition: color 0.1s, background 0.1s;
+  }
+
+  .tmpl-chip-del:hover { color: #f87171; background: rgba(248,113,113,0.08); }
+
+  .btn-save-tmpl {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: 1px dashed var(--border);
+    border-radius: 9px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-save-tmpl:hover { border-color: var(--green); color: var(--green); background: rgba(34,211,160,0.06); }
+
+  /* Save modal */
+  .tmpl-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.15s ease;
+  }
+
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+  .tmpl-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 360px;
+    max-width: 90vw;
+    animation: slideUp 0.2s ease;
+  }
+
+  @keyframes slideUp {
+    from { opacity:0; transform: translateY(16px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  .tmpl-modal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .tmpl-modal-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .tmpl-modal-preview {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .tmpl-modal-preview strong { color: var(--text); font-family: 'Syne', sans-serif; }
+
+  .tmpl-modal-actions { display: flex; gap: 8px; }
+
+  .btn-tmpl-save {
+    flex: 1;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 9px;
+    padding: 9px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-tmpl-save:hover { background: var(--accent2); }
+
+  .btn-tmpl-cancel {
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 9px 16px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-tmpl-cancel:hover { color: var(--text); }
+
+  /* ── Statistik ── */
+  .stats-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stats-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+
+  .stats-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (max-width: 680px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: rgba(249,115,22,0.3); }
+
+  .stat-icon { font-size: 20px; margin-bottom: 6px; }
+
+  .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .stat-val.orange { color: var(--accent); }
+  .stat-val.green  { color: var(--green); }
+  .stat-val.blue   { color: #60a5fa; }
+  .stat-val.purple { color: #a78bfa; }
+
+  .stat-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Bar charts */
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 600px) { .stats-row { grid-template-columns: 1fr; } }
+
+  .stats-chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+  }
+
+  .stats-chart-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 7px;
+  }
+
+  .bar-label {
+    font-size: 11px;
+    color: var(--text);
+    width: 90px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 7px;
+    background: var(--surface2);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .bar-count {
+    font-size: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    color: var(--muted);
+    width: 20px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Streak */
+  .streak-row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .streak-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+
+  .streak-dot.active { background: var(--accent); border-color: var(--accent); }
+  .streak-dot.today  { background: var(--green);  border-color: var(--green); }
+
+  .btn-reset-stats {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-reset-stats:hover { color: #f87171; border-color: rgba(248,113,113,0.4); }
+
+  /* ── Keyword Suggestion ── */
+  .suggest-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    z-index: 150;
+    overflow: hidden;
+    animation: fadeUp 0.15s ease;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .suggest-dropdown::-webkit-scrollbar { width: 3px; }
+  .suggest-dropdown::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+  .suggest-group-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 12px 4px;
+  }
+
+  .suggest-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+    transition: background 0.1s;
+    border-radius: 0;
+  }
+
+  .suggest-item:hover, .suggest-item.active {
+    background: var(--surface2);
+  }
+
+  .suggest-item-icon {
+    font-size: 12px;
+    flex-shrink: 0;
+    width: 18px;
+    text-align: center;
+  }
+
+  .suggest-item-text { flex: 1; min-width: 0; }
+
+  .suggest-item-text mark {
+    background: var(--accent-glow);
+    color: var(--accent);
+    border-radius: 2px;
+    padding: 0 1px;
+    font-style: normal;
+  }
+
+  .suggest-item-badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .suggest-empty {
+    padding: 12px;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* ── Progress Tracker ── */
+  .progress-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .progress-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .progress-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); }
+  .progress-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .progress-actions { display: flex; gap: 8px; align-items: center; }
+
+  .progress-bar-wrap {
+    background: var(--surface2);
+    border-radius: 99px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .progress-stats-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .progress-stat {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  .progress-stat strong { color: var(--text); }
+
+  /* Filter tabs */
+  .progress-filter-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .progress-filter {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .progress-filter.active, .progress-filter:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  /* Topic list */
+  .progress-pillar { margin-bottom: 1.25rem; }
+
+  .progress-pillar-header {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .progress-pillar-count {
+    font-size: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 99px;
+    color: var(--muted);
+  }
+
+  .progress-pillar-count.done { color: var(--green); border-color: rgba(34,211,160,0.3); background: rgba(34,211,160,0.07); }
+
+  .progress-topic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background 0.12s;
+    margin-bottom: 3px;
+    user-select: none;
+  }
+
+  .progress-topic-item:hover { background: var(--surface2); }
+
+  .progress-checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    font-size: 10px;
+  }
+
+  .progress-topic-item.done .progress-checkbox {
+    background: var(--green);
+    border-color: var(--green);
+    color: #0b0c10;
+  }
+
+  .progress-topic-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  .progress-topic-item.done .progress-topic-text {
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  .progress-topic-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.1s;
+    flex-shrink: 0;
+  }
+
+  .progress-topic-item:hover .progress-topic-actions { opacity: 1; }
+
+  .btn-topic-action {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--muted);
+    font-size: 10px;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    transition: all 0.1s;
+    white-space: nowrap;
+  }
+
+  .btn-topic-action:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── Quick Copy Snippets ── */
+  .snippets-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .snippets-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .snippets-tab {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .snippets-tab.active, .snippets-tab:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .snippets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+
+  .snippet-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .snippet-card:hover {
+    border-color: var(--accent);
+    background: var(--surface2);
+    transform: translateY(-1px);
+  }
+
+  .snippet-card:active { transform: translateY(0); }
+
+  .snippet-type {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .snippet-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .snippet-copy-hint {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .snippet-card.copied {
+    border-color: var(--green);
+    background: rgba(34,211,160,0.05);
+  }
+
+  .snippet-copied-badge {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    color: var(--green);
+    background: rgba(34,211,160,0.1);
+    border: 1px solid rgba(34,211,160,0.3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .snippet-card.copied .snippet-copied-badge { opacity: 1; }
+
+  /* ── Prompt Quality Checker ── */
+  .quality-bar {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+
+  .quality-bar.visible { display: block; animation: fadeUp 0.25s ease; }
+
+  .quality-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .quality-score-badge {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .quality-checks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px;
+  }
+
+  .quality-check {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 5px 8px;
+    border-radius: 7px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+
+  .quality-check.pass { color: var(--text); border-color: rgba(34,211,160,0.25); }
+  .quality-check.fail { color: var(--muted); opacity: 0.65; }
+
+  .quality-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .quality-check.pass .quality-dot { background: var(--green); }
+  .quality-check.fail .quality-dot { background: var(--muted); }
+
+  /* ── Onboarding ── */
+  .onboard-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .onboard-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 420px;
+    max-width: 92vw;
+    animation: slideUp 0.25s ease;
+    position: relative;
+  }
+
+  .onboard-step-badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(249,115,22,0.3);
+    padding: 3px 10px;
+    border-radius: 99px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .onboard-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+  .onboard-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .onboard-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .onboard-dots {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 1.25rem;
+  }
+
+  .onboard-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.2s, width 0.2s;
+  }
+
+  .onboard-dot.active { background: var(--accent); width: 18px; border-radius: 3px; }
+
+  .onboard-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+  .btn-onboard-skip {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-onboard-skip:hover { color: var(--text); border-color: var(--muted); }
+
+  .btn-onboard-next {
+    background: var(--accent);
+    border: none;
+    border-radius: 9px;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-onboard-next:hover { background: var(--accent2); }
+
+  /* Keyboard shortcut hint bar */
+  .shortcut-bar {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 6px 16px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    z-index: 90;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .shortcut-bar.visible { opacity: 1; pointer-events: auto; }
+
+  .shortcut-key {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text);
+    font-family: monospace;
+  }
+
+  /* ── Related Topics ── */
+  .related-bar {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+  .related-bar.visible { display: block; }
+  .related-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+  .related-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .related-chip {
+    font-size: 12px;
+    color: var(--text);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .related-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+  /* ── Tone Preview tooltip ── */
+  .tone-preview-wrap { position: relative; }
+  .tone-preview-popup {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    z-index: 120;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    animation: fadeUp 0.15s ease;
+    display: none;
+  }
+  .tone-preview-popup.visible { display: block; }
+  .tone-preview-example {
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.65;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .tone-preview-desc {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  /* ── Pinned Output ── */
+  .pinned-section { margin-top: 1.5rem; }
+  .pinned-item {
+    background: var(--surface);
+    border: 1px solid rgba(249,115,22,0.25);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .pinned-item-body { flex: 1; min-width: 0; }
+  .pinned-item-topic {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pinned-item-preview {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pinned-item-actions { display: flex; gap: 5px; flex-shrink: 0; }
+  .btn-pinned {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 11px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    padding: 3px 8px;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+  .btn-pinned:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-pin-output {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 11px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-pin-output:hover { border-color: #f59e0b; color: #f59e0b; }
+  .btn-pin-output.pinned { color: #f59e0b; border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.08); }
 </style>
 </head>
 <body>
 
 <div class="glow-orb"></div>
+
+<!-- Onboarding overlay -->
+<div class="onboard-overlay" id="onboardOverlay" style="display:none;">
+  <div class="onboard-card">
+    <div class="onboard-step-badge" id="onboardStepBadge">Step 1 / 5</div>
+    <div class="onboard-icon" id="onboardIcon"></div>
+    <div class="onboard-title" id="onboardTitle"></div>
+    <div class="onboard-desc" id="onboardDesc"></div>
+    <div class="onboard-dots" id="onboardDots"></div>
+    <div class="onboard-actions">
+      <button class="btn-onboard-skip" onclick="skipOnboard()">Lewati</button>
+      <button class="btn-onboard-next" id="onboardNextBtn" onclick="nextOnboard()">Lanjut →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Keyboard shortcut bar -->
+<div class="shortcut-bar" id="shortcutBar">
+  <span><span class="shortcut-key">⌘ Enter</span> Generate</span>
+  <span><span class="shortcut-key">⌘ K</span> Fokus input</span>
+  <span><span class="shortcut-key">⌘ D</span> Random topik</span>
+  <span><span class="shortcut-key">⌘ S</span> Save template</span>
+  <span><span class="shortcut-key">⌘ ⇧ V</span> Variasi</span>
+  <button onclick="document.getElementById('shortcutBar').classList.remove('visible')" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0 0 0 4px;">✕</button>
+</div>
 
 <!-- Dark/Light toggle — fixed top right -->
 <button id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode" style="
@@ -682,10 +2316,55 @@
   <h1>Buat Konten <em>Pajak</em><br>yang Viral & Convert</h1>
   <p class="subtitle">Generate structured prompt untuk Instagram, Threads, & lebih banyak lagi — powered by brand voice Konsultasi Pajak Gratis.</p>
 
+  <!-- Favorites Panel -->
+  <div class="fav-panel" id="favPanel">
+    <div class="card" style="padding:1.1rem 1.5rem;">
+      <div class="history-header" style="margin-bottom:0.7rem;">
+        <div class="history-title">⭐ Topik Favorit <span class="history-count" id="favCount">0</span></div>
+        <span style="font-size:11px;color:var(--muted);">Klik untuk isi topik</span>
+      </div>
+      <div class="fav-grid" id="favGrid">
+        <div class="fav-empty">Belum ada favorit. Klik ⭐ di input topik untuk menyimpan.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Template Kustom -->
+  <div class="tmpl-panel" id="tmplPanel">
+    <div class="card" style="padding:1.1rem 1.5rem;">
+      <div class="history-header" style="margin-bottom:0.7rem;">
+        <div class="history-title">🧩 Template Kustom <span class="history-count" id="tmplCount">0</span></div>
+        <button class="btn-save-tmpl" onclick="openSaveTemplate()">+ Simpan Setting Sekarang</button>
+      </div>
+      <div class="tmpl-grid" id="tmplGrid">
+        <div class="fav-empty">Belum ada template. Klik "Simpan Setting Sekarang" untuk menyimpan kombinasi tipe+tone+audience.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Template Save Modal -->
+  <div class="tmpl-modal-overlay" id="tmplModal" style="display:none;" onclick="closeSaveTemplate(event)">
+    <div class="tmpl-modal" onclick="event.stopPropagation()">
+      <div class="tmpl-modal-title">💾 Simpan Template</div>
+      <div class="tmpl-modal-sub">Beri nama untuk kombinasi setting ini</div>
+      <div class="tmpl-modal-preview" id="tmplModalPreview"></div>
+      <input type="text" id="tmplNameInput" placeholder="Contoh: Carousel Fear UMKM, Threads Viral Freelancer..." style="margin-bottom:1rem;" />
+      <div class="tmpl-modal-actions">
+        <button class="btn-tmpl-cancel" onclick="closeSaveTemplate()">Batal</button>
+        <button class="btn-tmpl-save" onclick="confirmSaveTemplate()">💾 Simpan Template</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Input Topik -->
   <div class="card">
     <div class="section-label">01 — Topik Konten</div>
-    <input type="text" id="topicInput" placeholder="Contoh: UMKM belum punya NPWP, freelancer kena PPh 21, denda telat lapor..." />
+    <div class="input-star-wrap" style="position:relative;">
+      <input type="text" id="topicInput" placeholder="Contoh: UMKM belum punya NPWP, freelancer kena PPh 21, denda telat lapor..." style="padding-right:4.5rem;" autocomplete="off" />
+      <button class="btn-star-topic" id="diceBtn" onclick="randomTopic()" title="Topik random 🎲" style="right:2.4rem;">🎲</button>
+      <button class="btn-star-topic" id="starBtn" onclick="toggleFavorite()" title="Simpan ke favorit">⭐</button>
+      <div class="suggest-dropdown" id="suggestDropdown" style="display:none;"></div>
+    </div>
   </div>
 
   <!-- Tipe Konten -->
@@ -717,12 +2396,15 @@
 
   <!-- Tone -->
   <div class="card">
-    <div class="section-label">03 — Tone</div>
-    <div class="pill-group" id="toneGroup">
-      <div class="pill active" data-value="edukasi">📚 Edukasi</div>
-      <div class="pill" data-value="fear">😱 Fear</div>
-      <div class="pill" data-value="viral">🔥 Viral</div>
-      <div class="pill" data-value="storytelling">💬 Storytelling</div>
+    <div class="section-label">03 — Tone <span style="font-size:10px;color:var(--muted);font-weight:400;letter-spacing:0;">(hover untuk preview)</span></div>
+    <div class="tone-preview-wrap">
+      <div class="pill-group" id="toneGroup">
+        <div class="pill active" data-value="edukasi" onmouseenter="showTonePreview('edukasi',this)" onmouseleave="hideTonePreview()">📚 Edukasi</div>
+        <div class="pill" data-value="fear" onmouseenter="showTonePreview('fear',this)" onmouseleave="hideTonePreview()">😱 Fear</div>
+        <div class="pill" data-value="viral" onmouseenter="showTonePreview('viral',this)" onmouseleave="hideTonePreview()">🔥 Viral</div>
+        <div class="pill" data-value="storytelling" onmouseenter="showTonePreview('storytelling',this)" onmouseleave="hideTonePreview()">💬 Storytelling</div>
+      </div>
+      <div class="tone-preview-popup" id="tonePreviewPopup"></div>
     </div>
   </div>
 
@@ -756,6 +2438,29 @@
     </div>
   </div>
 
+  <!-- Prompt Preview -->
+  <div class="preview-card" id="previewCard">
+    <div class="preview-label">⚡ Preview Prompt</div>
+    <div id="previewEmpty" class="preview-empty">Ketik topik untuk melihat preview...</div>
+    <div id="previewContent" style="display:none;">
+      <div class="preview-row">
+        <div class="preview-left">
+          <div class="preview-summary" id="previewTags"></div>
+          <div class="hook-score-wrap">
+            <div class="hook-score-label">
+              <span class="hook-score-title">Hook Power</span>
+              <span class="hook-score-val" id="hookScoreLabel" style="color:var(--muted);">—</span>
+            </div>
+            <div class="hook-score-bar-bg">
+              <div class="hook-score-bar-fill" id="hookScoreBar" style="width:0%;background:var(--muted);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-metrics" id="previewMetrics"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Generate Button -->
   <button class="btn-generate" id="generateBtn" onclick="handleGenerate()">
     <div class="spinner"></div>
@@ -763,16 +2468,30 @@
   </button>
 
   <!-- History Panel -->
-  <div class="history-panel" id="historyPanel" style="display:none;">
+  <div class="history-panel" id="historyPanel">
     <div class="card" style="padding:1.25rem 1.5rem;">
       <div class="history-header">
         <div class="history-title">
           🕐 Riwayat Generate
           <span class="history-count" id="historyCount">0</span>
         </div>
-        <button class="btn-clear-all" onclick="clearAllHistory()">Hapus Semua</button>
+        <div style="display:flex;gap:6px;">
+          <button class="btn-clear-all" onclick="exportBatch()" style="color:var(--muted);">⬇ Export</button>
+          <button class="btn-clear-all" onclick="clearAllHistory()">Hapus Semua</button>
+        </div>
       </div>
       <div class="history-list" id="historyList"></div>
+    </div>
+  </div>
+
+  <!-- Pinned Outputs Panel -->
+  <div class="pinned-section" id="pinnedSection" style="display:none;">
+    <div class="card" style="padding:1.1rem 1.5rem;">
+      <div class="history-header" style="margin-bottom:0.7rem;">
+        <div class="history-title">📌 Output Pinned <span class="history-count" id="pinnedCount">0</span></div>
+        <button class="btn-clear-all" onclick="clearAllPinned()">Hapus Semua</button>
+      </div>
+      <div id="pinnedList"></div>
     </div>
   </div>
 
@@ -809,6 +2528,38 @@
         </div>
       </div>
       <div class="prompt-output" id="promptOutput"></div>
+
+      <!-- Variasi Cepat bar -->
+      <div class="variasi-bar" id="variasiBar" style="display:none;">
+        <div class="variasi-info">
+          Hook & CTA berbeda, setting sama
+          <span class="variasi-counter" id="variasiCounter">v1</span>
+        </div>
+        <button class="btn-variasi" onclick="generateVariasi()" id="variasiBtn">
+          <span class="spin-icon">🔄</span> Coba Variasi Lain
+        </button>
+      </div>
+
+      <!-- Prompt Quality Checker -->
+      <div class="quality-bar" id="qualityBar">
+        <div class="quality-title">
+          🔍 Prompt Quality Check
+          <span class="quality-score-badge" id="qualityBadge"></span>
+        </div>
+        <div class="quality-checks" id="qualityChecks"></div>
+      </div>
+
+      <!-- Related Topics bar -->
+      <div class="related-bar" id="relatedBar">
+        <div class="related-label">💡 Topik Terkait — klik untuk ganti topik</div>
+        <div class="related-chips" id="relatedChips"></div>
+      </div>
+
+      <!-- Pin output bar -->
+      <div style="margin-top:0.9rem;padding-top:0.9rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:11px;color:var(--muted);font-family:'Syne',sans-serif;font-weight:600;">Prompt bagus? Simpan sebagai referensi.</span>
+        <button class="btn-pin-output" id="pinBtn" onclick="pinCurrentOutput()">📌 Pin Output</button>
+      </div>
     </div>
   </div>
 
@@ -881,6 +2632,126 @@
 
 </div>
 
+<!-- Content Calendar — separate full-width section -->
+<div style="max-width:1100px;margin:0 auto;padding:0 1.25rem 5rem;position:relative;z-index:1;">
+  <div class="cal-section" id="calSection">
+
+    <div class="cal-section-header">
+      <div>
+        <div class="cal-title">📅 Content Calendar</div>
+        <div class="cal-subtitle">Jadwalkan topik ke hari — drag & drop atau klik +</div>
+      </div>
+      <div class="cal-actions">
+        <button class="btn-cal" onclick="clearCalWeek()">🗑 Kosongkan Minggu</button>
+        <button class="btn-cal primary" onclick="exportCalMarkdown()">⬇ Export MD</button>
+      </div>
+    </div>
+
+    <!-- Week navigation -->
+    <div class="cal-week-nav">
+      <button class="btn-week-nav" onclick="shiftWeek(-1)">‹</button>
+      <div class="cal-week-label" id="calWeekLabel"></div>
+      <button class="btn-week-nav" onclick="shiftWeek(1)">›</button>
+      <button class="btn-cal" onclick="goToToday()" style="margin-left:4px;font-size:10px;padding:5px 10px;">Hari ini</button>
+    </div>
+
+    <!-- 7-day grid -->
+    <div class="cal-grid" id="calGrid"></div>
+
+    <!-- Drag sources: Recent topics from history + favorites -->
+    <div class="cal-drag-source" id="calDragSource">
+      <div class="cal-drag-label">🗂 Topik siap dijadwalkan — drag ke hari atau klik untuk pilih</div>
+      <div id="calDraggables" style="display:flex;flex-wrap:wrap;gap:0;"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Stats Section -->
+<div style="max-width:1100px;margin:0 auto;padding:0 1.25rem 5rem;position:relative;z-index:1;">
+  <div class="stats-section" id="statsSection">
+
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.3rem;">
+      <div>
+        <div class="stats-title">📊 Statistik</div>
+        <div class="stats-subtitle">Data dari aktivitas generate kamu — tersimpan lokal</div>
+      </div>
+      <button class="btn-reset-stats" onclick="resetStats()">Reset Data</button>
+    </div>
+
+    <!-- KPI cards -->
+    <div class="stats-grid" id="statsKpi"></div>
+
+    <!-- Charts row -->
+    <div class="stats-row">
+      <div class="stats-chart-card">
+        <div class="stats-chart-title">Platform Terpopuler</div>
+        <div id="chartPlatform"></div>
+      </div>
+      <div class="stats-chart-card">
+        <div class="stats-chart-title">Tone Favorit</div>
+        <div id="chartTone"></div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stats-chart-card">
+        <div class="stats-chart-title">Tipe Konten</div>
+        <div id="chartType"></div>
+      </div>
+      <div class="stats-chart-card">
+        <div class="stats-chart-title">🔥 Streak Aktif — 30 Hari Terakhir</div>
+        <div class="streak-row" id="streakRow"></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;" id="streakLabel"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Progress Tracker -->
+  <div class="progress-section" id="progressSection">
+    <div class="progress-header">
+      <div>
+        <div class="progress-title">✅ Progress Tracker</div>
+        <div class="progress-subtitle">100 topik pajak — centang yang sudah diposting</div>
+      </div>
+      <div class="progress-actions">
+        <span style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--muted);" id="progressPct">0%</span>
+        <button class="btn-cal" onclick="resetProgress()">Reset</button>
+      </div>
+    </div>
+
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBarFill" style="width:0%"></div></div>
+    <div class="progress-stats-row" id="progressStatsRow"></div>
+
+    <div class="progress-filter-row">
+      <div class="progress-filter active" data-filter="all" onclick="setProgressFilter('all')">Semua</div>
+      <div class="progress-filter" data-filter="todo" onclick="setProgressFilter('todo')">Belum ✗</div>
+      <div class="progress-filter" data-filter="done" onclick="setProgressFilter('done')">Sudah ✓</div>
+    </div>
+
+    <div id="progressList"></div>
+  </div>
+
+  <!-- Quick Copy Snippets -->
+  <div class="snippets-section" id="snippetsSection">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.35rem;">
+      <div>
+        <div class="progress-title">⚡ Quick Copy Snippets</div>
+        <div class="progress-subtitle">Klik untuk langsung copy — hook, CTA, opening line siap pakai</div>
+      </div>
+    </div>
+    <div class="snippets-tabs">
+      <div class="snippets-tab active" data-tab="hook" onclick="setSnippetTab('hook')">🪝 Hook</div>
+      <div class="snippets-tab" data-tab="cta" onclick="setSnippetTab('cta')">📣 CTA</div>
+      <div class="snippets-tab" data-tab="opening" onclick="setSnippetTab('opening')">✍️ Opening</div>
+      <div class="snippets-tab" data-tab="closing" onclick="setSnippetTab('closing')">🎯 Closing</div>
+    </div>
+    <div class="snippets-grid" id="snippetsGrid"></div>
+  </div>
+
+</div>
+
 <script>
   // ── Pill setup ──────────────────────────────────────────────
   function setupSingleSelect(groupId) {
@@ -889,6 +2760,7 @@
       pill.addEventListener('click', () => {
         group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
+        updatePreview();
       });
     });
   }
@@ -922,6 +2794,7 @@
             if (g) g.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
           });
           pill.classList.add('active');
+          updatePreview();
         });
       });
     });
@@ -932,8 +2805,38 @@
   setupToggle('pillarGroup');
   setupTogglePills('audienceGroup');
 
-  // Init history on load
-  renderHistory();
+  // Init on DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    renderHistory();
+    renderFavorites();
+    renderTemplates();
+    renderStats();
+    renderProgress();
+    renderSnippets();
+    renderPinned();
+    updateStarBtn();
+    renderCalGrid();
+    updatePreview();
+    const topicEl = document.getElementById('topicInput');
+
+    topicEl.addEventListener('input', () => {
+      updateStarBtn();
+      updatePreview();
+      renderSuggest(topicEl.value.trim());
+    });
+
+    topicEl.addEventListener('keydown', e => {
+      const dropdown = document.getElementById('suggestDropdown');
+      if (dropdown.style.display === 'none') return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); navigateSuggest(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); navigateSuggest(-1); }
+      else if (e.key === 'Enter' && suggestIndex >= 0) { e.preventDefault(); selectSuggest(suggestIndex); }
+      else if (e.key === 'Escape') closeSuggest();
+    });
+
+    topicEl.addEventListener('blur', () => setTimeout(closeSuggest, 150));
+    topicEl.addEventListener('focus', () => { if (topicEl.value.trim().length >= 2) renderSuggest(topicEl.value.trim()); });
+  });
 
   function getActive(groupId, selector = '.pill') {
     const group = document.getElementById(groupId);
@@ -1135,8 +3038,11 @@ Spesifikasi: 1080 × 1920 px · Rasio 9:16 · Safe zone 80px`,
     document.getElementById('outputThreads').classList.remove('visible');
 
     if (contentType === 'threads') {
+      document.getElementById('variasiBar').style.display = 'none';
       generateThreads({ topic, tone, pillars, audiences });
     } else {
+      variasiCount = 1;
+      document.getElementById('variasiCounter').textContent = 'v1';
       generatePrompt({ topic, contentType, tone, pillars, audiences });
     }
   }
@@ -1232,6 +3138,18 @@ Sekarang buat ${contentTypeLabel} untuk topik: "${topic}"
 
       document.getElementById('promptOutput').textContent = prompt;
       addToHistory({ topic, contentType, tone, prompt });
+      renderCalDraggables();
+      trackGenerate(contentType, tone);
+      runQualityCheck(prompt, contentType, tone, topic);
+      renderRelatedTopics(topic, contentType);
+      renderPinned();
+      // Reset pin button for new output
+      document.getElementById('pinBtn').classList.remove('pinned');
+      document.getElementById('pinBtn').innerHTML = '📌 Pin Output';
+
+      // Store params for variasi cepat
+      lastGenerateParams = { topic, contentType, tone, pillars, audiences };
+      variasiCount = lastGenerateParams === null ? 1 : variasiCount;
       document.getElementById('carouselBadge').style.display = (contentType === 'carousel' || contentType === 'wa_flyer') ? 'block' : 'none';
       // Show ChatGPT tip banner for image prompts
       const chatgptTip = document.getElementById('chatgptTip');
@@ -1259,6 +3177,10 @@ Sekarang buat ${contentTypeLabel} untuk topik: "${topic}"
       document.querySelector('#outputPrompt .output-title').style.color = isImagePrompt ? '#a78bfa' : 'var(--green)';
 
       document.getElementById('outputPrompt').classList.add('visible');
+
+      // Show variasi bar (not for threads)
+      document.getElementById('variasiBar').style.display = 'flex';
+
       document.getElementById('outputPrompt').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       // Reset copy button
@@ -1469,6 +3391,286 @@ Sekarang buat Threads untuk topik: "${topic}"
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  // ── Prompt Preview ───────────────────────────────────────────
+  const typeMetrics = {
+    carousel:   { slides: '8–10', chars: '~2.400', outputs: '8–10 Slide' },
+    caption:    { slides: '1',    chars: '~800',   outputs: '1 Caption + Hashtag' },
+    hook:       { slides: '5',    chars: '~400',   outputs: '5 Variasi Hook' },
+    cta:        { slides: '4',    chars: '~500',   outputs: '4 Variasi CTA' },
+    wa_caption: { slides: '1',    chars: '~200',   outputs: '1 WA Caption' },
+    wa_flyer:   { slides: '1',    chars: '~1.200', outputs: '1 Image Prompt + Caption' },
+    threads:    { slides: '6–8',  chars: '~1.500', outputs: '6–8 Utas' },
+  };
+
+  // Keywords that boost hook power score
+  const hookKeywords = {
+    fear:    ['denda','kena','rugi','masalah','audit','telat','salah','bahaya','gagal','sanksi'],
+    viral:   ['rahasia','ternyata','banyak yang','jarang','selama ini','sebenarnya','jangan','hati-hati','wajib'],
+    curious: ['kenapa','bagaimana','berapa','apa','kapan','siapa','gimana','cara','tips','trik'],
+    number:  ['%','juta','ribu','miliar','1','2','3','4','5','10','50','100','1000'],
+  };
+
+  function calcHookScore(topic, tone) {
+    if (!topic) return { score: 0, label: '—', color: 'var(--muted)' };
+    const t = topic.toLowerCase();
+    let score = 20; // base
+
+    // Length bonus (sweet spot 30–80 chars)
+    if (topic.length >= 20 && topic.length <= 80) score += 15;
+    else if (topic.length > 80) score += 5;
+
+    // Keyword matches
+    let hits = 0;
+    Object.values(hookKeywords).forEach(words => {
+      words.forEach(w => { if (t.includes(w)) hits++; });
+    });
+    score += Math.min(hits * 8, 40);
+
+    // Tone bonus
+    if (tone === 'fear') score += 10;
+    if (tone === 'viral') score += 12;
+    if (tone === 'storytelling') score += 8;
+
+    // Question mark bonus
+    if (topic.includes('?')) score += 8;
+
+    // Cap
+    score = Math.min(score, 99);
+
+    let label, color;
+    if (score >= 80) { label = 'Sangat Kuat 🔥'; color = '#f97316'; }
+    else if (score >= 60) { label = 'Kuat ⚡'; color = '#22d3a0'; }
+    else if (score >= 40) { label = 'Cukup 👍'; color = '#60a5fa'; }
+    else { label = 'Lemah — coba tambah kata kunci'; color = '#8a8fa8'; }
+
+    return { score, label, color };
+  }
+
+  function updatePreview() {
+    const topic = document.getElementById('topicInput').value.trim();
+    const card = document.getElementById('previewCard');
+    const empty = document.getElementById('previewEmpty');
+    const content = document.getElementById('previewContent');
+    const tags = document.getElementById('previewTags');
+    const metrics = document.getElementById('previewMetrics');
+
+    if (!topic) {
+      card.classList.remove('ready');
+      empty.style.display = 'block';
+      content.style.display = 'none';
+      return;
+    }
+
+    // Get current selections
+    let contentType = 'carousel';
+    for (const gid of allTypeGroups) {
+      const v = getActive(gid)[0];
+      if (v) { contentType = v; break; }
+    }
+    const tone = getActive('toneGroup')[0] || 'edukasi';
+    const pillars = getActivePillars();
+    const audiences = getActive('audienceGroup');
+
+    card.classList.add('ready');
+    empty.style.display = 'none';
+    content.style.display = 'block';
+
+    // Tags row
+    const topicShort = topic.length > 40 ? topic.slice(0, 40) + '…' : topic;
+    const tLabel = (typeLabels[contentType] || contentType);
+    const toneLabelShort = { edukasi: 'Edukasi', fear: 'Fear', viral: 'Viral', storytelling: 'Storytelling' }[tone] || tone;
+    const platformIcon = { carousel:'📸', caption:'📸', hook:'📸', cta:'📸', wa_caption:'💬', wa_flyer:'💬', threads:'🧵' }[contentType] || '📌';
+
+    tags.innerHTML = `
+      <span class="preview-tag type">${platformIcon} ${tLabel}</span>
+      <span class="preview-tag tone">🎭 ${toneLabelShort}</span>
+      ${pillars.length ? `<span class="preview-tag">📌 ${pillars[0]}${pillars.length > 1 ? ` +${pillars.length-1}` : ''}</span>` : ''}
+      ${audiences.length ? `<span class="preview-tag">👥 ${audiences[0]}${audiences.length > 1 ? ` +${audiences.length-1}` : ''}</span>` : ''}
+      <span class="preview-tag topic" title="${escapeHtml(topic)}">💬 ${escapeHtml(topicShort)}</span>
+    `;
+
+    // Metrics
+    const m = typeMetrics[contentType] || { slides: '—', chars: '—', outputs: '—' };
+    const isImage = (contentType === 'carousel' || contentType === 'wa_flyer');
+    metrics.innerHTML = `
+      <div class="preview-metric">
+        <div class="preview-metric-val orange">${m.slides}</div>
+        <div class="preview-metric-label">${isImage ? 'Slide/Gambar' : 'Output'}</div>
+      </div>
+      <div class="preview-metric">
+        <div class="preview-metric-val blue">${m.chars}</div>
+        <div class="preview-metric-label">Est. Karakter</div>
+      </div>
+      <div class="preview-metric">
+        <div class="preview-metric-val green">${isImage ? '🎨' : '✍️'}</div>
+        <div class="preview-metric-label">${isImage ? 'Image Prompt' : 'Text Prompt'}</div>
+      </div>
+    `;
+
+    // Hook score
+    const { score, label, color } = calcHookScore(topic, tone);
+    document.getElementById('hookScoreLabel').textContent = label;
+    document.getElementById('hookScoreLabel').style.color = color;
+    document.getElementById('hookScoreBar').style.width = score + '%';
+    document.getElementById('hookScoreBar').style.background = color;
+  }
+
+  // ── Template Kustom ──────────────────────────────────────────
+  const TMPL_KEY = 'pajak_templates';
+
+  function loadTemplates() {
+    try { return JSON.parse(localStorage.getItem(TMPL_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveTemplates(list) {
+    localStorage.setItem(TMPL_KEY, JSON.stringify(list));
+  }
+
+  function getCurrentSettings() {
+    let contentType = 'carousel';
+    for (const gid of allTypeGroups) {
+      const v = getActive(gid)[0];
+      if (v) { contentType = v; break; }
+    }
+    const tone = getActive('toneGroup')[0] || 'edukasi';
+    const pillars = getActivePillars();
+    const audiences = getActive('audienceGroup');
+    return { contentType, tone, pillars, audiences };
+  }
+
+  function openSaveTemplate() {
+    const s = getCurrentSettings();
+    const tLabel = typeLabels[s.contentType] || s.contentType;
+    const toneLbl = { edukasi:'Edukasi', fear:'Fear', viral:'Viral', storytelling:'Storytelling' }[s.tone] || s.tone;
+    const preview = document.getElementById('tmplModalPreview');
+    preview.innerHTML = `
+      <strong>Tipe:</strong> ${tLabel}<br>
+      <strong>Tone:</strong> ${toneLbl}<br>
+      ${s.pillars.length ? `<strong>Pilar:</strong> ${s.pillars.join(', ')}<br>` : ''}
+      ${s.audiences.length ? `<strong>Audience:</strong> ${s.audiences.join(', ')}` : ''}
+    `;
+    // Suggest a default name
+    document.getElementById('tmplNameInput').value = `${tLabel} ${toneLbl}${s.audiences.length ? ' · ' + s.audiences[0] : ''}`;
+    document.getElementById('tmplModal').style.display = 'flex';
+    setTimeout(() => document.getElementById('tmplNameInput').select(), 50);
+  }
+
+  function closeSaveTemplate(e) {
+    if (e && e.target !== document.getElementById('tmplModal')) return;
+    document.getElementById('tmplModal').style.display = 'none';
+  }
+
+  function confirmSaveTemplate() {
+    const name = document.getElementById('tmplNameInput').value.trim();
+    if (!name) { document.getElementById('tmplNameInput').focus(); return; }
+    const s = getCurrentSettings();
+    const list = loadTemplates();
+    list.unshift({ id: Date.now(), name, ...s });
+    saveTemplates(list.slice(0, 12)); // max 12 templates
+    document.getElementById('tmplModal').style.display = 'none';
+    renderTemplates();
+  }
+
+  function applyTemplate(id) {
+    const list = loadTemplates();
+    const tmpl = list.find(t => t.id === id);
+    if (!tmpl) return;
+
+    // Set content type
+    allTypeGroups.forEach(gid => {
+      const g = document.getElementById(gid);
+      if (g) g.querySelectorAll('.pill').forEach(p => {
+        p.classList.toggle('active', p.dataset.value === tmpl.contentType);
+      });
+    });
+
+    // Set tone
+    document.querySelectorAll('#toneGroup .pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.value === tmpl.tone);
+    });
+
+    // Set pillars
+    document.querySelectorAll('#pillarGroup .pillar-card').forEach(p => {
+      p.classList.toggle('active', tmpl.pillars.includes(p.dataset.value));
+    });
+
+    // Set audiences
+    document.querySelectorAll('#audienceGroup .pill').forEach(p => {
+      p.classList.toggle('active', tmpl.audiences.includes(p.dataset.value));
+    });
+
+    updatePreview();
+
+    // Flash the form cards to signal change
+    document.querySelectorAll('.card').forEach(c => {
+      c.style.transition = 'border-color 0.3s';
+      c.style.borderColor = 'rgba(249,115,22,0.5)';
+      setTimeout(() => c.style.borderColor = '', 600);
+    });
+
+    // Scroll to top of form
+    document.getElementById('tmplPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function deleteTemplate(e, id) {
+    e.stopPropagation();
+    const list = loadTemplates().filter(t => t.id !== id);
+    saveTemplates(list);
+    renderTemplates();
+  }
+
+  function renderTemplates() {
+    const list = loadTemplates();
+    const grid = document.getElementById('tmplGrid');
+    const count = document.getElementById('tmplCount');
+    if (!grid) return;
+    count.textContent = list.length;
+
+    if (list.length === 0) {
+      grid.innerHTML = '<div class="fav-empty">Belum ada template. Klik "Simpan Setting Sekarang" untuk menyimpan kombinasi tipe+tone+audience.</div>';
+      return;
+    }
+
+    const toneLbls = { edukasi:'Edukasi', fear:'Fear', viral:'Viral', storytelling:'Story' };
+    grid.innerHTML = list.map(t => `
+      <div class="tmpl-chip" onclick="applyTemplate(${t.id})" title="Klik untuk apply">
+        <div class="tmpl-chip-body">
+          <div class="tmpl-chip-name">${escapeHtml(t.name)}</div>
+          <div class="tmpl-chip-meta">
+            <span class="tmpl-chip-tag t-type">${typeLabels[t.contentType] || t.contentType}</span>
+            <span class="tmpl-chip-tag t-tone">${toneLbls[t.tone] || t.tone}</span>
+            ${t.audiences.length ? `<span class="tmpl-chip-tag">${t.audiences[0]}</span>` : ''}
+          </div>
+        </div>
+        <button class="tmpl-chip-del" onclick="deleteTemplate(event, ${t.id})" title="Hapus">✕</button>
+      </div>
+    `).join('');
+  }
+
+  // Close modal on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.getElementById('tmplModal').style.display = 'none';
+  });
+
+  // ── Variasi Cepat ────────────────────────────────────────────
+  let lastGenerateParams = null;  // stores { topic, contentType, tone, pillars, audiences }
+  let variasiCount = 1;
+
+  function generateVariasi() {
+    if (!lastGenerateParams) return;
+    variasiCount++;
+    document.getElementById('variasiCounter').textContent = `v${variasiCount}`;
+
+    // Brief flash animation on button
+    const btn = document.getElementById('variasiBtn');
+    btn.style.opacity = '0.5';
+    setTimeout(() => { btn.style.opacity = '1'; }, 300);
+
+    // Re-run generatePrompt with same params — getRandomItem will pick different hook/CTA
+    generatePrompt(lastGenerateParams);
+  }
+
   // ── Copy functions ───────────────────────────────────────────
   function copyPrompt() {
     const text = document.getElementById('promptOutput').textContent;
@@ -1511,10 +3713,139 @@ Sekarang buat Threads untuk topik: "${topic}"
     });
   }
 
-  // Enter key
-  document.getElementById('topicInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') handleGenerate();
+  // ── Keyboard Shortcuts ───────────────────────────────────────
+  document.addEventListener('keydown', e => {
+    const isMac = navigator.platform.toLowerCase().includes('mac');
+    const mod = isMac ? e.metaKey : e.ctrlKey;
+    if (!mod) return;
+
+    // Cmd/Ctrl + Enter = Generate
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleGenerate();
+    }
+    // Cmd/Ctrl + Shift + V = Variasi
+    if (e.key === 'V' && e.shiftKey) {
+      e.preventDefault();
+      generateVariasi();
+    }
+    // Cmd/Ctrl + S = Save template
+    if (e.key === 's') {
+      e.preventDefault();
+      openSaveTemplate();
+    }
+    // Cmd/Ctrl + D = Random topic
+    if (e.key === 'd') {
+      e.preventDefault();
+      randomTopic();
+    }
+    // Cmd/Ctrl + K = Focus topic input
+    if (e.key === 'k') {
+      e.preventDefault();
+      document.getElementById('topicInput').focus();
+      document.getElementById('topicInput').select();
+    }
   });
+
+  // Enter key on topicInput (non-modifier)
+  document.getElementById('topicInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.metaKey && !e.ctrlKey) {
+      const dd = document.getElementById('suggestDropdown');
+      if (dd.style.display !== 'none' && suggestIndex >= 0) return; // let suggest handle it
+      handleGenerate();
+    }
+  });
+
+  // ── System theme auto-sync ────────────────────────────────────
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    // Only auto-sync if user hasn't manually set a preference
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+  // ── Favorites ────────────────────────────────────────────────
+  const FAV_KEY = 'pajak_gen_favorites';
+  const MAX_FAVS = 20;
+
+  function loadFavorites() {
+    try { return JSON.parse(localStorage.getItem(FAV_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveFavorites(favs) {
+    localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+  }
+
+  function toggleFavorite() {
+    const topic = document.getElementById('topicInput').value.trim();
+    if (!topic) return;
+    let favs = loadFavorites();
+    const exists = favs.includes(topic);
+    if (exists) {
+      favs = favs.filter(f => f !== topic);
+    } else {
+      favs.unshift(topic);
+      if (favs.length > MAX_FAVS) favs = favs.slice(0, MAX_FAVS);
+    }
+    saveFavorites(favs);
+    renderFavorites();
+    updateStarBtn();
+  }
+
+  function removeFavorite(e, topic) {
+    e.stopPropagation();
+    const favs = loadFavorites().filter(f => f !== topic);
+    saveFavorites(favs);
+    renderFavorites();
+    updateStarBtn();
+  }
+
+  function fillTopicFromFav(topic) {
+    document.getElementById('topicInput').value = topic;
+    closeSuggest();
+    updateStarBtn();
+    updatePreview();
+    document.getElementById('topicInput').focus();
+    // Smooth scroll to input
+    document.getElementById('topicInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function updateStarBtn() {
+    const topic = document.getElementById('topicInput').value.trim();
+    const favs = loadFavorites();
+    const btn = document.getElementById('starBtn');
+    if (!btn) return;
+    const isFav = topic.length > 0 && favs.includes(topic);
+    btn.classList.toggle('starred', isFav);
+    btn.title = isFav ? 'Hapus dari favorit' : 'Simpan ke favorit';
+    btn.style.filter = isFav ? 'none' : 'grayscale(1)';
+  }
+
+  function renderFavorites() {
+    const favs = loadFavorites();
+    const grid = document.getElementById('favGrid');
+    const count = document.getElementById('favCount');
+    if (!grid) return;
+
+    count.textContent = favs.length;
+
+    if (favs.length === 0) {
+      grid.innerHTML = '<div class="fav-empty">Belum ada favorit. Klik ⭐ di input topik untuk menyimpan.</div>';
+      return;
+    }
+
+    grid.innerHTML = favs.map(topic => `
+      <div class="fav-chip" onclick="fillTopicFromFav(${JSON.stringify(topic)})">
+        <span class="fav-chip-star">⭐</span>
+        <span class="fav-chip-text">${escapeHtml(topic)}</span>
+        <span class="fav-chip-del" onclick="removeFavorite(event, ${JSON.stringify(topic)})" title="Hapus">✕</span>
+      </div>
+    `).join('');
+  }
+
+  // Update star button when user types in topic input
+  // (will be attached after DOM ready)
 
   // ── History ──────────────────────────────────────────────────
   const HISTORY_KEY = 'pajak_gen_history';
@@ -1641,6 +3972,8 @@ Sekarang buat Threads untuk topik: "${topic}"
     const copyLabel = isImagePrompt ? 'Copy Image Prompt' : 'Copy Prompt';
     copyBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> ${copyLabel}`;
 
+    // Update preview with recalled settings
+    updatePreview();
     // Scroll to output
     document.getElementById('outputPrompt').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -1656,6 +3989,1228 @@ Sekarang buat Threads untuk topik: "${topic}"
     if (!confirm('Hapus semua riwayat generate?')) return;
     localStorage.removeItem(HISTORY_KEY);
     renderHistory();
+  }
+
+  // ── Content Calendar ─────────────────────────────────────────
+  const CAL_KEY = 'pajak_cal_data';
+  const DAYS_ID = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+  let calWeekOffset = 0;   // 0 = current week
+  let dragTopic = null;    // topic being dragged
+
+  function getWeekStart(offset = 0) {
+    const now = new Date();
+    const day = now.getDay(); // 0=Sun
+    const diff = (day === 0 ? -6 : 1 - day); // Mon-based
+    const mon = new Date(now);
+    mon.setDate(now.getDate() + diff + offset * 7);
+    mon.setHours(0, 0, 0, 0);
+    return mon;
+  }
+
+  function dateKey(date) {
+    return date.toISOString().slice(0, 10); // YYYY-MM-DD
+  }
+
+  function loadCal() {
+    try { return JSON.parse(localStorage.getItem(CAL_KEY)) || {}; }
+    catch { return {}; }
+  }
+
+  function saveCal(data) {
+    localStorage.setItem(CAL_KEY, JSON.stringify(data));
+  }
+
+  function addSlot(dayKey, topic, type) {
+    const data = loadCal();
+    if (!data[dayKey]) data[dayKey] = [];
+    // avoid exact duplicate
+    if (!data[dayKey].find(s => s.topic === topic && s.type === type)) {
+      data[dayKey].push({ topic, type: type || 'Konten', id: Date.now() });
+    }
+    saveCal(data);
+    renderCalGrid();
+  }
+
+  function removeSlot(dayKey, id) {
+    const data = loadCal();
+    if (data[dayKey]) data[dayKey] = data[dayKey].filter(s => s.id !== id);
+    saveCal(data);
+    renderCalGrid();
+  }
+
+  function clearCalWeek() {
+    if (!confirm('Kosongkan semua slot minggu ini?')) return;
+    const data = loadCal();
+    const weekStart = getWeekStart(calWeekOffset);
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(weekStart);
+      d.setDate(weekStart.getDate() + i);
+      delete data[dateKey(d)];
+    }
+    saveCal(data);
+    renderCalGrid();
+  }
+
+  function shiftWeek(dir) {
+    calWeekOffset += dir;
+    renderCalGrid();
+  }
+
+  function goToToday() {
+    calWeekOffset = 0;
+    renderCalGrid();
+  }
+
+  function renderCalGrid() {
+    const grid = document.getElementById('calGrid');
+    const weekLabel = document.getElementById('calWeekLabel');
+    const data = loadCal();
+    const weekStart = getWeekStart(calWeekOffset);
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+
+    const fmtShort = d => d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+    weekLabel.textContent = `${fmtShort(weekStart)} – ${fmtShort(weekEnd)}`;
+
+    const todayKey = dateKey(new Date());
+
+    grid.innerHTML = '';
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(weekStart);
+      d.setDate(weekStart.getDate() + i);
+      const key = dateKey(d);
+      const isToday = key === todayKey;
+      const slots = data[key] || [];
+
+      const dayEl = document.createElement('div');
+      dayEl.className = 'cal-day' + (isToday ? ' today' : '');
+      dayEl.dataset.key = key;
+
+      // Drag-over handlers
+      dayEl.addEventListener('dragover', e => { e.preventDefault(); dayEl.classList.add('drag-over'); });
+      dayEl.addEventListener('dragleave', () => dayEl.classList.remove('drag-over'));
+      dayEl.addEventListener('drop', e => {
+        e.preventDefault();
+        dayEl.classList.remove('drag-over');
+        if (dragTopic) addSlot(key, dragTopic.topic, dragTopic.type);
+      });
+
+      const slotsHtml = slots.map(s => `
+        <div class="cal-slot">
+          <div class="cal-slot-type">${escapeHtml(s.type)}</div>
+          ${escapeHtml(s.topic)}
+          <button class="cal-slot-del" onclick="removeSlot('${key}', ${s.id})" title="Hapus">✕</button>
+        </div>
+      `).join('');
+
+      dayEl.innerHTML = `
+        <div class="cal-day-header">
+          <span>${DAYS_ID[i]}</span>
+          <span class="cal-day-date">${d.getDate()}</span>
+        </div>
+        <div class="cal-slots">${slotsHtml}</div>
+        <button class="btn-add-slot" onclick="promptAddSlot('${key}')" title="Tambah topik">+</button>
+      `;
+
+      grid.appendChild(dayEl);
+    }
+
+    renderCalDraggables();
+  }
+
+  function renderCalDraggables() {
+    const container = document.getElementById('calDraggables');
+    if (!container) return;
+
+    // Merge favorites + history topics (deduplicated)
+    const favs = loadFavorites().map(t => ({ topic: t, type: 'Konten', src: 'fav' }));
+    const hist = loadHistory().map(h => ({ topic: h.topic, type: typeLabels[h.contentType] || 'Konten', src: 'hist' }));
+
+    // Deduplicate by topic
+    const seen = new Set();
+    const all = [...favs, ...hist].filter(item => {
+      if (seen.has(item.topic)) return false;
+      seen.add(item.topic);
+      return true;
+    }).slice(0, 20);
+
+    if (all.length === 0) {
+      container.innerHTML = '<span style="font-size:12px;color:var(--muted);font-style:italic;">Belum ada topik. Generate atau tambah favorit dulu.</span>';
+      return;
+    }
+
+    container.innerHTML = all.map(item => `
+      <div class="cal-draggable"
+        draggable="true"
+        data-topic="${escapeHtml(item.topic)}"
+        data-type="${escapeHtml(item.type)}"
+        ondragstart="dragTopic = { topic: this.dataset.topic, type: this.dataset.type }"
+        ondragend="dragTopic = null"
+        onclick="quickAddToToday('${item.topic.replace(/'/g, "\'")}', '${item.type}')"
+        title="Drag ke hari atau klik untuk tambah ke hari ini"
+      >
+        ${item.src === 'fav' ? '⭐' : '🕐'} ${escapeHtml(item.topic.length > 30 ? item.topic.slice(0, 30) + '…' : item.topic)}
+      </div>
+    `).join('');
+  }
+
+  function promptAddSlot(dayKey) {
+    const topic = document.getElementById('topicInput').value.trim();
+    const contentType = (() => {
+      for (const gid of allTypeGroups) {
+        const v = getActive(gid)[0];
+        if (v) return v;
+      }
+      return 'carousel';
+    })();
+    const type = typeLabels[contentType] || 'Konten';
+
+    if (topic) {
+      addSlot(dayKey, topic, type);
+    } else {
+      const t = prompt('Masukkan topik untuk hari ini:');
+      if (t && t.trim()) addSlot(dayKey, t.trim(), 'Konten');
+    }
+  }
+
+  function quickAddToToday(topic, type) {
+    const todayKey = dateKey(new Date());
+    addSlot(todayKey, topic, type);
+  }
+
+  function exportCalMarkdown() {
+    const data = loadCal();
+    const weekStart = getWeekStart(calWeekOffset);
+    let md = `# 📅 Content Calendar Pajak
+`;
+    md += `Minggu: ${weekStart.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+
+`;
+    md += `| Hari | Tanggal | Tipe | Topik |
+`;
+    md += `|------|---------|------|-------|
+`;
+
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(weekStart);
+      d.setDate(weekStart.getDate() + i);
+      const key = dateKey(d);
+      const slots = data[key] || [];
+      const dayName = DAYS_ID[i];
+      const dateStr = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+
+      if (slots.length === 0) {
+        md += `| ${dayName} | ${dateStr} | — | — |
+`;
+      } else {
+        slots.forEach((s, idx) => {
+          const day = idx === 0 ? dayName : '';
+          const date = idx === 0 ? dateStr : '';
+          md += `| ${day} | ${date} | ${s.type} | ${s.topic} |
+`;
+        });
+      }
+    }
+
+    md += `
+---
+*Digenerate dari Pajak Content Generator — konsultasipajakgratis.com*
+`;
+
+    navigator.clipboard.writeText(md).then(() => {
+      const btn = document.querySelector('.btn-cal.primary');
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✅ Tersalin!';
+      btn.style.background = 'var(--green)';
+      setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+    });
+  }
+
+  // ── Statistik ────────────────────────────────────────────────
+  const STATS_KEY = 'pajak_stats';
+
+  function loadStats() {
+    try { return JSON.parse(localStorage.getItem(STATS_KEY)) || { total: 0, byType: {}, byTone: {}, byDay: {} }; }
+    catch { return { total: 0, byType: {}, byTone: {}, byDay: {} }; }
+  }
+
+  function saveStats(s) { localStorage.setItem(STATS_KEY, JSON.stringify(s)); }
+
+  function trackGenerate(contentType, tone) {
+    const s = loadStats();
+    s.total = (s.total || 0) + 1;
+    s.byType[contentType] = (s.byType[contentType] || 0) + 1;
+    s.byTone[tone] = (s.byTone[tone] || 0) + 1;
+    const today = new Date().toISOString().slice(0, 10);
+    s.byDay[today] = (s.byDay[today] || 0) + 1;
+    saveStats(s);
+    renderStats();
+  }
+
+  function resetStats() {
+    if (!confirm('Reset semua statistik?')) return;
+    localStorage.removeItem(STATS_KEY);
+    renderStats();
+  }
+
+  function renderBarChart(containerId, data, colors) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    const sorted = Object.entries(data).sort((a,b) => b[1]-a[1]).slice(0, 5);
+    const max = sorted[0]?.[1] || 1;
+    const defaultColors = ['#f97316','#22d3a0','#60a5fa','#a78bfa','#fb923c'];
+    if (!sorted.length) { el.innerHTML = '<div style="font-size:12px;color:var(--muted);font-style:italic;">Belum ada data.</div>'; return; }
+    el.innerHTML = sorted.map(([key, val], i) => `
+      <div class="bar-row">
+        <div class="bar-label" title="${escapeHtml(key)}">${escapeHtml(typeLabels[key] || key)}</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${Math.round(val/max*100)}%;background:${(colors||defaultColors)[i]};"></div>
+        </div>
+        <div class="bar-count">${val}</div>
+      </div>
+    `).join('');
+  }
+
+  function renderStats() {
+    const s = loadStats();
+
+    // KPI
+    const hist = loadHistory();
+    const favs = loadFavorites();
+    const tmpls = loadTemplates();
+    const totalDays = Object.keys(s.byDay).length;
+    const kpi = document.getElementById('statsKpi');
+    if (!kpi) return;
+
+    kpi.innerHTML = `
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-val orange">${s.total || 0}</div>
+        <div class="stat-label">Total Generate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-val green">${totalDays}</div>
+        <div class="stat-label">Hari Aktif</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-val blue">${favs.length}</div>
+        <div class="stat-label">Topik Favorit</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🧩</div>
+        <div class="stat-val purple">${tmpls.length}</div>
+        <div class="stat-label">Template Tersimpan</div>
+      </div>
+    `;
+
+    // Platform chart — group by platform
+    const byPlatform = {};
+    Object.entries(s.byType || {}).forEach(([type, count]) => {
+      const plat = ['carousel','caption','hook','cta'].includes(type) ? 'Instagram'
+                 : ['wa_caption','wa_flyer'].includes(type) ? 'WhatsApp'
+                 : type === 'threads' ? 'Threads' : type;
+      byPlatform[plat] = (byPlatform[plat] || 0) + count;
+    });
+    renderBarChart('chartPlatform', byPlatform, ['#f97316','#22d3a0','#60a5fa']);
+
+    // Tone chart
+    const toneDisplay = {};
+    Object.entries(s.byTone || {}).forEach(([t, c]) => {
+      const lbl = { edukasi:'Edukasi', fear:'Fear', viral:'Viral', storytelling:'Storytelling' }[t] || t;
+      toneDisplay[lbl] = c;
+    });
+    renderBarChart('chartTone', toneDisplay, ['#60a5fa','#f87171','#f97316','#a78bfa']);
+
+    // Type chart
+    renderBarChart('chartType', s.byType || {});
+
+    // Streak — last 30 days
+    const streakEl = document.getElementById('streakRow');
+    const streakLbl = document.getElementById('streakLabel');
+    if (!streakEl) return;
+
+    const today = new Date();
+    const dots = [];
+    let streak = 0;
+    let counting = true;
+
+    for (let i = 29; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      const isToday = i === 0;
+      const active = !!(s.byDay && s.byDay[key]);
+      if (counting) {
+        if (active || isToday) { if (active) streak++; }
+        else counting = false;
+      }
+      dots.push(`<div class="streak-dot ${active ? (isToday ? 'today' : 'active') : ''}" title="${key}: ${s.byDay?.[key] || 0} generate"></div>`);
+    }
+
+    streakEl.innerHTML = dots.join('');
+    streakLbl.textContent = streak > 0
+      ? `🔥 ${streak} hari streak berturut-turut`
+      : 'Mulai generate hari ini untuk membangun streak!';
+  }
+
+  // ── Keyword Suggestion ───────────────────────────────────────
+  const ALL_TOPICS = [
+    "Sudah bayar pajak tapi tidak lapor SPT — apakah tetap kena denda?",
+    "Salah mengisi status PTKP di SPT tahunan",
+    "Lupa mencantumkan penghasilan sampingan di SPT",
+    "Bayar pajak mepet deadline — risiko yang jarang disadari",
+    "Bukti potong hilang — apa yang harus dilakukan?",
+    "Melaporkan omzet lebih kecil dari kenyataan — konsekuensinya",
+    "Tidak tahu perbedaan SPT Tahunan dan SPT Masa",
+    "NPWP tidak aktif tapi masih terima penghasilan",
+    "UMKM omzet di bawah 500 juta — wajib bayar pajak atau tidak?",
+    "Cara hitung pajak UMKM 0,5% dengan benar",
+    "Kapan UMKM harus beralih dari PPh Final ke pajak normal?",
+    "UMKM jualan online — pajaknya beda dengan toko offline?",
+    "UMKM belum punya NPWP — risiko dan cara mengurusnya",
+    "Biaya operasional UMKM bisa dikurangi dari pajak",
+    "UMKM dapat omzet dari marketplace — pajaknya bagaimana?",
+    "UMKM baru buka usaha — kapan mulai wajib lapor pajak?",
+    "Freelancer dapat fee dari klien — kena pajak berapa persen?",
+    "Freelancer belum punya NPWP — boleh terima bayaran atau tidak?",
+    "Klien potong PPh 21 dari fee — apakah freelancer masih perlu lapor?",
+    "Freelancer kerja untuk klien luar negeri — pajaknya bagaimana?",
+    "Content creator dapat endorse — dianggap penghasilan dan kena pajak?",
+    "Perbedaan PPh 21 dan PPh 23 untuk freelancer",
+    "Freelancer multi-klien — cara menghitung total pajak tahunan",
+    "Freelancer penghasilan tidak tetap — cara hitung pajak yang benar",
+    "Mitos: penghasilan di bawah 5 juta tidak kena pajak sama sekali",
+    "Mitos: kalau tidak ditagih DJP, berarti tidak ada masalah pajak",
+    "Mitos: UMKM kecil pasti aman dari pemeriksaan pajak",
+    "Mitos: bayar pajak lewat aplikasi sama saja dengan lapor SPT",
+    "Mitos: freelancer tidak wajib punya NPWP",
+    "Mitos: penghasilan dari jualan online tidak terdeteksi pajak",
+    "Cara legal kurangi pajak dengan biaya jabatan",
+    "Manfaatkan PTKP untuk tanggungan keluarga",
+    "Pisahkan rekening bisnis dan pribadi — manfaat pajaknya",
+    "Biaya operasional apa saja yang bisa jadi pengurang pajak?",
+    "Minta Bukti Potong dari semua klien — kenapa ini penting?",
+    "Checklist SPT Tahunan untuk karyawan",
+    "Checklist pajak untuk UMKM baru daftar",
+    "Checklist akhir tahun pajak untuk freelancer",
+    "Apa itu SP2DK dan bagaimana cara meresponsnya?",
+    "Berapa penghasilan minimal yang kena pajak di Indonesia?",
+    "Apakah penghasilan dari warisan dan hadiah kena pajak?",
+    "Bagaimana kalau saya terlambat lapor SPT?",
+    "Apakah penghasilan pasif (kos-kosan, deposito) kena pajak?",
+    "Pajak penghasilan dari YouTube, TikTok, dan platform konten",
+    "Aturan pajak untuk crypto dan aset digital di Indonesia",
+    "Aturan pajak untuk bisnis dropship dan reseller",
+    "Studi kasus: freelancer desainer optimasi pajak dari nol",
+    "Studi kasus: UMKM kuliner dari tidak lapor pajak ke compliant",
+    "Studi kasus: pebisnis online omzet 1M per bulan pajaknya seperti apa",
+    "Studi kasus: influencer urus pajak endorse pertama kali",
+    "Warung kopi omzet 300 juta kena denda karena tidak lapor SPT",
+    "Freelancer desainer kaget tagihan pajak tiba-tiba 40 juta",
+    "Toko online viral di TikTok lupa urus pajak akhirnya kena audit",
+    "Karyawan resign dapat pesangon besar tidak tahu kena pajak",
+  ];
+
+  let suggestIndex = -1;
+  let suggestResults = [];
+
+  function highlight(text, query) {
+    if (!query) return escapeHtml(text);
+    const escaped = escapeHtml(text);
+    const q = query.replace(/[.*+?^${}()|[\]\]/g, '\$&');
+    return escaped.replace(new RegExp(q, 'gi'), m => `<mark>${m}</mark>`);
+  }
+
+  function getSuggestions(query) {
+    if (!query || query.length < 2) return [];
+    const q = query.toLowerCase();
+    const hist = loadHistory().map(h => ({ text: h.topic, badge: typeLabels[h.contentType] || '', src: 'hist' }));
+    const favs = loadFavorites().map(t => ({ text: t, badge: '⭐', src: 'fav' }));
+    const all100 = ALL_TOPICS.map(t => ({ text: t, badge: '', src: 'list' }));
+
+    // Deduplicate by text
+    const seen = new Set();
+    const pool = [...hist, ...favs, ...all100].filter(item => {
+      if (seen.has(item.text)) return false;
+      seen.add(item.text);
+      return true;
+    });
+
+    return pool
+      .filter(item => item.text.toLowerCase().includes(q))
+      .slice(0, 8);
+  }
+
+  function renderSuggest(query) {
+    const dropdown = document.getElementById('suggestDropdown');
+    suggestResults = getSuggestions(query);
+    suggestIndex = -1;
+
+    if (!suggestResults.length || !query) {
+      dropdown.style.display = 'none';
+      return;
+    }
+
+    // Group by source
+    const histItems = suggestResults.filter(s => s.src === 'hist');
+    const favItems  = suggestResults.filter(s => s.src === 'fav');
+    const listItems = suggestResults.filter(s => s.src === 'list');
+
+    let html = '';
+    if (histItems.length) {
+      html += `<div class="suggest-group-label">🕐 Riwayat</div>`;
+      html += histItems.map((item, i) => renderSuggestItem(item, i, query)).join('');
+    }
+    if (favItems.length) {
+      const offset = histItems.length;
+      html += `<div class="suggest-group-label">⭐ Favorit</div>`;
+      html += favItems.map((item, i) => renderSuggestItem(item, offset + i, query)).join('');
+    }
+    if (listItems.length) {
+      const offset = histItems.length + favItems.length;
+      html += `<div class="suggest-group-label">📋 100 Topik</div>`;
+      html += listItems.map((item, i) => renderSuggestItem(item, offset + i, query)).join('');
+    }
+
+    dropdown.innerHTML = html;
+    dropdown.style.display = 'block';
+  }
+
+  function renderSuggestItem(item, idx, query) {
+    const icon = item.src === 'hist' ? '🕐' : item.src === 'fav' ? '⭐' : '💡';
+    const badge = item.badge ? `<span class="suggest-item-badge">${escapeHtml(item.badge)}</span>` : '';
+    return `<div class="suggest-item" data-idx="${idx}" onmousedown="selectSuggest(${idx})">
+      <span class="suggest-item-icon">${icon}</span>
+      <span class="suggest-item-text">${highlight(item.text, query)}</span>
+      ${badge}
+    </div>`;
+  }
+
+  function selectSuggest(idx) {
+    const item = suggestResults[idx];
+    if (!item) return;
+    document.getElementById('topicInput').value = item.text;
+    closeSuggest();
+    updateStarBtn();
+    updatePreview();
+  }
+
+  function closeSuggest() {
+    document.getElementById('suggestDropdown').style.display = 'none';
+    suggestIndex = -1;
+  }
+
+  function navigateSuggest(dir) {
+    const items = document.querySelectorAll('.suggest-item');
+    if (!items.length) return;
+    items[suggestIndex]?.classList.remove('active');
+    suggestIndex = (suggestIndex + dir + items.length) % items.length;
+    items[suggestIndex]?.classList.add('active');
+    items[suggestIndex]?.scrollIntoView({ block: 'nearest' });
+  }
+
+  // ── Progress Tracker ─────────────────────────────────────────
+  const PROGRESS_KEY = 'pajak_progress';
+  let progressFilter = 'all';
+
+  const PROGRESS_TOPICS = {
+    'Kesalahan Pajak Umum': [
+      "Sudah bayar pajak tapi tidak lapor SPT — apakah tetap kena denda?",
+      "Salah mengisi status PTKP di SPT tahunan",
+      "Lupa mencantumkan penghasilan sampingan di SPT",
+      "Bayar pajak mepet deadline — risiko yang jarang disadari",
+      "Bukti potong hilang — apa yang harus dilakukan?",
+      "Melaporkan omzet lebih kecil dari kenyataan — konsekuensinya",
+      "Tidak tahu perbedaan SPT Tahunan dan SPT Masa",
+      "Salah pilih tarif pajak — terlalu besar bayar, atau malah kurang bayar",
+      "NPWP tidak aktif tapi masih terima penghasilan — aman atau tidak?",
+      "Menganggap tidak perlu lapor SPT karena sudah dipotong perusahaan",
+    ],
+    'Pajak UMKM': [
+      "UMKM omzet di bawah 500 juta — wajib bayar pajak atau tidak?",
+      "Cara hitung pajak UMKM 0,5% dengan benar",
+      "Kapan UMKM harus beralih dari PPh Final ke pajak normal?",
+      "UMKM jualan online — pajaknya beda dengan toko offline?",
+      "UMKM belum punya NPWP — risiko dan cara mengurusnya",
+      "Biaya operasional UMKM bisa dikurangi dari pajak — caranya?",
+      "Warung makan kecil kena pajak juga? Ini penjelasannya",
+      "UMKM dapat omzet dari marketplace — pajaknya bagaimana?",
+      "Perbedaan UMKM perseorangan vs badan dalam urusan pajak",
+      "UMKM baru buka usaha — kapan mulai wajib lapor pajak?",
+    ],
+    'Pajak Freelancer': [
+      "Freelancer dapat fee dari klien — kena pajak berapa persen?",
+      "Freelancer belum punya NPWP — boleh terima bayaran atau tidak?",
+      "Klien potong PPh 21 dari fee — apakah freelancer masih perlu lapor?",
+      "Freelancer kerja untuk klien luar negeri — pajaknya bagaimana?",
+      "Content creator dapat endorse — dianggap penghasilan dan kena pajak?",
+      "Perbedaan PPh 21 dan PPh 23 untuk freelancer",
+      "Freelancer multi-klien — cara menghitung total pajak tahunan",
+      "Designer, copywriter, programmer — tarif pajaknya sama atau beda?",
+      "Freelancer penghasilan tidak tetap — cara hitung pajak yang benar",
+      "Freelancer dapat honor dari lembaga pemerintah — pajaknya beda?",
+    ],
+    'Tax Myth': [
+      "Mitos: penghasilan di bawah 5 juta tidak kena pajak sama sekali",
+      "Mitos: kalau tidak ditagih DJP, berarti tidak ada masalah pajak",
+      "Mitos: UMKM kecil pasti aman dari pemeriksaan pajak",
+      "Mitos: bayar pajak lewat aplikasi sama saja dengan lapor SPT",
+      "Mitos: pajak hanya urusan orang kaya dan perusahaan besar",
+      "Mitos: freelancer tidak wajib punya NPWP",
+      "Mitos: kalau rugi, tidak perlu lapor SPT",
+      "Mitos: penghasilan dari jualan online tidak terdeteksi pajak",
+      "Mitos: konsultan pajak hanya untuk perusahaan besar",
+      "Mitos: sudah dipotong PPh otomatis berarti urusan pajak selesai",
+    ],
+    'Cerita Denda Pajak': [
+      "Warung kopi omzet 300 juta kena denda karena tidak lapor SPT 3 tahun",
+      "Freelancer desainer kaget tagihan pajak tiba-tiba 40 juta",
+      "Toko online viral di TikTok lupa urus pajak akhirnya kena audit",
+      "UMKM kuliner kena SP2DK dari DJP — ini yang terjadi",
+      "Karyawan resign dapat pesangon besar tidak tahu kena pajak",
+      "Pebisnis property kena pajak penjualan yang tidak diperhitungkan",
+      "Agency kena pemeriksaan pajak — yang bisa dipelajari",
+      "Influencer kena pajak endorse yang belum pernah dilaporkan",
+      "Bisnis online 5 tahun tidak pernah lapor pajak — apa yang terjadi?",
+      "UMKM dapat pinjaman modal — ternyata mempengaruhi urusan pajak",
+    ],
+    'Tips Legal Hemat Pajak': [
+      "Cara legal kurangi pajak dengan biaya jabatan",
+      "Manfaatkan PTKP untuk tanggungan keluarga — caranya?",
+      "UMKM bisa pakai pembukuan sederhana untuk hemat pajak",
+      "Pisahkan rekening bisnis dan pribadi — ini manfaat pajaknya",
+      "Investasi yang bisa kurangi beban pajak secara legal",
+      "Biaya operasional apa saja yang bisa jadi pengurang pajak?",
+      "Cara benar mencatat pengeluaran bisnis supaya diakui fiskus",
+      "Pindah ke PPh Final UMKM 0,5% — kapan ini menguntungkan?",
+      "Manfaat menikah untuk perhitungan PTKP dan pajak",
+      "Minta Bukti Potong dari semua klien — kenapa ini penting banget?",
+    ],
+    'Update Aturan Pajak': [
+      "Perubahan batas PTKP terbaru — apakah penghasilan Anda kena pajak?",
+      "Core Tax System DJP — apa artinya buat UMKM dan freelancer?",
+      "Aturan baru pajak marketplace dan platform digital",
+      "PPN terbaru — apa yang berubah untuk konsumen dan pebisnis?",
+      "Aturan pajak untuk crypto dan aset digital di Indonesia",
+      "Pajak penghasilan dari YouTube, TikTok, dan platform konten",
+      "Pembaruan aturan e-SPT dan pelaporan online DJP",
+      "Insentif pajak UMKM — program pemerintah yang jarang diketahui",
+      "Aturan pajak untuk bisnis dropship dan reseller",
+      "Perubahan tarif PPh Badan — dampaknya ke bisnis skala kecil",
+    ],
+    'Studi Kasus': [
+      "Studi kasus: freelancer desainer optimasi pajak dari nol",
+      "Studi kasus: UMKM kuliner dari tidak lapor pajak ke compliant",
+      "Studi kasus: pebisnis online omzet 1M per bulan pajaknya seperti apa",
+      "Studi kasus: karyawan dengan bisnis sampingan cara lapor yang benar",
+      "Studi kasus: agency owner pisahkan entitas untuk efisiensi pajak",
+      "Studi kasus: influencer 500K followers urus pajak endorse pertama kali",
+      "Studi kasus: bisnis keluarga yang baru daftarkan badan usaha",
+      "Studi kasus: UMKM dapat KUR — dampak ke pelaporan pajak",
+      "Studi kasus: freelancer kerja remote untuk startup asing",
+      "Studi kasus: penjual Tokopedia omzet naik drastis pajak ikut naik?",
+    ],
+    'Checklist Pajak': [
+      "Checklist SPT Tahunan untuk karyawan — jangan sampai ada yang ketinggalan",
+      "Checklist pajak untuk UMKM baru daftar",
+      "Checklist dokumen yang harus disiapkan sebelum konsultasi pajak",
+      "Checklist akhir tahun pajak untuk freelancer",
+      "Checklist bukti transaksi yang wajib disimpan untuk keperluan pajak",
+      "Checklist pajak untuk pebisnis online sebelum audit",
+      "Checklist saat terima surat SP2DK dari DJP — harus apa saja?",
+      "Checklist pembukuan bulanan untuk UMKM dan freelancer",
+      "Checklist pajak sebelum tutup atau jual bisnis",
+      "Checklist perpajakan untuk bisnis yang mau scale up",
+    ],
+    'FAQ Pajak': [
+      "Berapa penghasilan minimal yang kena pajak di Indonesia?",
+      "Apa bedanya NPWP, NIK, dan NITKU?",
+      "Apakah penghasilan dari warisan dan hadiah kena pajak?",
+      "Bagaimana kalau saya terlambat lapor SPT — apa yang harus dilakukan?",
+      "Apakah penghasilan pasif (kos-kosan, deposito) kena pajak juga?",
+      "Apa itu SP2DK dan bagaimana cara meresponsnya?",
+      "Beda Wajib Pajak Orang Pribadi dan Badan — mana yang lebih cocok?",
+      "Apakah penghasilan dari jual barang bekas online kena pajak?",
+      "Apa itu pemeriksaan pajak dan kapan biasanya dilakukan?",
+      "Bagaimana cara lapor pajak pertama kali kalau belum pernah sama sekali?",
+    ],
+  };
+
+  function loadProgress() {
+    try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }
+    catch { return {}; }
+  }
+
+  function saveProgress(data) { localStorage.setItem(PROGRESS_KEY, JSON.stringify(data)); }
+
+  function toggleTopic(topicId) {
+    const data = loadProgress();
+    data[topicId] = !data[topicId];
+    saveProgress(data);
+    renderProgress();
+    renderStats(); // update stats count
+  }
+
+  function setProgressFilter(f) {
+    progressFilter = f;
+    document.querySelectorAll('.progress-filter').forEach(el => {
+      el.classList.toggle('active', el.dataset.filter === f);
+    });
+    renderProgress();
+  }
+
+  function resetProgress() {
+    if (!confirm('Reset semua progress? Semua centang akan hilang.')) return;
+    localStorage.removeItem(PROGRESS_KEY);
+    renderProgress();
+  }
+
+  function useTopicInGenerator(text) {
+    document.getElementById('topicInput').value = text;
+    updateStarBtn();
+    updatePreview();
+    closeSuggest();
+    // Scroll up to generator
+    document.getElementById('topicInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function renderProgress() {
+    const data = loadProgress();
+    const allTopics = Object.values(PROGRESS_TOPICS).flat();
+    const doneCount = allTopics.filter((_, i) => data[i]).length;
+    const total = allTopics.length;
+    const pct = Math.round(doneCount / total * 100);
+
+    // Bar + stats
+    document.getElementById('progressBarFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+    document.getElementById('progressStatsRow').innerHTML = `
+      <span class="progress-stat"><strong>${doneCount}</strong> sudah diposting</span>
+      <span class="progress-stat"><strong>${total - doneCount}</strong> belum</span>
+      <span class="progress-stat"><strong>${total}</strong> total topik</span>
+    `;
+
+    // Topic list
+    const list = document.getElementById('progressList');
+    let globalIdx = 0;
+    let html = '';
+
+    Object.entries(PROGRESS_TOPICS).forEach(([pillar, topics]) => {
+      const pillarTopics = topics.map((text, i) => ({ text, idx: globalIdx + i }));
+      globalIdx += topics.length;
+
+      const filtered = pillarTopics.filter(t => {
+        if (progressFilter === 'done') return !!data[t.idx];
+        if (progressFilter === 'todo') return !data[t.idx];
+        return true;
+      });
+
+      if (!filtered.length) return;
+
+      const pillarDone = pillarTopics.filter(t => !!data[t.idx]).length;
+      const pillarDoneClass = pillarDone === topics.length ? 'done' : '';
+
+      html += `<div class="progress-pillar">
+        <div class="progress-pillar-header">
+          ${escapeHtml(pillar)}
+          <span class="progress-pillar-count ${pillarDoneClass}">${pillarDone}/${topics.length}</span>
+        </div>`;
+
+      filtered.forEach(({ text, idx }) => {
+        const done = !!data[idx];
+        html += `
+          <div class="progress-topic-item ${done ? 'done' : ''}" onclick="toggleTopic(${idx})">
+            <div class="progress-checkbox">${done ? '✓' : ''}</div>
+            <div class="progress-topic-text">${escapeHtml(text)}</div>
+            <div class="progress-topic-actions">
+              <button class="btn-topic-action" onclick="event.stopPropagation();useTopicInGenerator(${JSON.stringify(text)})" title="Pakai topik ini">▶ Pakai</button>
+            </div>
+          </div>`;
+      });
+
+      html += `</div>`;
+    });
+
+    list.innerHTML = html || '<div style="padding:1rem;font-size:13px;color:var(--muted);font-style:italic;">Tidak ada topik untuk filter ini.</div>';
+  }
+
+  // ── Topik Random ─────────────────────────────────────────────
+  function randomTopic() {
+    const allTopics = Object.values(PROGRESS_TOPICS).flat();
+    const current = document.getElementById('topicInput').value.trim();
+    let pick;
+    // avoid same topic twice in a row
+    do { pick = allTopics[Math.floor(Math.random() * allTopics.length)]; }
+    while (pick === current && allTopics.length > 1);
+
+    const input = document.getElementById('topicInput');
+    input.value = '';
+    // Animate: shake then fill
+    const dice = document.getElementById('diceBtn');
+    dice.style.transform = 'translateY(-50%) rotate(180deg)';
+    setTimeout(() => {
+      dice.style.transform = 'translateY(-50%) rotate(0deg)';
+      input.value = pick;
+      updateStarBtn();
+      updatePreview();
+      closeSuggest();
+      input.focus();
+    }, 250);
+  }
+
+  // ── Quick Copy Snippets ──────────────────────────────────────
+  let activeSnippetTab = 'hook';
+
+  const SNIPPETS = {
+    hook: [
+      { type: 'Fear',      text: 'Banyak orang baru sadar ini setelah kena denda pajak.' },
+      { type: 'Curiosity', text: 'Kalau penghasilan segini, kena pajak tidak?' },
+      { type: 'Viral',     text: '90% freelancer salah soal pajak ini.' },
+      { type: 'Fear',      text: 'Jangan sampai bisnis Anda kena masalah karena hal ini.' },
+      { type: 'Curiosity', text: 'Hal yang jarang dijelaskan konsultan pajak.' },
+      { type: 'Edukasi',   text: 'Pajak sebenarnya tidak serumit ini.' },
+      { type: 'Viral',     text: 'Banyak UMKM baru sadar ini setelah kena denda.' },
+      { type: 'Fear',      text: 'Kesalahan pajak yang sering dilakukan UMKM — dan cara menghindarinya.' },
+      { type: 'Curiosity', text: 'Ini alasan kenapa pajak terasa ribet.' },
+      { type: 'Viral',     text: 'Ternyata ini yang bikin freelancer kena masalah pajak.' },
+      { type: 'Fear',      text: 'Satu kesalahan ini bisa bikin bisnis kamu kena audit.' },
+      { type: 'Curiosity', text: 'Sudah bayar pajak, tapi masih bisa kena denda?' },
+    ],
+    cta: [
+      { type: 'Soft',     text: 'Bingung soal pajak? Konsultasi gratis di konsultasipajakgratis.com' },
+      { type: 'Urgency',  text: 'Takut salah lapor pajak? Konsultasi dulu gratis.' },
+      { type: 'Curiosity',text: 'Mau tahu pajak bisnis Anda aman atau tidak? Cek gratis sekarang.' },
+      { type: 'Fear',     text: 'Banyak orang baru sadar masalah pajak setelah terlambat. Jangan tunggu kena masalah.' },
+      { type: 'Soft',     text: 'Ada pertanyaan soal pajak? Tanya langsung — gratis di konsultasipajakgratis.com' },
+      { type: 'Urgency',  text: 'SPT deadline semakin dekat. Konsultasi sekarang sebelum terlambat.' },
+      { type: 'Soft',     text: 'Kalau masih bingung, konsultasi gratis dulu aja — konsultasipajakgratis.com' },
+      { type: 'Social',   text: 'Share ke teman yang butuh tahu ini. Gratis konsultasi di konsultasipajakgratis.com' },
+    ],
+    opening: [
+      { type: 'Story',    text: 'Seorang freelancer desainer, 3 tahun jualan online. Belum pernah lapor pajak sekalipun.' },
+      { type: 'Data',     text: 'Tahun lalu, ribuan UMKM di Indonesia kena surat teguran dari DJP.' },
+      { type: 'Question', text: 'Kalau saya tanya "sudah lapor pajak tahun ini?" — jujur, apa jawaban kamu?' },
+      { type: 'Shock',    text: 'Ada yang baru sadar bisnis online-nya kena pajak setelah omzet 2 miliar.' },
+      { type: 'Relatable',text: 'Pajak itu bukan soal takut kena denda. Tapi soal ngerti aturan mainnya.' },
+      { type: 'Story',    text: 'Klien datang panik. Baru terima surat dari DJP. Padahal bisnis baru 2 tahun.' },
+      { type: 'Myth',     text: 'Banyak yang masih percaya: "jualan online tidak keliatan sama pajak." Ini salah.' },
+      { type: 'Relatable',text: 'Nggak ada yang diajarkan soal pajak di sekolah. Wajar kalau bingung.' },
+    ],
+    closing: [
+      { type: 'Action',   text: 'Mulai dari yang kecil: pastikan NPWP kamu aktif dan SPT tahun ini sudah dilaporkan.' },
+      { type: 'Takeaway', text: 'Intinya: lapor meski penghasilan kecil. Lebih aman daripada nanti repot.' },
+      { type: 'Empathy',  text: 'Pajak memang ribet. Tapi bukan tidak bisa dipahami. Butuh bantuan? DM saja.' },
+      { type: 'Urgency',  text: 'Jangan tunggu surat dari DJP baru bergerak. Itu sudah terlambat.' },
+      { type: 'Hope',     text: 'Kalau kamu baca ini sampai selesai, berarti kamu sudah selangkah lebih siap dari kebanyakan orang.' },
+      { type: 'CTA soft', text: 'Save dulu, baca pelan-pelan. Dan kalau ada yang mau ditanyain, konsultasipajakgratis.com buka gratis.' },
+      { type: 'Action',   text: 'Satu hal yang bisa kamu lakukan hari ini: cek status NPWP kamu di djponline.pajak.go.id' },
+    ],
+  };
+
+  function setSnippetTab(tab) {
+    activeSnippetTab = tab;
+    document.querySelectorAll('.snippets-tab').forEach(el => {
+      el.classList.toggle('active', el.dataset.tab === tab);
+    });
+    renderSnippets();
+    renderPinned();
+  }
+
+  function renderSnippets() {
+    const grid = document.getElementById('snippetsGrid');
+    if (!grid) return;
+    const items = SNIPPETS[activeSnippetTab] || [];
+    grid.innerHTML = items.map((s, i) => `
+      <div class="snippet-card" id="snippet-${activeSnippetTab}-${i}" onclick="copySnippet('${activeSnippetTab}', ${i})">
+        <div class="snippet-type">
+          <span>${activeSnippetTab === 'hook' ? '🪝' : activeSnippetTab === 'cta' ? '📣' : activeSnippetTab === 'opening' ? '✍️' : '🎯'}</span>
+          ${escapeHtml(s.type)}
+        </div>
+        <div class="snippet-text">${escapeHtml(s.text)}</div>
+        <div class="snippet-copy-hint">Klik untuk copy</div>
+        <div class="snippet-copied-badge">✓ Tersalin</div>
+      </div>
+    `).join('');
+  }
+
+  function copySnippet(tab, idx) {
+    const s = SNIPPETS[tab]?.[idx];
+    if (!s) return;
+    navigator.clipboard.writeText(s.text).then(() => {
+      const card = document.getElementById(`snippet-${tab}-${idx}`);
+      card.classList.add('copied');
+      setTimeout(() => card.classList.remove('copied'), 2000);
+    });
+  }
+
+  // ── Prompt Quality Checker ───────────────────────────────────
+  function runQualityCheck(prompt, contentType, tone, topic) {
+    const p = prompt.toLowerCase();
+    const t = topic.toLowerCase();
+
+    const checks = [
+      {
+        label: 'Ada hook kuat',
+        pass: /hook|banyak orang|jangan sampai|kesalahan|90%|ternyata|rahasia|sadar|kena denda/i.test(p),
+      },
+      {
+        label: 'Ada CTA & URL',
+        pass: p.includes('konsultasipajakgratis.com'),
+      },
+      {
+        label: 'Ada tone direction',
+        pass: p.includes('tone') || p.includes('fear') || p.includes('edukasi') || p.includes('viral') || p.includes('storytelling'),
+      },
+      {
+        label: 'Ada brand voice',
+        pass: p.includes('konsultasi pajak gratis') || p.includes('brand voice'),
+      },
+      {
+        label: 'Topik spesifik',
+        pass: topic.length >= 15,
+      },
+      {
+        label: 'Ada format output',
+        pass: p.includes('format') || p.includes('slide') || p.includes('utas') || p.includes('caption'),
+      },
+      {
+        label: 'Ada instruksi audiens',
+        pass: p.includes('umkm') || p.includes('freelancer') || p.includes('audience') || p.includes('target'),
+      },
+      {
+        label: contentType === 'carousel' || contentType === 'wa_flyer' ? 'Ada spek ukuran' : 'Ada panjang output',
+        pass: p.includes('px') || p.includes('karakter') || p.includes('slide') || p.includes('1080'),
+      },
+    ];
+
+    const passCount = checks.filter(c => c.pass).length;
+    const score = Math.round(passCount / checks.length * 100);
+
+    // Score badge
+    let badgeColor, badgeLabel;
+    if (score >= 90) { badgeColor = 'rgba(34,211,160,0.15)'; badgeLabel = `${score}% Excellent ✦`; }
+    else if (score >= 70) { badgeColor = 'rgba(249,115,22,0.15)'; badgeLabel = `${score}% Good`; }
+    else { badgeColor = 'rgba(248,113,113,0.15)'; badgeLabel = `${score}% Perlu perbaikan`; }
+
+    const badge = document.getElementById('qualityBadge');
+    badge.textContent = badgeLabel;
+    badge.style.background = badgeColor;
+    badge.style.color = score >= 90 ? 'var(--green)' : score >= 70 ? 'var(--accent)' : '#f87171';
+
+    document.getElementById('qualityChecks').innerHTML = checks.map(c => `
+      <div class="quality-check ${c.pass ? 'pass' : 'fail'}">
+        <div class="quality-dot"></div>
+        ${escapeHtml(c.label)}
+      </div>
+    `).join('');
+
+    document.getElementById('qualityBar').classList.add('visible');
+  }
+
+  // ── Onboarding ───────────────────────────────────────────────
+  const ONBOARD_KEY = 'pajak_onboarded';
+  let onboardStep = 0;
+
+  const ONBOARD_STEPS = [
+    {
+      icon: '👋',
+      title: 'Selamat datang di Pajak Content Generator!',
+      desc: 'Tool ini membantu kamu membuat prompt konten pajak untuk Instagram, WhatsApp, dan Threads — siap di-paste ke Claude atau ChatGPT.',
+    },
+    {
+      icon: '✍️',
+      title: 'Ketik topik, pilih tipe & tone',
+      desc: 'Masukkan topik pajak yang mau dibahas, pilih platform (IG/WA/Threads), pilih tone (Edukasi, Fear, Viral, Storytelling), lalu tekan Generate.',
+    },
+    {
+      icon: '🎲',
+      title: 'Kehabisan ide topik?',
+      desc: 'Klik tombol 🎲 di input untuk topik random dari 100 daftar topik. Atau ketik 2 huruf untuk autocomplete dari riwayat & favorit.',
+    },
+    {
+      icon: '📅',
+      title: 'Jadwalkan konten minggu ini',
+      desc: 'Content Calendar di bawah membantu jadwalkan topik per hari. Drag & drop dari panel topik ke hari yang diinginkan.',
+    },
+    {
+      icon: '✅',
+      title: 'Tracking progress 100 topik',
+      desc: 'Progress Tracker di paling bawah mencatat topik mana yang sudah diposting. Centang satu per satu — data tersimpan otomatis.',
+    },
+  ];
+
+  function startOnboard() {
+    onboardStep = 0;
+    renderOnboardStep();
+    document.getElementById('onboardOverlay').style.display = 'flex';
+  }
+
+  function renderOnboardStep() {
+    const s = ONBOARD_STEPS[onboardStep];
+    const total = ONBOARD_STEPS.length;
+    document.getElementById('onboardStepBadge').textContent = `Step ${onboardStep + 1} / ${total}`;
+    document.getElementById('onboardIcon').textContent = s.icon;
+    document.getElementById('onboardTitle').textContent = s.title;
+    document.getElementById('onboardDesc').textContent = s.desc;
+    document.getElementById('onboardNextBtn').textContent = onboardStep === total - 1 ? 'Mulai! 🚀' : 'Lanjut →';
+    // Dots
+    document.getElementById('onboardDots').innerHTML = ONBOARD_STEPS
+      .map((_, i) => `<div class="onboard-dot ${i === onboardStep ? 'active' : ''}"></div>`).join('');
+  }
+
+  function nextOnboard() {
+    if (onboardStep < ONBOARD_STEPS.length - 1) {
+      onboardStep++;
+      renderOnboardStep();
+    } else {
+      skipOnboard();
+    }
+  }
+
+  function skipOnboard() {
+    document.getElementById('onboardOverlay').style.display = 'none';
+    localStorage.setItem(ONBOARD_KEY, '1');
+    // Show shortcut bar briefly after onboarding
+    const bar = document.getElementById('shortcutBar');
+    bar.classList.add('visible');
+    setTimeout(() => bar.classList.remove('visible'), 6000);
+  }
+
+  // Show onboard on first visit
+  if (!localStorage.getItem(ONBOARD_KEY)) {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(startOnboard, 400));
+  }
+
+  // Show shortcut bar with ? key
+  document.addEventListener('keydown', e => {
+    if (e.key === '?' && !e.metaKey && !e.ctrlKey) {
+      const bar = document.getElementById('shortcutBar');
+      bar.classList.toggle('visible');
+    }
+  });
+
+  // ── Export Batch ─────────────────────────────────────────────
+  function exportBatch() {
+    const history = loadHistory();
+    if (!history.length) {
+      alert('Belum ada riwayat generate untuk diekspor.');
+      return;
+    }
+
+    let md = `# 📦 Batch Export — Pajak Content Generator
+`;
+    md += `Digenerate: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+`;
+    md += `Total: ${history.length} prompt
+
+---
+
+`;
+
+    history.forEach((entry, i) => {
+      md += `## ${i + 1}. ${entry.topic}
+`;
+      md += `**Tipe:** ${typeLabels[entry.contentType] || entry.contentType} · **Tone:** ${entry.tone} · ${entry.ts}
+
+`;
+      md += `\`\`\`
+${entry.prompt}
+\`\`\`
+
+---
+
+`;
+    });
+
+    md += `*konsultasipajakgratis.com*
+`;
+
+    // Download as .md file
+    const blob = new Blob([md], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pajak-content-export-${new Date().toISOString().slice(0,10)}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // ── Tone Preview ─────────────────────────────────────────────
+  const TONE_PREVIEWS = {
+    edukasi: {
+      example: '"Ternyata ada 3 jenis penghasilan yang sering lupa dilaporkan di SPT. Yang paling banyak dilewatkan adalah penghasilan dari freelance sampingan."',
+      desc: 'Friendly, informatif, tidak menggurui — seperti teman yang tahu pajak',
+    },
+    fear: {
+      example: '"Seorang pemilik warung kopi baru tahu bisnis 3 tahunnya bermasalah setelah terima surat dari DJP. Dendanya? 200 juta."',
+      desc: 'Bangun tension dulu, kasih solusi setelahnya — hopeful di akhir',
+    },
+    viral: {
+      example: '"90% freelancer Indonesia salah soal ini. Dan kesalahan ini bisa bikin kamu kena tagihan pajak yang nggak terduga."',
+      desc: 'Bold, scroll-stopping, pakai angka & klaim kuat — orang mau share',
+    },
+    storytelling: {
+      example: '"Namanya Dita. 4 tahun jualan online, omzet 50 juta per bulan. Hari ini dia dapat surat dari DJP untuk pertama kalinya."',
+      desc: 'Karakter nyata, situasi relatable, resolusi satisfying di akhir',
+    },
+  };
+
+  let tonePreviewTimer = null;
+
+  function showTonePreview(tone, el) {
+    clearTimeout(tonePreviewTimer);
+    const popup = document.getElementById('tonePreviewPopup');
+    const data = TONE_PREVIEWS[tone];
+    if (!data) return;
+    popup.innerHTML = `
+      <div class="tone-preview-example">${escapeHtml(data.example)}</div>
+      <div class="tone-preview-desc">${escapeHtml(data.desc)}</div>
+    `;
+    popup.classList.add('visible');
+  }
+
+  function hideTonePreview() {
+    tonePreviewTimer = setTimeout(() => {
+      document.getElementById('tonePreviewPopup').classList.remove('visible');
+    }, 200);
+  }
+
+  // ── Related Topics ────────────────────────────────────────────
+  function getRelatedTopics(topic, contentType) {
+    const t = topic.toLowerCase();
+    const allTopics = Object.values(PROGRESS_TOPICS).flat();
+
+    // Find topics in same pillar first, then keyword overlap
+    let related = allTopics
+      .filter(tp => tp !== topic)
+      .map(tp => {
+        const words = t.split(/\s+/).filter(w => w.length > 3);
+        const overlap = words.filter(w => tp.toLowerCase().includes(w)).length;
+        return { tp, score: overlap };
+      })
+      .filter(x => x.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5)
+      .map(x => x.tp);
+
+    // Pad with random if not enough
+    if (related.length < 4) {
+      const extras = allTopics
+        .filter(tp => tp !== topic && !related.includes(tp))
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 4 - related.length);
+      related = [...related, ...extras];
+    }
+
+    return related.slice(0, 4);
+  }
+
+  function renderRelatedTopics(topic, contentType) {
+    const related = getRelatedTopics(topic, contentType);
+    const bar = document.getElementById('relatedBar');
+    const chips = document.getElementById('relatedChips');
+    chips.innerHTML = related.map(t => {
+      const short = t.length > 55 ? t.slice(0, 55) + '…' : t;
+      return `<div class="related-chip" onclick="useRelatedTopic(${JSON.stringify(t)})">${escapeHtml(short)}</div>`;
+    }).join('');
+    bar.classList.add('visible');
+  }
+
+  function useRelatedTopic(topic) {
+    document.getElementById('topicInput').value = topic;
+    updateStarBtn();
+    updatePreview();
+    closeSuggest();
+    document.getElementById('topicInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // ── Pinned Outputs ────────────────────────────────────────────
+  const PINNED_KEY = 'pajak_pinned';
+
+  function loadPinned() {
+    try { return JSON.parse(localStorage.getItem(PINNED_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function savePinned(list) { localStorage.setItem(PINNED_KEY, JSON.stringify(list)); }
+
+  function pinCurrentOutput() {
+    const prompt = document.getElementById('promptOutput').textContent.trim();
+    const topic = document.getElementById('topicInput').value.trim();
+    if (!prompt || !topic) return;
+
+    let contentType = 'carousel';
+    for (const gid of allTypeGroups) { const v = getActive(gid)[0]; if (v) { contentType = v; break; } }
+    const tone = getActive('toneGroup')[0] || 'edukasi';
+
+    const list = loadPinned();
+    // Toggle: if same topic+type already pinned, unpin
+    const existIdx = list.findIndex(p => p.topic === topic && p.contentType === contentType);
+    if (existIdx >= 0) {
+      list.splice(existIdx, 1);
+      savePinned(list);
+      document.getElementById('pinBtn').classList.remove('pinned');
+      document.getElementById('pinBtn').innerHTML = '📌 Pin Output';
+    } else {
+      list.unshift({ id: Date.now(), topic, contentType, tone, prompt, ts: new Date().toLocaleString('id-ID', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) });
+      savePinned(list.slice(0, 10));
+      document.getElementById('pinBtn').classList.add('pinned');
+      document.getElementById('pinBtn').innerHTML = '📌 Dipinned';
+    }
+    renderPinned();
+  }
+
+  function unpinItem(id) {
+    savePinned(loadPinned().filter(p => p.id !== id));
+    renderPinned();
+  }
+
+  function loadPinnedPrompt(id) {
+    const item = loadPinned().find(p => p.id === id);
+    if (!item) return;
+    document.getElementById('promptOutput').textContent = item.prompt;
+    document.getElementById('topicInput').value = item.topic;
+    const isImage = item.contentType === 'carousel' || item.contentType === 'wa_flyer';
+    document.querySelector('#outputPrompt .output-title').innerHTML = isImage ? '🎨 Image Generation Prompt (ChatGPT DALL-E)' : '✦ Prompt Siap Dipakai';
+    document.querySelector('#outputPrompt .output-title').style.color = isImage ? '#a78bfa' : 'var(--green)';
+    document.getElementById('chatgptTip').style.display = isImage ? 'flex' : 'none';
+    document.getElementById('outputPrompt').classList.add('visible');
+    document.getElementById('outputPrompt').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    updateStarBtn(); updatePreview();
+    document.getElementById('pinBtn').classList.add('pinned');
+    document.getElementById('pinBtn').innerHTML = '📌 Dipinned';
+  }
+
+  function clearAllPinned() {
+    if (!confirm('Hapus semua pinned output?')) return;
+    localStorage.removeItem(PINNED_KEY);
+    renderPinned();
+  }
+
+  function renderPinned() {
+    const list = loadPinned();
+    const section = document.getElementById('pinnedSection');
+    const listEl = document.getElementById('pinnedList');
+    const count = document.getElementById('pinnedCount');
+    if (!section) return;
+    count.textContent = list.length;
+    section.style.display = list.length ? 'block' : 'none';
+    if (!list.length) return;
+    listEl.innerHTML = list.map(p => `
+      <div class="pinned-item">
+        <div class="pinned-item-body">
+          <div class="pinned-item-topic">${escapeHtml(p.topic)}</div>
+          <div class="pinned-item-preview">${escapeHtml(p.prompt.slice(0, 120))}…</div>
+        </div>
+        <div class="pinned-item-actions">
+          <button class="btn-pinned" onclick="loadPinnedPrompt(${p.id})">Load</button>
+          <button class="btn-pinned" onclick="navigator.clipboard.writeText(${JSON.stringify(p.prompt)})">Copy</button>
+          <button class="btn-pinned" onclick="unpinItem(${p.id})" style="color:#f87171;">✕</button>
+        </div>
+      </div>
+    `).join('');
   }
 
   // ── Theme toggle ─────────────────────────────────────────────
