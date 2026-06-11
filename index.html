@@ -705,10 +705,6 @@
   }
 
   .btn-star-topic {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
@@ -716,11 +712,11 @@
     line-height: 1;
     padding: 4px;
     border-radius: 6px;
-    transition: transform 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
     opacity: 0.5;
   }
 
-  .btn-star-topic:hover { opacity: 1; transform: translateY(-50%) scale(1.2); }
+  .btn-star-topic:hover { opacity: 1; transform: scale(1.2); }
   .btn-star-topic.starred { opacity: 1; }
 
   .fav-empty {
@@ -2503,29 +2499,26 @@
 
   .bank-stat strong { color: var(--text); }
 
-  /* ── Topic Picker (standalone card) ── */
+  /* ── Topic Picker ── */
   .picker-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 1.25rem 1.5rem;
+    padding: 1.5rem;
     margin-bottom: 1.25rem;
   }
 
-  .picker-header {
+  .picker-section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-
-  .picker-header-left {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
   }
 
   .picker-acak {
@@ -2539,85 +2532,118 @@
     cursor: pointer;
     background: var(--surface2);
     border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 5px 10px;
+    border-radius: 99px;
+    padding: 4px 12px;
     transition: all 0.15s;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .picker-acak:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Input field inside picker */
+  .picker-topic-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 0.9rem 3rem 0.9rem 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 1.25rem;
+    resize: none;
+    min-height: 56px;
+  }
+
+  .picker-topic-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  .picker-topic-input::placeholder { color: var(--muted); opacity: 0.6; }
 
   /* Category pills */
   .picker-cats {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 7px;
     margin-bottom: 1rem;
   }
 
   .picker-cat {
     font-family: 'Syne', sans-serif;
     font-size: 12px;
-    font-weight: 700;
-    padding: 5px 13px;
+    font-weight: 600;
+    padding: 6px 14px;
     border-radius: 99px;
     border: 1.5px solid var(--border);
-    background: var(--surface2);
+    background: transparent;
     color: var(--muted);
     cursor: pointer;
     transition: all 0.15s;
     white-space: nowrap;
+    letter-spacing: 0;
   }
 
-  .picker-cat:hover { border-color: var(--accent); color: var(--accent2); }
+  .picker-cat:hover { border-color: rgba(249,115,22,0.5); color: var(--text); }
   .picker-cat.active {
-    background: var(--accent);
+    background: transparent;
     border-color: var(--accent);
-    color: #fff;
+    color: var(--accent);
+    font-weight: 700;
   }
 
   /* Topic list */
   .picker-list {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    max-height: 340px;
+    max-height: 320px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
-    border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
     overflow-y: auto;
+    border: 1px solid var(--border);
   }
 
-  .picker-list::-webkit-scrollbar { width: 4px; }
+  .picker-list::-webkit-scrollbar { width: 6px; }
+  .picker-list::-webkit-scrollbar-track { background: var(--surface2); }
   .picker-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
   .picker-item {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     padding: 14px 16px;
     cursor: pointer;
-    transition: background 0.1s;
+    transition: background 0.12s;
     border-bottom: 1px solid var(--border);
-    position: relative;
+    background: var(--surface2);
   }
 
   .picker-item:last-child { border-bottom: none; }
-  .picker-item:hover { background: var(--surface2); }
-  .picker-item.selected { background: var(--accent-glow); }
+
+  .picker-item:hover { background: var(--surface); }
+
+  .picker-item.selected {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+  }
 
   .picker-item-icon {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 20px;
     flex-shrink: 0;
-    background: var(--surface2);
+    background: var(--surface);
     border: 1px solid var(--border);
   }
 
@@ -2632,29 +2658,20 @@
     font-size: 14px;
     font-weight: 500;
     color: var(--text);
-    line-height: 1.35;
-    margin-bottom: 3px;
+    line-height: 1.4;
+    margin-bottom: 4px;
   }
 
-  .picker-item.selected .picker-item-title { color: var(--accent); font-weight: 600; }
+  .picker-item.selected .picker-item-title { color: var(--accent); }
 
   .picker-item-tags {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-  }
-
-  .picker-tag {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--muted);
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
+    display: flex;
+    gap: 0;
   }
 
-  .picker-tag + .picker-tag::before {
-    content: '·';
-    margin-right: 5px;
-  }
+  .picker-tag + .picker-tag::before { content: ' · '; }
 
   .picker-done-badge {
     font-size: 11px;
@@ -2799,38 +2816,42 @@
     </div>
   </div>
 
-  <!-- Bank Topik Picker -->
+  <!-- Topik Konten + Bank Topik -->
   <div class="picker-card">
-    <div class="picker-header">
-      <span class="picker-header-left">🗃 Bank Topik</span>
+
+    <!-- Input topik -->
+    <div class="picker-section-label">
+      TOPIK KONTEN
+    </div>
+    <div style="position:relative;margin-bottom:1.5rem;">
+      <input type="text" class="picker-topic-input" id="topicInput"
+        placeholder="Tulis topiknya di sini. Makin spesifik makin bagus. Atau pilih dari bank topik di bawah..."
+        autocomplete="off" />
+      <div style="position:absolute;right:10px;top:50%;transform:translateY(-50%);display:flex;gap:4px;">
+        <button class="btn-star-topic" id="diceBtn" onclick="randomTopic()" title="Topik random" style="position:static;transform:none;opacity:0.6;font-size:15px;">🎲</button>
+        <button class="btn-star-topic" id="starBtn" onclick="toggleFavorite()" title="Simpan ke favorit" style="position:static;transform:none;opacity:0.6;font-size:15px;">⭐</button>
+      </div>
+      <div class="suggest-dropdown" id="suggestDropdown" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:150;"></div>
+    </div>
+
+    <!-- Bank Topik -->
+    <div class="picker-section-label">
+      BANK TOPIK
       <button class="picker-acak" onclick="randomTopic()">↺ Acak topik</button>
     </div>
 
     <!-- Category pills -->
     <div class="picker-cats" id="pickerCats"></div>
 
-    <!-- Search -->
-    <input type="text" class="picker-search" id="pickerSearch" placeholder="Cari topik..." oninput="renderPickerList()" autocomplete="off" />
-
     <!-- Topic list -->
     <div class="picker-list" id="pickerList"></div>
 
     <!-- Footer -->
     <div class="picker-footer">
-      <span id="pickerFooterCount" style="color:var(--muted);"></span>
-      <span style="color:var(--muted);">Klik topik untuk memilih</span>
+      <span id="pickerFooterCount"></span>
+      <span>Klik topik untuk memilih</span>
     </div>
-  </div>
 
-  <!-- Input Topik -->
-  <div class="card">
-    <div class="section-label">01 — Topik Konten</div>
-    <div class="input-star-wrap" style="position:relative;">
-      <input type="text" id="topicInput" placeholder="Atau ketik topik sendiri di sini..." style="padding-right:4.5rem;" autocomplete="off" />
-      <button class="btn-star-topic" id="diceBtn" onclick="randomTopic()" title="Topik random 🎲" style="right:2.4rem;">🎲</button>
-      <button class="btn-star-topic" id="starBtn" onclick="toggleFavorite()" title="Simpan ke favorit">⭐</button>
-      <div class="suggest-dropdown" id="suggestDropdown" style="display:none;"></div>
-    </div>
   </div>
 
   <!-- Tipe Konten -->
