@@ -3317,6 +3317,15 @@
 </div>
 
 <script>
+// ── Direct init call after DOM is ready ──
+window.addEventListener('load', function() {
+  if (typeof renderBank === 'function') renderBank();
+  if (typeof renderPickerTabs === 'function') renderPickerTabs();
+  if (typeof renderPickerList === 'function') renderPickerList();
+});
+</script>
+
+<script>
   const PROGRESS_TOPICS = {
     'Kesalahan Pajak Umum': [
       "Sudah bayar pajak tapi tidak lapor SPT — apakah tetap kena denda?",
@@ -3494,19 +3503,25 @@
 
   // Init on DOM ready
   document.addEventListener('DOMContentLoaded', () => {
-    renderHistory();
-    renderFavorites();
-    renderTemplates();
-    renderStats();
-    renderProgress();
-    renderSnippets();
-    renderPinned();
-    renderBank();
-    renderPickerTabs();
-    renderPickerList();
-    updateStarBtn();
-    renderCalGrid();
-    updatePreview();
+    const inits = [
+      ['renderHistory', renderHistory],
+      ['renderFavorites', renderFavorites],
+      ['renderTemplates', renderTemplates],
+      ['renderStats', renderStats],
+      ['renderProgress', renderProgress],
+      ['renderSnippets', renderSnippets],
+      ['renderPinned', renderPinned],
+      ['renderBank', renderBank],
+      ['renderPickerTabs', renderPickerTabs],
+      ['renderPickerList', renderPickerList],
+      ['updateStarBtn', updateStarBtn],
+      ['renderCalGrid', renderCalGrid],
+      ['updatePreview', updatePreview],
+    ];
+    inits.forEach(([name, fn]) => {
+      try { fn(); } catch(e) { console.error('Init error in ' + name + ':', e); }
+    });
+
     // Bank topic input keyboard handler
     const bankInput = document.getElementById('bankTopicInput');
     if (bankInput) {
@@ -5420,6 +5435,7 @@ Sekarang buat Threads untuk topik: "${topic}"
 
   function renderPickerList() {
     const list = document.getElementById('pickerList');
+    if (!list) return;
     const footer = document.getElementById('pickerFooterCount');
     const q = (document.getElementById('pickerSearch')?.value || '').toLowerCase().trim();
     const progressData = loadProgress();
@@ -5531,6 +5547,7 @@ Sekarang buat Threads untuk topik: "${topic}"
   }
 
   function renderProgress() {
+    if (!document.getElementById('progressBarFill')) return;
     const data = loadProgress();
     const allTopics = Object.values(PROGRESS_TOPICS).flat();
     const doneCount = allTopics.filter((_, i) => data[i]).length;
@@ -6185,6 +6202,7 @@ ${entry.prompt}
   }
 
   function renderBank() {
+    if (!document.getElementById('bankGrid')) return;
     const searchQ = (document.getElementById('bankSearch')?.value || '').toLowerCase().trim();
     const all = getAllBankTopics();
     const progressData = loadProgress();
@@ -6220,6 +6238,7 @@ ${entry.prompt}
   }
 
   function renderBankGrid(searchQ) {
+    if (!document.getElementById('bankGrid')) return;
     searchQ = searchQ !== undefined ? searchQ : (document.getElementById('bankSearch')?.value || '').toLowerCase().trim();
     const all = getAllBankTopics();
     const progressData = loadProgress();
