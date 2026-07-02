@@ -348,9 +348,10 @@ h1 em{font-style:normal;color:var(--ac)}
 .hamburger-btn:hover{border-color:var(--ac)}
 .hamburger-btn span{width:16px;height:1.5px;background:var(--mu);border-radius:2px;transition:background .15s}
 .hamburger-btn:hover span{background:var(--ac)}
-.side-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:300;display:none;animation:fadeIn .2s ease;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.side-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:300;display:none}
 .side-menu-overlay.vis{display:block}
-.side-menu{position:fixed;top:0;left:0;bottom:0;width:340px;max-width:88vw;background:var(--sf);border-right:1px solid var(--bd);z-index:301;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:slideRight .25s ease;padding:1.5rem;cursor:default}
+.side-menu{position:fixed;top:0;left:0;bottom:0;width:340px;max-width:88vw;background:var(--sf);border-right:1px solid var(--bd);z-index:301;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:1.5rem;transform:translateX(-100%);transition:transform .25s ease}
+.side-menu.vis{transform:translateX(0)}
 @keyframes slideRight{from{transform:translateX(-100%)}to{transform:translateX(0)}}
 .side-menu-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
 .side-menu-title{font-family:Syne,sans-serif;font-size:1rem;font-weight:800;color:var(--tx)}
@@ -381,14 +382,14 @@ h1 em{font-style:normal;color:var(--ac)}
 </button>
 
 <!-- Side menu overlay -->
-<div class="side-menu-overlay" id="sideOverlay" onclick="closeSideMenu()" ontouchend="closeSideMenu()">
+<div class="side-menu-overlay" id="sideOverlay">
 </div>
 
 <!-- Side menu -->
-<div class="side-menu" id="sideMenu" onclick="event.stopPropagation()" ontouchend="event.stopPropagation()">
+<div class="side-menu" id="sideMenu">
   <div class="side-menu-head">
     <div class="side-menu-title">📖 Panduan & Menu</div>
-    <button class="side-close" onclick="closeSideMenu()" ontouchend="closeSideMenu()" style="width:36px;height:36px;border-radius:8px;background:var(--sf2);border:1px solid var(--bd);font-size:18px;display:flex;align-items:center;justify-content:center">×</button>
+    <button class="side-close" id="sideCloseBtn">×</button>
   </div>
 
   <!-- How to use -->
@@ -1566,27 +1567,24 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
     '- tidak terlalu teknis',
     '- fokus pain point dan curiosity',
     '',
-    'Output yang dihasilkan:',
+    'Output:',
     '- hook',
     '- body',
     '- CTA',
     '- caption',
     '- hashtag',
-    '- carousel breakdown (jika carousel)',
-    '- Threads breakdown (jika threads)',
+    '- carousel breakdown',
+    '- Threads breakdown',
     '',
     'Selalu gunakan:',
-    '- storytelling dan contoh nyata',
-    '- practical advice yang actionable',
+    '- storytelling',
+    '- contoh nyata',
+    '- practical advice',
     '- fear + solution',
-    '- curiosity gap',
+    '- curiosity',
     '',
-    'Aturan CTA:',
-    '- CTA hanya muncul SEKALI di akhir konten',
-    '- Cukup sebut domain: konsultasipajakgratis.com',
-    '- JANGAN tulis "konsultasi gratis" — kata "gratis" sudah ada di nama domain',
-    '- CTA harus terasa natural, bukan hard sell',
-    '- Contoh CTA yang baik: "Cek dulu di konsultasipajakgratis.com" atau "DM atau langsung ke konsultasipajakgratis.com"'
+    'CTA utama:',
+    'konsultasipajakgratis.com'
   ].join('\n');
   var n = '\n';
 
@@ -2946,21 +2944,14 @@ function nextOnboard() {
 
 
 function openSideMenu() {
-  var menu = document.getElementById('sideMenu');
-  var overlay = document.getElementById('sideOverlay');
-  menu.style.transition = 'none';
-  menu.style.transform = 'translateX(-100%)';
-  // Force reflow
-  menu.offsetHeight;
-  menu.style.transition = '';
-  menu.style.transform = 'translateX(0)';
-  overlay.classList.add('vis');
+  document.getElementById('sideOverlay').classList.add('vis');
+  document.getElementById('sideMenu').classList.add('vis');
   document.body.style.overflow = 'hidden';
 }
 
 function closeSideMenu() {
   document.getElementById('sideOverlay').classList.remove('vis');
-  document.getElementById('sideMenu').style.transform = 'translateX(-100%)';
+  document.getElementById('sideMenu').classList.remove('vis');
   document.body.style.overflow = '';
 }
 
@@ -3075,6 +3066,12 @@ document.addEventListener('DOMContentLoaded', function() {
   try { initPicker(); } catch(e) { console.error('initPicker', e); }
   try { renderCal(); } catch(e) { console.error('renderCal', e); }
   try { updatePreview(); } catch(e) { console.error('updatePreview', e); }
+
+  // Side menu event listeners
+  var overlay = document.getElementById('sideOverlay');
+  var closeBtn = document.getElementById('sideCloseBtn');
+  if (overlay) overlay.addEventListener('click', closeSideMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeSideMenu);
 
   // Onboarding
   if (!localStorage.getItem('pajak_onboarded')) {
@@ -3438,9 +3435,10 @@ h1 em{font-style:normal;color:var(--ac)}
 .hamburger-btn:hover{border-color:var(--ac)}
 .hamburger-btn span{width:16px;height:1.5px;background:var(--mu);border-radius:2px;transition:background .15s}
 .hamburger-btn:hover span{background:var(--ac)}
-.side-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:300;display:none;animation:fadeIn .2s ease;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.side-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:300;display:none}
 .side-menu-overlay.vis{display:block}
-.side-menu{position:fixed;top:0;left:0;bottom:0;width:340px;max-width:88vw;background:var(--sf);border-right:1px solid var(--bd);z-index:301;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:slideRight .25s ease;padding:1.5rem;cursor:default}
+.side-menu{position:fixed;top:0;left:0;bottom:0;width:340px;max-width:88vw;background:var(--sf);border-right:1px solid var(--bd);z-index:301;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:1.5rem;transform:translateX(-100%);transition:transform .25s ease}
+.side-menu.vis{transform:translateX(0)}
 @keyframes slideRight{from{transform:translateX(-100%)}to{transform:translateX(0)}}
 .side-menu-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
 .side-menu-title{font-family:Syne,sans-serif;font-size:1rem;font-weight:800;color:var(--tx)}
@@ -3471,14 +3469,14 @@ h1 em{font-style:normal;color:var(--ac)}
 </button>
 
 <!-- Side menu overlay -->
-<div class="side-menu-overlay" id="sideOverlay" onclick="closeSideMenu()" ontouchend="closeSideMenu()">
+<div class="side-menu-overlay" id="sideOverlay">
 </div>
 
 <!-- Side menu -->
-<div class="side-menu" id="sideMenu" onclick="event.stopPropagation()" ontouchend="event.stopPropagation()">
+<div class="side-menu" id="sideMenu">
   <div class="side-menu-head">
     <div class="side-menu-title">📖 Panduan & Menu</div>
-    <button class="side-close" onclick="closeSideMenu()" ontouchend="closeSideMenu()" style="width:36px;height:36px;border-radius:8px;background:var(--sf2);border:1px solid var(--bd);font-size:18px;display:flex;align-items:center;justify-content:center">×</button>
+    <button class="side-close" id="sideCloseBtn">×</button>
   </div>
 
   <!-- How to use -->
@@ -6036,21 +6034,14 @@ function nextOnboard() {
 
 
 function openSideMenu() {
-  var menu = document.getElementById('sideMenu');
-  var overlay = document.getElementById('sideOverlay');
-  menu.style.transition = 'none';
-  menu.style.transform = 'translateX(-100%)';
-  // Force reflow
-  menu.offsetHeight;
-  menu.style.transition = '';
-  menu.style.transform = 'translateX(0)';
-  overlay.classList.add('vis');
+  document.getElementById('sideOverlay').classList.add('vis');
+  document.getElementById('sideMenu').classList.add('vis');
   document.body.style.overflow = 'hidden';
 }
 
 function closeSideMenu() {
   document.getElementById('sideOverlay').classList.remove('vis');
-  document.getElementById('sideMenu').style.transform = 'translateX(-100%)';
+  document.getElementById('sideMenu').classList.remove('vis');
   document.body.style.overflow = '';
 }
 
@@ -6165,6 +6156,12 @@ document.addEventListener('DOMContentLoaded', function() {
   try { initPicker(); } catch(e) { console.error('initPicker', e); }
   try { renderCal(); } catch(e) { console.error('renderCal', e); }
   try { updatePreview(); } catch(e) { console.error('updatePreview', e); }
+
+  // Side menu event listeners
+  var overlay = document.getElementById('sideOverlay');
+  var closeBtn = document.getElementById('sideCloseBtn');
+  if (overlay) overlay.addEventListener('click', closeSideMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeSideMenu);
 
   // Onboarding
   if (!localStorage.getItem('pajak_onboarded')) {
