@@ -343,10 +343,133 @@ h1 em{font-style:normal;color:var(--ac)}
 @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+
+/* Hamburger menu */
+.hamburger-btn{position:fixed;top:1.1rem;left:1.25rem;z-index:100;width:38px;height:38px;background:var(--sf2);border:1.5px solid var(--bd);border-radius:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:border-color .15s}
+.hamburger-btn:hover{border-color:var(--ac)}
+.hamburger-btn span{width:16px;height:1.5px;background:var(--mu);border-radius:2px;transition:background .15s}
+.hamburger-btn:hover span{background:var(--ac)}
+.side-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:300;display:none;animation:fadeIn .2s ease}
+.side-menu-overlay.vis{display:block}
+.side-menu{position:fixed;top:0;left:0;bottom:0;width:340px;max-width:90vw;background:var(--sf);border-right:1px solid var(--bd);z-index:301;overflow-y:auto;animation:slideRight .25s ease;padding:1.5rem}
+@keyframes slideRight{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+.side-menu-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.side-menu-title{font-family:Syne,sans-serif;font-size:1rem;font-weight:800;color:var(--tx)}
+.side-close{background:none;border:none;color:var(--mu);font-size:20px;cursor:pointer;padding:4px;line-height:1;transition:color .15s}
+.side-close:hover{color:var(--tx)}
+.how-section{margin-bottom:1.5rem}
+.how-title{font-family:Syne,sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ac);margin-bottom:.7rem}
+.how-step{display:flex;gap:10px;margin-bottom:.9rem;align-items:flex-start}
+.how-num{width:24px;height:24px;border-radius:50%;background:var(--ac);color:#fff;font-family:Syne,sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.how-body{flex:1}
+.how-step-title{font-family:Syne,sans-serif;font-size:13px;font-weight:700;color:var(--tx);margin-bottom:2px}
+.how-step-desc{font-size:12px;color:var(--mu);line-height:1.55}
+.how-divider{height:1px;background:var(--bd);margin:1.25rem 0}
+.how-tip{background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:.75rem 1rem;margin-bottom:.7rem;font-size:12px;color:var(--mu);line-height:1.6}
+.how-tip strong{color:var(--tx);font-family:Syne,sans-serif}
+.side-shortcut-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bd);font-size:12px;color:var(--mu)}
+.side-shortcut-row:last-child{border-bottom:none}
+.side-sk{background:var(--sf2);border:1px solid var(--bd);border-radius:4px;padding:1px 7px;font-size:10px;font-weight:700;color:var(--tx);font-family:monospace}
+
 </style>
 </head>
 <body>
 <div class="glow-orb"></div>
+
+<!-- Hamburger button -->
+<button class="hamburger-btn" onclick="openSideMenu()" title="Menu & Cara Pakai">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- Side menu overlay -->
+<div class="side-menu-overlay" id="sideOverlay" onclick="closeSideMenu()">
+</div>
+
+<!-- Side menu -->
+<div class="side-menu" id="sideMenu">
+  <div class="side-menu-head">
+    <div class="side-menu-title">📖 Panduan & Menu</div>
+    <button class="side-close" onclick="closeSideMenu()">×</button>
+  </div>
+
+  <!-- How to use -->
+  <div class="how-section">
+    <div class="how-title">Cara Pakai Aplikasi Ini</div>
+
+    <div class="how-step">
+      <div class="how-num">1</div>
+      <div class="how-body">
+        <div class="how-step-title">Pilih atau ketik topik</div>
+        <div class="how-step-desc">Klik topik dari Bank Topik di bagian atas form, atau ketik topik kamu sendiri. Klik 🎲 untuk topik random.</div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="how-num">2</div>
+      <div class="how-body">
+        <div class="how-step-title">Pilih platform & tipe konten</div>
+        <div class="how-step-desc">Instagram (Carousel, Caption, Hook, CTA), WhatsApp (Status Caption, Flyer), atau Threads.</div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="how-num">3</div>
+      <div class="how-body">
+        <div class="how-step-title">Pilih tone</div>
+        <div class="how-step-desc">Edukasi (informatif), Fear (bikin khawatir lalu kasih solusi), Viral (bold & mengejutkan), atau Storytelling (cerita nyata).</div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="how-num">4</div>
+      <div class="how-body">
+        <div class="how-step-title">Klik Generate</div>
+        <div class="how-step-desc">Prompt siap muncul. Copy → paste ke Claude atau ChatGPT → dapat konten siap posting.</div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="how-num">5</div>
+      <div class="how-body">
+        <div class="how-step-title">Khusus Threads</div>
+        <div class="how-step-desc">Setelah copy prompt dan dapat hasilnya dari AI, paste kembali ke kotak "Paste Hasil" lalu klik Render Utas — tampil per kartu siap posting.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-divider"></div>
+
+  <!-- Tips -->
+  <div class="how-section">
+    <div class="how-title">Tips</div>
+    <div class="how-tip"><strong>🎲 Topik Random</strong><br>Klik dadu di input topik untuk ide random dari 100+ topik pajak.</div>
+    <div class="how-tip"><strong>⭐ Favorit</strong><br>Klik bintang di input untuk simpan topik yang sering dipakai. Muncul di panel atas.</div>
+    <div class="how-tip"><strong>🧩 Template</strong><br>Simpan kombinasi setting (tipe + tone + audience) sebagai template sekali klik.</div>
+    <div class="how-tip"><strong>🔄 Variasi</strong><br>Setelah generate, klik "Coba Variasi Lain" untuk hook & CTA berbeda tanpa ganti setting.</div>
+    <div class="how-tip"><strong>📅 Calendar</strong><br>Drag topik ke hari di Content Calendar. Export jadi Markdown untuk Obsidian.</div>
+    <div class="how-tip"><strong>🎨 Carousel & WA Flyer</strong><br>Promptnya untuk ChatGPT (DALL-E 3) — langsung generate gambar siap pakai.</div>
+  </div>
+
+  <div class="how-divider"></div>
+
+  <!-- Keyboard shortcuts -->
+  <div class="how-section">
+    <div class="how-title">Keyboard Shortcuts</div>
+    <div class="side-shortcut-row"><span>Generate</span><span class="side-sk">⌘ Enter</span></div>
+    <div class="side-shortcut-row"><span>Fokus input topik</span><span class="side-sk">⌘ K</span></div>
+    <div class="side-shortcut-row"><span>Topik random</span><span class="side-sk">⌘ D</span></div>
+    <div class="side-shortcut-row"><span>Simpan template</span><span class="side-sk">⌘ S</span></div>
+    <div class="side-shortcut-row"><span>Variasi lain</span><span class="side-sk">⌘ ⇧ V</span></div>
+    <div class="side-shortcut-row"><span>Toggle shortcut bar</span><span class="side-sk">?</span></div>
+  </div>
+
+  <div class="how-divider"></div>
+
+  <div style="font-size:11px;color:var(--mu);text-align:center;line-height:1.7">
+    Konsultasi Pajak Gratis<br>
+    <a href="https://konsultasipajakgratis.com" target="_blank" style="color:var(--ac);text-decoration:none">konsultasipajakgratis.com</a>
+  </div>
+</div>
 
 <!-- Theme toggle -->
 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">
@@ -614,12 +737,12 @@ h1 em{font-style:normal;color:var(--ac)}
         <div class="out-title">Prompt Threads</div>
         <button class="copy-btn" id="copyThreadsBtn" onclick="copyThreadsPrompt()">Copy Prompt</button>
       </div>
-      <div class="prompt-box" id="threadsPromptBox"></div>
-    </div>
-    <div class="card" style="margin-top:0">
-      <div class="card-label">Paste Hasil dari Claude</div>
-      <textarea id="threadsPasteArea" rows="5" placeholder="Paste hasil konten Threads dari Claude di sini, lalu klik Render..." style="font-size:13px;line-height:1.7"></textarea>
-      <button onclick="parseThreads()" style="margin-top:9px;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;color:var(--tx);font-family:Syne,sans-serif;font-size:12px;font-weight:700;padding:7px 17px;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='var(--ac)';this.style.color='var(--ac)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--tx)'">&#8595; Render Utas</button>
+        <div class="prompt-box" id="threadsPromptBox"></div>
+      <div style="margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--bd)">
+        <div style="font-family:Syne,sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:.6rem">Paste Hasil dari Claude / ChatGPT</div>
+        <textarea id="threadsPasteArea" rows="5" placeholder="Paste hasil konten Threads di sini, lalu klik Render Utas..." style="font-size:13px;line-height:1.7;margin-bottom:.6rem"></textarea>
+        <button onclick="parseThreads()" style="background:var(--ac);color:#fff;border:none;border-radius:9px;color:#fff;font-family:Syne,sans-serif;font-size:12px;font-weight:700;padding:8px 18px;cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--ac2)'" onmouseout="this.style.background='var(--ac)'">&#8595; Render Utas</button>
+      </div>
     </div>
     <div id="threadsRendered" style="display:none">
       <div class="card" style="margin-top:0">
@@ -736,7 +859,7 @@ h1 em{font-style:normal;color:var(--ac)}
     <div class="bank-toolbar">
       <div class="bank-sw">
         <span class="bank-si">🔍</span>
-        <input type="text" class="bank-search" id="bankSearch" placeholder="Cari topik..." oninput="renderBank()" autocomplete="off"/>
+        <input type="text" class="bank-search" id="bankSearch" placeholder="Cari topik..." oninput="bankPage=0;renderBank()" autocomplete="off"/>
       </div>
       <div style="display:flex;gap:6px">
         <button style="background:var(--sf2);border:1px solid var(--bd);border-radius:8px;color:var(--mu);font-family:Syne,sans-serif;font-size:11px;font-weight:700;padding:6px 12px;cursor:pointer;transition:all .15s" onclick="toggleBankAdd()" id="bankAddBtn" onmouseover="this.style.borderColor='var(--ac)';this.style.color='var(--ac)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--mu)'">+ Tambah Topik</button>
@@ -1408,96 +1531,192 @@ var variasiCount = 1;
 var threadsData = [];
 
 function buildPrompt(topic, ct, tone, pillars, auds) {
-  var tLbl = TYPE_LABELS[ct] || ct;
-  var toneLbl = { edukasi:'Edukasi', fear:'Fear - Solution', viral:'Viral', storytelling:'Storytelling' }[tone] || tone;
-  var platIcon = { carousel:'📸', caption:'📸', hook:'📸', cta:'📣', wa_caption:'💬', wa_flyer:'💬', threads:'🧵' }[ct] || '📌';
-  var pillarLine = pillars.length ? '\nContent Pillar: ' + pillars.join(', ') : '';
-  var audLine = auds.length ? '\nTarget Audience Spesifik: ' + auds.join(', ') : '\nTarget Audience: UMKM, Freelancer, Pebisnis Online';
-  var hook = rand(HOOKS);
-  var cta = rand(CTAS);
-
+  var audLine = auds.length ? auds.join(', ') : 'UMKM, Freelancer, Pebisnis Online';
+  var pillarTag = pillars.length ? ' [' + pillars.join(', ') + ']' : '';
+  var h = rand(HOOKS);
+  var c = rand(CTAS);
   var toneDir = {
-    edukasi: 'Gunakan tone edukatif yang friendly. Mulai dengan fakta menarik. Jelaskan konsep dengan analogi sederhana. Hindari jargon teknis.',
-    fear: 'Gunakan tone fear ke solution. Mulai dengan skenario buruk yang relatable. Bangun tension. Lalu berikan solusi yang clear. Ending harus hopeful.',
-    viral: 'Gunakan tone viral. Hook harus scroll-stopping. Gunakan angka atau klaim bold. Format harus skimmable. Buat orang mau share.',
-    storytelling: 'Gunakan pendekatan storytelling. Mulai dengan karakter spesifik. Bangun situasi yang relatable. Tunjukkan masalah dan konsekuensinya. Resolusi yang satisfying.'
+    edukasi:      'Mulai dengan fakta menarik atau insight yang bikin pembaca bilang "oh ternyata begitu".',
+    fear:         'Mulai dengan skenario buruk yang relatable. Bangun tension dulu, baru kasih solusi. Ending hopeful.',
+    viral:        'Mulai dengan pernyataan bold atau angka mengejutkan. Bikin orang berhenti scroll.',
+    storytelling: 'Mulai dengan karakter nyata dan situasi relatable. Ceritakan masalahnya, baru resolusi.'
   }[tone] || '';
+  var brand = [
+    'Kamu adalah content strategist pajak Indonesia untuk brand "Konsultasi Pajak Gratis".',
+    '',
+    'TUJUAN: Buat konten yang engaging, mudah dipahami, memiliki hook kuat, membangun trust, dan menghasilkan leads konsultasi pajak gratis.',
+    '',
+    'TARGET AUDIENCE: UMKM, freelancer, pebisnis online, orang awam pajak.',
+    '',
+    'STYLE WAJIB:',
+    '- Conversational, singkat, bahasa Indonesia natural',
+    '- Tidak terlalu formal, tidak terlalu teknis',
+    '- Fokus pada pain point dan curiosity',
+    '- Selalu gunakan: storytelling, contoh nyata, practical advice, fear + solution, curiosity',
+    '',
+    'CTA UTAMA: konsultasipajakgratis.com'
+  ].join('\n');
+  var n = '\n';
 
-  var fmtMap = {
-    carousel: 'FORMAT OUTPUT:\nBuat 8 slide carousel Instagram sebagai image generation prompt untuk ChatGPT DALL-E 3.\n\nUkuran: 1080x1350px (4:5 rasio)\n\nUntuk setiap slide:\n[SLIDE N]\nGenerate a portrait Instagram carousel slide, 1080x1350px, 4:5 ratio. Brand: Konsultasi Pajak Gratis. Style: modern dark navy background, orange accent #f97316. Headline: [tulis headline]. Supporting text: [tulis subtext]. Footer: konsultasipajakgratis.com. Flat design illustration.\n\nSlide 1: Cover dengan hook kuat\nSlide 2-6: Isi poin edukatif\nSlide 7: Kesimpulan\nSlide 8: CTA + konsultasipajakgratis.com\n\nTambahkan caption Instagram + 15-20 hashtag di akhir.',
-    hook: 'FORMAT OUTPUT:\nBuat 5 variasi hook:\n1. Hook rasa penasaran\n2. Hook fear\n3. Hook angka/statistik\n4. Hook kontra-intuitif\n5. Hook storytelling\nTiap hook maks 1-2 kalimat.',
-    cta: 'FORMAT OUTPUT:\nBuat 4 variasi CTA:\n1. CTA soft (informational)\n2. CTA urgency\n3. CTA curiosity-based\n4. CTA problem-aware\nTiap CTA: 2-3 kalimat + URL: konsultasipajakgratis.com',
-    caption: 'FORMAT OUTPUT:\n- Opening hook: 1 kalimat kuat\n- Body: 4-6 kalimat\n- Bridge ke CTA: 1 kalimat\n- CTA: konsultasipajakgratis.com\n- Hashtag: 15-20 hashtag relevan\n- Panjang total: 150-200 kata',
-    wa_caption: 'FORMAT OUTPUT:\nWhatsApp Status Caption:\n- Baris 1: Hook kuat (max 60 karakter)\n- Baris 2-4: Isi singkat 1-2 kalimat per baris\n- Baris terakhir: CTA + konsultasipajakgratis.com\n- Total maks 200 karakter\n- Casual, pakai emoji secukupnya',
-    wa_flyer: 'FORMAT OUTPUT:\nBuat image generation prompt untuk ChatGPT DALL-E 3 sebagai flyer WhatsApp Status.\n\n[KONTEN FLYER]\nHeadline: [maks 6 kata]\nSubheadline: [maks 12 kata]\nPoin: [3-4 poin, maks 5 kata per poin]\nCTA: konsultasipajakgratis.com\n\n[IMAGE PROMPT]\nGenerate a fullscreen WhatsApp Status flyer, 1080x1920px, 9:16 portrait. Brand: Konsultasi Pajak Gratis. Style: modern, professional, orange accent #f97316. Layout: brand name top, headline middle bold, points below, CTA bottom. Text in Indonesian as specified. Flat design, no watermark.\n\n[CAPTION WA]\nHook + konteks singkat + link konsultasipajakgratis.com (maks 200 karakter)',
-    threads: 'FORMAT OUTPUT THREADS:\nBuat thread Threads.app terdiri dari 6-8 utas.\nPisahkan setiap utas dengan baris berisi: ---\n\nAturan:\n- Utas 1: hook kuat, max 200 karakter\n- Utas 2-6: isi poin, maks 280 karakter per utas\n- Utas terakhir: CTA natural + konsultasipajakgratis.com\n- Boleh pakai line break dalam utas'
-  };
-
-  var fmt = fmtMap[ct] || '';
-
-  return '============================================\nPAJAK CONTENT GENERATOR\nBrand: Konsultasi Pajak Gratis\n============================================\n\n' +
-    platIcon + ' BRIEF KONTEN\n' +
-    '--------------------------------------------\n' +
-    'Topik: ' + topic + '\n' +
-    'Tipe Konten: ' + tLbl + '\n' +
-    'Tone: ' + toneLbl + pillarLine + audLine + '\n\n' +
-    'BRAND VOICE\n--------------------------------------------\n' +
-    'Bahasa Indonesia sehari-hari, tidak formal, tidak menggurui.\n' +
-    'Kalimat pendek, to the point, fokus pain point.\n' +
-    'Seperti teman yang paham pajak.\n\n' +
-    'TONE DIRECTION\n--------------------------------------------\n' +
-    toneDir + '\n\n' +
-    'FORMAT KONTEN\n--------------------------------------------\n' +
-    fmt + '\n\n' +
-    'REFERENSI HOOK\n--------------------------------------------\n' +
-    '"' + hook + '"\n\n' +
-    'CTA REFERENSI\n--------------------------------------------\n' +
-    '"' + cta + '"\n\n' +
-    'INSTRUKSI TAMBAHAN\n--------------------------------------------\n' +
-    '- Gunakan angka konkret kalau memungkinkan\n' +
-    '- Tambahkan 1-2 contoh kasus nyata\n' +
-    '- Ending harus actionable\n\n' +
-    'Sekarang buat ' + tLbl + ' untuk topik: "' + topic + '"\n' +
-    '============================================';
-}
-
-function handleGenerate() {
-  var topic = (document.getElementById('topicInput').value || '').trim();
-  if (!topic) {
-    var inp = document.getElementById('topicInput');
-    inp.style.borderColor = 'var(--ac)';
-    inp.focus();
-    setTimeout(function(){ inp.style.borderColor = ''; }, 1500);
-    return;
+  if (ct === 'hook') {
+    return [brand, '',
+      'TUGAS: Buat 5 variasi hook kuat untuk:',
+      'Topik: ' + topic + pillarTag,
+      'Target: ' + audLine, '',
+      toneDir, '',
+      'BUAT 5 HOOK SIAP PAKAI:',
+      '1. [FEAR] Hook yang bikin takut tapi relatable',
+      '2. [CURIOSITY] Hook yang bikin penasaran',
+      '3. [ANGKA] Hook dengan statistik atau angka',
+      '4. [KONTRA] Hook kontra-intuitif yang mengejutkan',
+      '5. [STORY] Hook pembuka cerita', '',
+      'Aturan:',
+      '- Maks 2 kalimat per hook',
+      '- Bahasa Indonesia natural, tidak formal',
+      '- Fokus pain point target audience',
+      '- Langsung tulis hooknya, tanpa label tambahan'
+    ].join(n);
   }
-  var ct = getContentType();
-  var tone = getActive('toneGroup')[0] || 'edukasi';
-  var pillars = getActive('pilarGroup');
-  var auds = getActive('audienceGroup');
-  lastParams = { topic:topic, ct:ct, tone:tone, pillars:pillars, auds:auds };
-  variasiCount = 1;
-  document.getElementById('variasiCnt').textContent = 'v1';
 
-  var btn = document.getElementById('genBtn');
-  btn.classList.add('loading'); btn.disabled = true;
+  if (ct === 'cta') {
+    return [brand, '',
+      'TUGAS: Buat 4 variasi CTA untuk:',
+      'Topik: ' + topic + pillarTag,
+      'Target: ' + audLine,
+      'URL: konsultasipajakgratis.com', '',
+      'BUAT 4 CTA SIAP PAKAI:',
+      '1. [SOFT] CTA informational, tidak memaksa',
+      '2. [URGENCY] CTA dengan urgensi waktu atau risiko',
+      '3. [CURIOSITY] CTA yang bikin penasaran',
+      '4. [PROBLEM-AWARE] CTA untuk yang sudah sadar masalahnya', '',
+      'Aturan:',
+      '- 2-3 kalimat per CTA',
+      '- Natural, bukan hard-sell',
+      '- Selalu akhiri dengan: konsultasipajakgratis.com',
+      '- Bahasa sehari-hari'
+    ].join(n);
+  }
 
-  setTimeout(function(){
-    doGenerate(topic, ct, tone, pillars, auds);
-    btn.classList.remove('loading'); btn.disabled = false;
-  }, 400);
-}
+  if (ct === 'caption') {
+    return [brand, '',
+      'TUGAS: Tulis caption Instagram SIAP POSTING untuk:',
+      'Topik: ' + topic + pillarTag,
+      'Target: ' + audLine,
+      'Tone: ' + tone, '',
+      toneDir, '',
+      'FORMAT WAJIB:',
+      '- Baris 1-2: Hook kuat (bikin orang stop scroll)',
+      '- [baris kosong]',
+      '- Baris 3-10: Isi konten (storytelling/tips/fakta)',
+      '- Baris terakhir konten: bridge ke CTA',
+      '- CTA: ajak ke konsultasipajakgratis.com',
+      '- [baris kosong]',
+      '- 15-20 hashtag relevan', '',
+      'Aturan:',
+      '- Total 150-200 kata',
+      '- Bahasa Indonesia natural',
+      '- Pakai emoji secukupnya',
+      '- LANGSUNG tulis captionnya saja, tanpa penjelasan atau label'
+    ].join(n);
+  }
 
-function generateVariasi() {
-  if (!lastParams) return;
-  variasiCount++;
-  document.getElementById('variasiCnt').textContent = 'v' + variasiCount;
-  var p = lastParams;
-  var btn = document.getElementById('genBtn');
-  btn.classList.add('loading'); btn.disabled = true;
-  setTimeout(function(){
-    doGenerate(p.topic, p.ct, p.tone, p.pillars, p.auds);
-    btn.classList.remove('loading'); btn.disabled = false;
-  }, 300);
+  if (ct === 'wa_caption') {
+    return [brand, '',
+      'TUGAS: Tulis teks WhatsApp Status SIAP POSTING untuk:',
+      'Topik: ' + topic + pillarTag,
+      'Target: ' + audLine, '',
+      'FORMAT WAJIB:',
+      '- Baris 1: Hook super singkat (max 60 karakter)',
+      '- Baris 2-4: Isi singkat, 1-2 kalimat per baris',
+      '- Baris terakhir: CTA + konsultasipajakgratis.com', '',
+      'Aturan:',
+      '- Total MAKSIMAL 200 karakter',
+      '- Casual, seperti update dari teman',
+      '- Pakai emoji 1-2 saja',
+      '- LANGSUNG tulis teksnya saja, tanpa label atau penjelasan'
+    ].join(n);
+  }
+
+  if (ct === 'wa_flyer') {
+    return [brand, '',
+      'TUGAS: Buat brief flyer WhatsApp Status + image prompt untuk:',
+      'Topik: ' + topic + pillarTag,
+      'Target: ' + audLine,
+      'Tone: ' + tone, '',
+      'OUTPUT (tulis dalam urutan ini):', '',
+      '=== KONTEN FLYER ===',
+      'HEADLINE: [max 6 kata, bold, langsung ngena]',
+      'SUBHEADLINE: [1 kalimat pendukung, max 12 kata]',
+      'POIN 1: [max 5 kata]',
+      'POIN 2: [max 5 kata]',
+      'POIN 3: [max 5 kata]',
+      'CTA: [1 kalimat + konsultasipajakgratis.com]', '',
+      '=== IMAGE PROMPT (paste ke ChatGPT DALL-E 3) ===',
+      'Generate a fullscreen WhatsApp Status flyer, 1080x1920px, 9:16 portrait. Brand: Konsultasi Pajak Gratis. Style: modern dark navy (#0b0f1a), orange accent (#f97316), clean white text. Layout: brand name small top, large bold headline center, 3 bullet points, orange CTA button bottom, URL konsultasipajakgratis.com footer. Indonesian text as specified. Flat design, no watermark.', '',
+      '=== CAPTION WA STATUS ===',
+      '[Tulis caption 150-200 karakter untuk posting status]',
+      '',
+      'Spesifikasi: 1080x1920px, rasio 9:16, safe zone 80px'
+    ].join(n);
+  }
+
+  if (ct === 'carousel') {
+    return [brand, '',
+      'TUGAS: Buat outline carousel Instagram 8 slide + image prompt untuk:',
+      'Topik: ' + topic + pillarTag,
+      'Target: ' + audLine,
+      'Tone: ' + tone, '',
+      toneDir, '',
+      'STEP 1 - OUTLINE KONTEN 8 SLIDE:',
+      'Slide 1 (Cover): [hook 1 kalimat, teks besar dominan]',
+      'Slide 2: [poin 1 + penjelasan singkat]',
+      'Slide 3: [poin 2 + penjelasan singkat]',
+      'Slide 4: [poin 3 + penjelasan singkat]',
+      'Slide 5: [poin 4 + penjelasan singkat]',
+      'Slide 6: [poin 5 + penjelasan singkat]',
+      'Slide 7: [takeaway/kesimpulan]',
+      'Slide 8 (CTA): [ajakan + konsultasipajakgratis.com]', '',
+      'STEP 2 - IMAGE PROMPT per slide (paste ke ChatGPT DALL-E 3):',
+      'Format untuk setiap slide:',
+      '[SLIDE N - JUDUL]',
+      'Generate a portrait Instagram carousel slide, 1080x1350px, 4:5 ratio. Brand: Konsultasi Pajak Gratis. Style: dark background (#0b0f1a), orange accent (#f97316), bold clean typography. Main text: "[teks]". Sub text: "[teks pendukung]". Footer: konsultasipajakgratis.com. Flat design, readable Indonesian text.', '',
+      'STEP 3 - CAPTION INSTAGRAM:',
+      '[Caption 150-200 kata + 15-20 hashtag]', '',
+      'Spesifikasi: 1080x1350px per slide, rasio 4:5, safe zone 80px'
+    ].join(n);
+  }
+
+  if (ct === 'threads') {
+    return [brand, '',
+      'TUGAS: Tulis thread Threads.app SIAP POSTING untuk:',
+      'Topik: ' + topic + pillarTag,
+      'Target: ' + audLine,
+      'Tone: ' + tone, '',
+      toneDir, '',
+      'TULIS 6-8 UTAS SIAP POSTING.',
+      'Pisahkan setiap utas dengan baris berisi: ---', '',
+      'Aturan WAJIB:',
+      '- Utas 1: hook kuat, max 200 karakter, bikin orang mau baca lanjut',
+      '- Utas 2-6: isi poin, max 280 karakter per utas',
+      '- Utas terakhir: CTA natural + konsultasipajakgratis.com',
+      '- Bahasa Indonesia conversational, tidak formal',
+      '- Pakai emoji 1-2 per utas',
+      '- JANGAN tulis label seperti [Utas 1] atau nomor urut',
+      '- Pisahkan setiap utas HANYA dengan baris: ---', '',
+      'Contoh format output yang benar:', '',
+      'Banyak UMKM baru sadar soal pajak ini setelah kena denda. Padahal solusinya simpel banget.',
+      '',
+      '---',
+      '',
+      '[lanjutan utas 2]',
+      '',
+      '---',
+      '',
+      '[dst hingga utas terakhir berisi CTA]'
+    ].join(n);
+  }
+
+  return brand + n + n + 'Buat konten untuk topik: ' + topic;
 }
 
 function doGenerate(topic, ct, tone, pillars, auds) {
@@ -1528,7 +1747,15 @@ function showPromptOutput(prompt, ct) {
   var copyBtn = document.getElementById('copyPromptBtn');
 
   if (outTitle) {
-    outTitle.innerHTML = isImg ? '🎨 Image Generation Prompt (ChatGPT DALL-E)' : '✦ Prompt Siap Dipakai';
+    var titles = {
+      carousel: '🎨 Image Prompt — Carousel IG (paste ke ChatGPT)',
+      wa_flyer: '🎨 Image Prompt — WA Flyer (paste ke ChatGPT)',
+      caption: '✍️ Prompt Caption Instagram',
+      hook: '🪝 Prompt Hook',
+      cta: '📣 Prompt CTA',
+      wa_caption: '💬 Prompt WA Status Caption'
+    };
+    outTitle.innerHTML = titles[ct] || '✦ Prompt Siap Dipakai';
     outTitle.style.color = isImg ? '#a78bfa' : 'var(--gr)';
   }
   if (chatgptTip) chatgptTip.style.display = isImg ? 'flex' : 'none';
@@ -1572,6 +1799,9 @@ function doThreads(topic, tone, pillars, auds) {
   document.getElementById('threadsPromptBox').textContent = prompt;
   document.getElementById('threadsRendered').style.display = 'none';
   document.getElementById('threadsPasteArea').value = '';
+  // Update title
+  var threadTitle = document.querySelector('#outputThreads .out-title');
+  if (threadTitle) { threadTitle.textContent = '🧵 Prompt Threads (copy ke Claude/ChatGPT)'; }
   document.getElementById('outputThreads').classList.add('vis');
   document.getElementById('outputThreads').scrollIntoView({ behavior:'smooth', block:'start' });
   var btn = document.getElementById('copyThreadsBtn');
@@ -1590,16 +1820,36 @@ function copyThreadsPrompt() {
 }
 
 function parseThreads() {
-  var raw = (document.getElementById('threadsPasteArea').value || '').trim();
-  if (!raw) return;
+  var input = (document.getElementById('threadsPasteArea').value || '').trim();
+  if (!input) return;
   var parts;
-  if (raw.indexOf('---') >= 0) {
-    parts = raw.split(/\n\s*---+\s*\n/);
-  } else {
-    parts = raw.split(/\n\s*\n\s*\n/);
+  // Try splitting by --- separator (our preferred format)
+  if (input.indexOf('---') >= 0) {
+    parts = input.split(/\n[ \t]*---+[ \t]*\n/);
   }
-  threadsData = parts.map(function(p){ return p.replace(/^\[UTAS\s*\d+\]\s*/i,'').trim(); }).filter(function(p){ return p.length > 0; });
-  if (!threadsData.length) return;
+  // Try splitting by double newline
+  else if ((input.match(/\n\n/g) || []).length >= 2) {
+    parts = input.split(/\n\n+/);
+  }
+  // Fallback: single newline
+  else {
+    parts = input.split(/\n/);
+  }
+  // Clean up: remove label prefixes like [UTAS 1] [1.] 1. etc
+  threadsData = parts
+    .map(function(p) {
+      return p
+        .replace(/^\[UTAS\s*\d+\][:\s]*/i, '')
+        .replace(/^\[ISI UTAS\s*\d+[^\]]*\][:\s]*/i, '')
+        .replace(/^\d+\.\s+/, '')
+        .replace(/^UTAS\s*\d+[:\s]*/i, '')
+        .trim();
+    })
+    .filter(function(p) { return p.length > 5; });
+  if (!threadsData.length) {
+    alert('Format tidak dikenali. Pastikan setiap utas dipisahkan dengan --- atau baris kosong.');
+    return;
+  }
   renderThreads(threadsData);
   document.getElementById('threadsRendered').scrollIntoView({ behavior:'smooth', block:'start' });
 }
@@ -2346,6 +2596,8 @@ function copySnippet(tab, idx) {
 
 // ── Bank Topik ────────────────────────────────────────────
 var bankActiveCat = 'Semua';
+var bankPage = 0;
+var bankPageSize = 5;
 
 function getAllBank() {
   var builtin = [];
@@ -2370,6 +2622,7 @@ function getBuiltinFlat() {
 
 function setBankCat(cat) {
   bankActiveCat = cat;
+  bankPage = 0;
   document.querySelectorAll('.bank-cat').forEach(function(el){ el.classList.toggle('on', el.dataset.c === cat); });
   renderBankGrid();
 }
@@ -2413,7 +2666,12 @@ function renderBankGrid() {
   }
   if (q) filtered = filtered.filter(function(t){ return t.text.toLowerCase().indexOf(q) >= 0; });
   if (!filtered.length) { grid.innerHTML = '<div class="bank-empty">Tidak ada topik yang cocok.</div>'; return; }
-  grid.innerHTML = filtered.map(function(t, i){
+
+  var total = filtered.length;
+  var shown = Math.min((bankPage + 1) * bankPageSize, total);
+  var visible = filtered.slice(0, shown);
+
+  var cardsHtml = visible.map(function(t, i){
     var builtinEntry = builtin.find(function(b){ return b.text === t.text; });
     var isDone = builtinEntry && progress[builtinEntry.idx];
     var prio = t.priority === 'high' ? ' 🔥' : '';
@@ -2428,12 +2686,25 @@ function renderBankGrid() {
         '</div>' +
       '</div>' +
       '<div class="bank-acts">' +
-        '<button class="bank-act" onclick="useTopic(\'' + escQ(t.text) + '\')">▶</button>' +
+        '<button class="bank-act" onclick="useTopic(\'' + escQ(t.text) + '\')">▶ Pakai</button>' +
         '<button class="bank-act" onclick="addToFavFromBank(\'' + escQ(t.text) + '\')">⭐</button>' +
         (t.custom ? '<button class="bank-act del" onclick="delCustom(\'' + t.id + '\')">x</button>' : '') +
       '</div>' +
     '</div>';
   }).join('');
+
+  var moreHtml = '';
+  if (shown < total) {
+    var remaining = total - shown;
+    var nextCount = Math.min(bankPageSize, remaining);
+    moreHtml = '<div style="grid-column:1/-1;text-align:center;padding:.75rem 0">' +
+      '<button onclick="bankPage++;renderBankGrid()" style="background:var(--sf2);border:1px solid var(--bd);border-radius:10px;color:var(--mu);font-family:Syne,sans-serif;font-size:12px;font-weight:700;padding:9px 24px;cursor:pointer;transition:all .15s" ' +
+      'onmouseover="this.style.borderColor=\'var(--ac)\';this.style.color=\'var(--ac)\'" ' +
+      'onmouseout="this.style.borderColor=\'var(--bd)\';this.style.color=\'var(--mu)\'">+ Tampilkan ' + nextCount + ' lagi (' + remaining + ' tersisa)</button>' +
+    '</div>';
+  }
+
+  grid.innerHTML = cardsHtml + moreHtml;
 }
 
 function addToFavFromBank(text) {
@@ -2543,6 +2814,15 @@ function nextOnboard() {
   else { skipOnboard(); }
 }
 
+function openSideMenu() {
+  document.getElementById('sideOverlay').classList.add('vis');
+  document.getElementById('sideMenu').style.transform = 'translateX(0)';
+}
+
+function closeSideMenu() {
+  document.getElementById('sideOverlay').classList.remove('vis');
+}
+
 function skipOnboard() {
   document.getElementById('obOverlay').style.display = 'none';
   localStorage.setItem('pajak_onboarded', '1');
@@ -2612,7 +2892,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.key === 'ArrowDown') { e.preventDefault(); navSuggest(1); }
       else if (e.key === 'ArrowUp') { e.preventDefault(); navSuggest(-1); }
       else if (e.key === 'Enter' && suggestIdx >= 0) { e.preventDefault(); pickSuggest(suggestIdx); }
-      else if (e.key === 'Escape') { closeSuggest(); }
+      else if (e.key === 'Escape') {
+    closeSideMenu(); closeSuggest(); }
     } else if (e.key === 'Enter' && !e.metaKey && !e.ctrlKey) {
       handleGenerate();
     }
