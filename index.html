@@ -1221,13 +1221,18 @@ function getActive(groupId) {
 }
 
 function getContentType() {
-  for (var i = 0; i < allTypeGroups.length; i++) {
-    var g = document.getElementById(allTypeGroups[i]);
-    if (!g) continue;
+  // Check all type pill groups for the active one
+  var found = null;
+  allTypeGroups.forEach(function(gid) {
+    if (found) return;
+    var g = document.getElementById(gid);
+    if (!g) return;
     var active = g.querySelector('.pill.on');
-    if (active && active.dataset.v) return active.dataset.v;
-  }
-  return 'carousel';
+    if (active && active.dataset && active.dataset.v) {
+      found = active.dataset.v;
+    }
+  });
+  return found || 'carousel';
 }
 
 function initTypeGroups() {
@@ -1920,7 +1925,10 @@ function showPromptOutput(prompt, ct) {
       document.getElementById('canvasRatio').textContent = '9:16';
     }
   }
-  if (promptBox) promptBox.textContent = prompt;
+  if (promptBox) {
+    promptBox.textContent = '';
+    promptBox.textContent = prompt;
+  }
   if (copyBtn) { copyBtn.classList.remove('ok'); copyBtn.textContent = isImg ? 'Copy Image Prompt' : 'Copy Prompt'; }
 
   // Related bar
@@ -2174,9 +2182,18 @@ function recallHistory(id) {
   var entry = h.find(function(x){ return x.id === id; });
   if (!entry) return;
   document.getElementById('topicInput').value = entry.topic;
+  // Deactivate all type pills first
   allTypeGroups.forEach(function(gid){
     var g = document.getElementById(gid);
-    if (g) g.querySelectorAll('.pill').forEach(function(p){ p.classList.toggle('on', p.dataset.v === entry.contentType); });
+    if (g) g.querySelectorAll('.pill').forEach(function(p){ p.classList.remove('on'); });
+  });
+  // Activate the correct one
+  allTypeGroups.forEach(function(gid){
+    var g = document.getElementById(gid);
+    if (!g) return;
+    g.querySelectorAll('.pill').forEach(function(p){
+      if (p.dataset.v === entry.contentType) p.classList.add('on');
+    });
   });
   document.querySelectorAll('#toneGroup .pill').forEach(function(p){ p.classList.toggle('on', p.dataset.v === entry.tone); });
   updateStarBtn(); updatePreview(); renderPicker();
@@ -4379,13 +4396,18 @@ function getActive(groupId) {
 }
 
 function getContentType() {
-  for (var i = 0; i < allTypeGroups.length; i++) {
-    var g = document.getElementById(allTypeGroups[i]);
-    if (!g) continue;
+  // Check all type pill groups for the active one
+  var found = null;
+  allTypeGroups.forEach(function(gid) {
+    if (found) return;
+    var g = document.getElementById(gid);
+    if (!g) return;
     var active = g.querySelector('.pill.on');
-    if (active && active.dataset.v) return active.dataset.v;
-  }
-  return 'carousel';
+    if (active && active.dataset && active.dataset.v) {
+      found = active.dataset.v;
+    }
+  });
+  return found || 'carousel';
 }
 
 function initTypeGroups() {
@@ -5032,7 +5054,10 @@ function showPromptOutput(prompt, ct) {
       document.getElementById('canvasRatio').textContent = '9:16';
     }
   }
-  if (promptBox) promptBox.textContent = prompt;
+  if (promptBox) {
+    promptBox.textContent = '';
+    promptBox.textContent = prompt;
+  }
   if (copyBtn) { copyBtn.classList.remove('ok'); copyBtn.textContent = isImg ? 'Copy Image Prompt' : 'Copy Prompt'; }
 
   // Related bar
@@ -5286,9 +5311,18 @@ function recallHistory(id) {
   var entry = h.find(function(x){ return x.id === id; });
   if (!entry) return;
   document.getElementById('topicInput').value = entry.topic;
+  // Deactivate all type pills first
   allTypeGroups.forEach(function(gid){
     var g = document.getElementById(gid);
-    if (g) g.querySelectorAll('.pill').forEach(function(p){ p.classList.toggle('on', p.dataset.v === entry.contentType); });
+    if (g) g.querySelectorAll('.pill').forEach(function(p){ p.classList.remove('on'); });
+  });
+  // Activate the correct one
+  allTypeGroups.forEach(function(gid){
+    var g = document.getElementById(gid);
+    if (!g) return;
+    g.querySelectorAll('.pill').forEach(function(p){
+      if (p.dataset.v === entry.contentType) p.classList.add('on');
+    });
   });
   document.querySelectorAll('#toneGroup .pill').forEach(function(p){ p.classList.toggle('on', p.dataset.v === entry.tone); });
   updateStarBtn(); updatePreview(); renderPicker();
