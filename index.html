@@ -98,8 +98,7 @@ textarea{resize:none}
 .gen-btn.loading .sp{display:block}
 .gen-btn.loading .bt{display:none}
 /* Output */
-.output-area{display:none}
-.output-area.vis{display:block;animation:fadeUp .3s ease}
+.output-area{display:none!important}.output-area.vis{display:block!important;animation:fadeUp .3s ease}
 .out-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem}
 .out-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;color:var(--gr);display:flex;align-items:center;gap:6px}
 .copy-btn{background:var(--sf2);border:1px solid var(--bd);border-radius:8px;color:var(--mu);font-family:"Syne",sans-serif;font-size:12px;font-weight:600;padding:6px 13px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .15s}
@@ -1749,22 +1748,68 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
   return brand + n + n + 'Buat konten untuk topik: ' + topic;
 }
 
+function handleGenerate() {
+  var topic = (document.getElementById('topicInput').value || '').trim();
+  if (!topic) {
+    var inp = document.getElementById('topicInput');
+    inp.style.borderColor = 'var(--ac)';
+    inp.focus();
+    setTimeout(function(){ inp.style.borderColor = ''; }, 1500);
+    return;
+  }
+  var ct = getContentType();
+  var tone = getActive('toneGroup')[0] || 'edukasi';
+  var pillars = getActive('pilarGroup');
+  var auds = getActive('audienceGroup');
+  lastParams = { topic:topic, ct:ct, tone:tone, pillars:pillars, auds:auds };
+  variasiCount = 1;
+  var cntEl = document.getElementById('variasiCnt');
+  if (cntEl) cntEl.textContent = 'v1';
+  var btn = document.getElementById('genBtn');
+  btn.classList.add('loading'); btn.disabled = true;
+  setTimeout(function(){
+    try { doGenerate(topic, ct, tone, pillars, auds); } catch(e) { console.error(e); }
+    btn.classList.remove('loading'); btn.disabled = false;
+  }, 300);
+}
+
+function generateVariasi() {
+  if (!lastParams) return;
+  variasiCount++;
+  var cntEl = document.getElementById('variasiCnt');
+  if (cntEl) cntEl.textContent = 'v' + variasiCount;
+  var p = lastParams;
+  var btn = document.getElementById('genBtn');
+  btn.classList.add('loading'); btn.disabled = true;
+  setTimeout(function(){
+    try { doGenerate(p.topic, p.ct, p.tone, p.pillars, p.auds); } catch(e) { console.error(e); }
+    btn.classList.remove('loading'); btn.disabled = false;
+  }, 300);
+}
+
 function doGenerate(topic, ct, tone, pillars, auds) {
   // Hide both outputs
   document.getElementById('outputPrompt').classList.remove('vis');
   document.getElementById('outputThreads').classList.remove('vis');
 
   if (ct === 'threads') {
-    doThreads(topic, tone, pillars, auds);
+    try { doThreads(topic, tone, pillars, auds); } catch(e) { console.error('doThreads error:', e); }
   } else {
-    var prompt = buildPrompt(topic, ct, tone, pillars, auds);
-    showPromptOutput(prompt, ct);
-    addToHistory(topic, ct, tone, prompt);
-    trackStat(ct, tone);
-    renderRelated(topic);
-    runQuality(prompt, ct, topic);
-    renderCalDraggables();
-    updatePinBtn(false);
+    try {
+      var prompt = buildPrompt(topic, ct, tone, pillars, auds);
+      showPromptOutput(prompt, ct);
+    } catch(e) {
+      console.error('Generate error:', e);
+      document.getElementById('promptBox').textContent = 'Error: ' + e.message;
+      document.getElementById('outputPrompt').classList.add('vis');
+      return;
+    }
+    try { addToHistory(topic, ct, tone, prompt); } catch(e) {}
+    try { trackStat(ct, tone); } catch(e) {}
+    try { renderRelated(topic); } catch(e) {}
+    try { runQuality(prompt, ct, topic); } catch(e) {}
+    try { renderCalDraggables(); } catch(e) {}
+    try { updatePinBtn(false); } catch(e) {}
   }
 }
 
@@ -1808,8 +1853,10 @@ function showPromptOutput(prompt, ct) {
   document.getElementById('relatedBar').classList.remove('vis');
   document.getElementById('qualityBar').classList.remove('vis');
 
-  document.getElementById('outputPrompt').classList.add('vis');
-  document.getElementById('outputPrompt').scrollIntoView({ behavior:'smooth', block:'start' });
+  var outEl = document.getElementById('outputPrompt');
+  outEl.classList.add('vis');
+  outEl.style.display = 'block';
+  outEl.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
 function copyPrompt() {
@@ -1832,8 +1879,10 @@ function doThreads(topic, tone, pillars, auds) {
   // Update title
   var threadTitle = document.querySelector('#outputThreads .out-title');
   if (threadTitle) { threadTitle.textContent = '🧵 Prompt Threads (copy ke Claude/ChatGPT)'; }
-  document.getElementById('outputThreads').classList.add('vis');
-  document.getElementById('outputThreads').scrollIntoView({ behavior:'smooth', block:'start' });
+  var thrEl = document.getElementById('outputThreads');
+  thrEl.classList.add('vis');
+  thrEl.style.display = 'block';
+  thrEl.scrollIntoView({ behavior:'smooth', block:'start' });
   var btn = document.getElementById('copyThreadsBtn');
   if (btn) { btn.classList.remove('ok'); btn.textContent = 'Copy Prompt'; }
 }
