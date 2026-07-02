@@ -349,9 +349,9 @@ h1 em{font-style:normal;color:var(--ac)}
 .hamburger-btn:hover{border-color:var(--ac)}
 .hamburger-btn span{width:16px;height:1.5px;background:var(--mu);border-radius:2px;transition:background .15s}
 .hamburger-btn:hover span{background:var(--ac)}
-.side-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:300;display:none;animation:fadeIn .2s ease}
+.side-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:300;display:none;animation:fadeIn .2s ease;-webkit-tap-highlight-color:transparent;cursor:pointer}
 .side-menu-overlay.vis{display:block}
-.side-menu{position:fixed;top:0;left:0;bottom:0;width:340px;max-width:90vw;background:var(--sf);border-right:1px solid var(--bd);z-index:301;overflow-y:auto;animation:slideRight .25s ease;padding:1.5rem}
+.side-menu{position:fixed;top:0;left:0;bottom:0;width:340px;max-width:88vw;background:var(--sf);border-right:1px solid var(--bd);z-index:301;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:slideRight .25s ease;padding:1.5rem;cursor:default}
 @keyframes slideRight{from{transform:translateX(-100%)}to{transform:translateX(0)}}
 .side-menu-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
 .side-menu-title{font-family:Syne,sans-serif;font-size:1rem;font-weight:800;color:var(--tx)}
@@ -382,14 +382,14 @@ h1 em{font-style:normal;color:var(--ac)}
 </button>
 
 <!-- Side menu overlay -->
-<div class="side-menu-overlay" id="sideOverlay" onclick="closeSideMenu()">
+<div class="side-menu-overlay" id="sideOverlay" onclick="closeSideMenu()" ontouchend="closeSideMenu()">
 </div>
 
 <!-- Side menu -->
-<div class="side-menu" id="sideMenu">
+<div class="side-menu" id="sideMenu" onclick="event.stopPropagation()" ontouchend="event.stopPropagation()">
   <div class="side-menu-head">
     <div class="side-menu-title">📖 Panduan & Menu</div>
-    <button class="side-close" onclick="closeSideMenu()">×</button>
+    <button class="side-close" onclick="closeSideMenu()" ontouchend="closeSideMenu()" style="width:36px;height:36px;border-radius:8px;background:var(--sf2);border:1px solid var(--bd);font-size:18px;display:flex;align-items:center;justify-content:center">×</button>
   </div>
 
   <!-- How to use -->
@@ -1542,19 +1542,49 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
     storytelling: 'Mulai dengan karakter nyata dan situasi relatable. Ceritakan masalahnya, baru resolusi.'
   }[tone] || '';
   var brand = [
-    'Kamu adalah content strategist pajak Indonesia untuk brand "Konsultasi Pajak Gratis".',
+    'Anda adalah content strategist pajak Indonesia.',
     '',
-    'TUJUAN: Buat konten yang engaging, mudah dipahami, memiliki hook kuat, membangun trust, dan menghasilkan leads konsultasi pajak gratis.',
+    'Tujuan:',
+    'Membuat konten Instagram dan Threads yang:',
+    '- engaging',
+    '- mudah dipahami',
+    '- memiliki hook kuat',
+    '- membangun trust',
+    '- menghasilkan leads konsultasi pajak gratis',
     '',
-    'TARGET AUDIENCE: UMKM, freelancer, pebisnis online, orang awam pajak.',
+    'Target audience:',
+    '- UMKM',
+    '- freelancer',
+    '- pebisnis online',
+    '- orang awam pajak',
     '',
-    'STYLE WAJIB:',
-    '- Conversational, singkat, bahasa Indonesia natural',
-    '- Tidak terlalu formal, tidak terlalu teknis',
-    '- Fokus pada pain point dan curiosity',
-    '- Selalu gunakan: storytelling, contoh nyata, practical advice, fear + solution, curiosity',
+    'Style:',
+    '- conversational',
+    '- singkat',
+    '- hook tajam',
+    '- bahasa Indonesia natural',
+    '- tidak terlalu formal',
+    '- tidak terlalu teknis',
+    '- fokus pain point dan curiosity',
     '',
-    'CTA UTAMA: konsultasipajakgratis.com'
+    'Output:',
+    '- hook',
+    '- body',
+    '- CTA',
+    '- caption',
+    '- hashtag',
+    '- carousel breakdown',
+    '- Threads breakdown',
+    '',
+    'Selalu gunakan:',
+    '- storytelling',
+    '- contoh nyata',
+    '- practical advice',
+    '- fear + solution',
+    '- curiosity',
+    '',
+    'CTA utama:',
+    'konsultasipajakgratis.com'
   ].join('\n');
   var n = '\n';
 
@@ -2326,9 +2356,12 @@ function resetStats() {
 
 // ── Progress tracker ──────────────────────────────────────
 var progFilter = 'all';
+var progPage = 0;
+var progPageSize = 5;
 
 function setProgFilter(f) {
   progFilter = f;
+  progPage = 0;
   document.querySelectorAll('.prog-filter').forEach(function(el){ el.classList.toggle('on', el.dataset.f === f); });
   renderProgress();
 }
@@ -2348,37 +2381,78 @@ function renderProgress() {
     '<span style="font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:var(--mu)"><strong style="color:var(--tx)">' + doneCount + '</strong> sudah diposting</span>' +
     '<span style="font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:var(--mu)"><strong style="color:var(--tx)">' + (total-doneCount) + '</strong> belum</span>' +
     '<span style="font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:var(--mu)"><strong style="color:var(--tx)">' + total + '</strong> total</span>';
+
   var list = document.getElementById('progList');
   if (!list) return;
-  var html = '';
+
+  // Build all items flat with pillar info
+  var allItems = [];
   var globalIdx = 0;
-  Object.entries(PROGRESS_TOPICS).forEach(function(pillarEntry){
-    var pillar = pillarEntry[0], topics = pillarEntry[1];
-    var items = topics.map(function(text, i){ return { text:text, idx: globalIdx + i }; });
-    globalIdx += topics.length;
-    var filtered = items.filter(function(t){
-      if (progFilter === 'done') return !!data[t.idx];
-      if (progFilter === 'todo') return !data[t.idx];
-      return true;
+  Object.entries(PROGRESS_TOPICS).forEach(function(e) {
+    var pillar = e[0], topics = e[1];
+    topics.forEach(function(text) {
+      var done = !!data[globalIdx];
+      var matches = (progFilter === 'all') || (progFilter === 'done' && done) || (progFilter === 'todo' && !done);
+      if (matches) allItems.push({ text:text, idx:globalIdx, pillar:pillar, done:done });
+      globalIdx++;
     });
-    if (!filtered.length) return;
-    var pillarDone = items.filter(function(t){ return !!data[t.idx]; }).length;
-    html += '<div style="margin-bottom:1rem">' +
+  });
+
+  var totalItems = allItems.length;
+  var shown = Math.min((progPage + 1) * progPageSize, totalItems);
+  var visible = allItems.slice(0, shown);
+
+  // Group visible items by pillar
+  var grouped = {};
+  visible.forEach(function(item) {
+    if (!grouped[item.pillar]) grouped[item.pillar] = [];
+    grouped[item.pillar].push(item);
+  });
+
+  var html = '';
+  Object.keys(grouped).forEach(function(pillar) {
+    var items = grouped[pillar];
+    // Count total done in this pillar (not just visible)
+    var pillarTotal = (PROGRESS_TOPICS[pillar] || []).length;
+    var pillarDone = 0;
+    var startIdx = 0;
+    Object.entries(PROGRESS_TOPICS).forEach(function(e) {
+      if (e[0] === pillar) {
+        e[1].forEach(function(_, i) { if (data[startIdx + i]) pillarDone++; });
+      } else {
+        startIdx += e[1].length;
+      }
+    });
+
+    html += '<div style="margin-bottom:.9rem">' +
       '<div class="prog-pillar-hd">' + esc(pillar) +
-        '<span class="prog-cnt' + (pillarDone === topics.length ? ' done' : '') + '">' + pillarDone + '/' + topics.length + '</span>' +
+        '<span class="prog-cnt' + (pillarDone === pillarTotal ? ' done' : '') + '">' + pillarDone + '/' + pillarTotal + '</span>' +
       '</div>';
-    filtered.forEach(function(t){
-      var done = !!data[t.idx];
-      html += '<div class="prog-item' + (done?' done':'') + '" onclick="toggleTopic(' + t.idx + ')">' +
-        '<div class="prog-cb">' + (done?'✓':'') + '</div>' +
+    items.forEach(function(t) {
+      html += '<div class="prog-item' + (t.done?' done':'') + '" onclick="toggleTopic(' + t.idx + ')">' +
+        '<div class="prog-cb">' + (t.done?'✓':'') + '</div>' +
         '<div class="prog-text">' + esc(t.text) + '</div>' +
         '<button class="prog-use" onclick="event.stopPropagation();useTopic(\'' + escQ(t.text) + '\')" title="Pakai topik">▶ Pakai</button>' +
       '</div>';
     });
     html += '</div>';
   });
-  list.innerHTML = html || '<div style="padding:1rem;font-size:13px;color:var(--mu);font-style:italic">Tidak ada topik untuk filter ini.</div>';
+
+  // More button
+  if (shown < totalItems) {
+    var remaining = totalItems - shown;
+    var nextCount = Math.min(progPageSize, remaining);
+    html += '<div style="text-align:center;padding:.5rem 0 .75rem">' +
+      '<button onclick="progPage++;renderProgress()" style="background:var(--sf2);border:1px solid var(--bd);border-radius:10px;color:var(--mu);font-family:Syne,sans-serif;font-size:12px;font-weight:700;padding:9px 24px;cursor:pointer;transition:all .15s" ' +
+      'onmouseover="this.style.borderColor=\'var(--ac)\';this.style.color=\'var(--ac)\'" ' +
+      'onmouseout="this.style.borderColor=\'var(--bd)\';this.style.color=\'var(--mu)\'">+ Tampilkan ' + nextCount + ' lagi (' + remaining + ' tersisa)</button>' +
+    '</div>';
+  }
+
+  if (!html) html = '<div style="padding:1rem;font-size:13px;color:var(--mu);font-style:italic">Tidak ada topik untuk filter ini.</div>';
+  list.innerHTML = html;
 }
+
 
 function toggleTopic(idx) {
   var data = loadProgress();
@@ -2399,6 +2473,7 @@ function useTopic(text) {
 function resetProgress() {
   if (!confirm('Reset semua progress? Semua centang akan hilang.')) return;
   localStorage.removeItem('pajak_progress');
+  progPage = 0;
   renderProgress();
   renderBank();
   renderPicker();
@@ -2814,13 +2889,25 @@ function nextOnboard() {
   else { skipOnboard(); }
 }
 
+
+
 function openSideMenu() {
-  document.getElementById('sideOverlay').classList.add('vis');
-  document.getElementById('sideMenu').style.transform = 'translateX(0)';
+  var menu = document.getElementById('sideMenu');
+  var overlay = document.getElementById('sideOverlay');
+  menu.style.transition = 'none';
+  menu.style.transform = 'translateX(-100%)';
+  // Force reflow
+  menu.offsetHeight;
+  menu.style.transition = '';
+  menu.style.transform = 'translateX(0)';
+  overlay.classList.add('vis');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeSideMenu() {
   document.getElementById('sideOverlay').classList.remove('vis');
+  document.getElementById('sideMenu').style.transform = 'translateX(-100%)';
+  document.body.style.overflow = '';
 }
 
 function skipOnboard() {
