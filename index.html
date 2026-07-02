@@ -1622,7 +1622,8 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
       '- Bahasa Indonesia natural, tidak formal',
       '- Fokus pain point target audience',
       '- Langsung tulis hooknya, tanpa label tambahan\n' +
-      '- Tidak perlu CTA di bagian hook'
+      '- Tidak perlu CTA di bagian hook\n' +
+      '- Jangan sebut nama brand, cukup topik dan pain point'
     ].join(n);
   }
 
@@ -1658,7 +1659,7 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
       '- [baris kosong]',
       '- Baris 3-10: Isi konten (storytelling/tips/fakta)',
       '- Baris terakhir konten: bridge ke CTA',
-      '- CTA: 1 kalimat natural yang mengarah ke konsultasipajakgratis.com (jangan hard sell, jangan sebut kata gratis lagi),',
+      '- CTA: 1 kalimat natural, domain konsultasipajakgratis.com SEKALI saja, tidak perlu tulis nama brand',
       '- [baris kosong]',
       '- 15-20 hashtag relevan', '',
       'Aturan:',
@@ -1688,91 +1689,86 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
 
   if (ct === 'wa_flyer') {
     var visualStyle = {
-      edukasi:      'clean modern professional, dark navy (#0b0f1a) background, orange (#f97316) accents, white typography, flat vector illustration, friendly approachable mood',
-      fear:         'dark urgent, very dark navy (#0d0a0a) background, deep red-orange warning tones (#dc2626 and #f97316), bold high-contrast typography, serious alarming mood, warning icons',
-      viral:        'bold energetic, dark navy background, bright orange (#f97316) geometric shapes, eye-catching pop-art feel, dynamic diagonal layout, excitement mood',
-      storytelling: 'warm editorial, dark navy background, warm amber-orange tones, human flat illustration accent, magazine-style layout, approachable trustworthy mood'
-    }[tone] || 'modern professional, dark navy background (#0b0f1a), orange accent (#f97316), clean white typography';
+      edukasi:      'clean modern, dark navy (#0b0f1a) background, orange (#f97316) and white accents, flat vector illustration, professional friendly mood',
+      fear:         'dark urgent, deep navy (#0d0808) background, red-orange warning tones, bold high-contrast typography, alarming serious mood',
+      viral:        'bold energetic, dark navy background, bright orange geometric shapes, dynamic eye-catching layout, excitement mood',
+      storytelling: 'warm editorial, dark navy background, amber-orange tones, human flat illustration, approachable trustworthy mood'
+    }[tone] || 'modern professional, dark navy #0b0f1a background, orange #f97316 accent, white text';
 
-    var topicClean = topic.replace(/'/g, '').replace(/"/g, '');
+    var topicClean = topic.replace(/['"]/g, '');
+    var n2 = '\n';
 
     return [
-      'Create a WhatsApp Status flyer image.',
+      'DALL-E image generation prompt:',
       '',
-      'TECHNICAL SPECS:',
-      '- Size: 1080 x 1920 pixels',
-      '- Ratio: 9:16 portrait',
-      '- Safe zone: 80px all sides',
-      '- Format: high quality, no watermark, no device frame',
+      'Create a WhatsApp Status flyer image, 1080x1920px, 9:16 portrait ratio.',
       '',
-      'BRAND:',
-      '- Brand name: Konsultasi Pajak Gratis',
-      '- Website: konsultasipajakgratis.com',
-      '- Colors: dark navy background #0b0f1a, orange accent #f97316, white text',
+      'Visual style: ' + visualStyle,
       '',
-      'VISUAL STYLE:',
-      visualStyle,
+      'Topic for content: ' + topicClean,
+      'Audience: ' + audLine,
       '',
-      'TOPIC FOR CONTENT: ' + topicClean,
-      'AUDIENCE: ' + audLine,
+      'LAYOUT (strictly top to bottom, NO repeated text):',
+      '- TOP (8%): thin orange horizontal line accent only, no text',
+      '- ILLUSTRATION (28%): relevant flat vector illustration about "' + topicClean + '", minimal modern style, orange and white on navy, no detailed faces',
+      '- HEADLINE (20%): one short punchy Indonesian headline max 6 words about "' + topicClean + '", ultra bold white text, key word in orange',
+      '- SUBTEXT (8%): one short supporting sentence in Indonesian, max 10 words, smaller white text',
+      '- BULLET POINTS (18%): exactly 3 bullet points in Indonesian relevant to the topic, each max 4 words, with solid orange circle checkmark icons',
+      '- CTA BUTTON (10%): full-width orange rounded rectangle button with white text: "Cek di konsultasipajakgratis.com"',
+      '- FOOTER (8%): small white text "konsultasipajakgratis.com" centered',
       '',
-      'LAYOUT (strictly top to bottom):',
-      '1. TOP AREA (10% height): Small text "Konsultasi Pajak Gratis" centered, with thin orange underline',
-      '2. ILLUSTRATION AREA (25% height): Relevant flat vector illustration related to the topic "' + topicClean + '". Minimal, modern, no detailed faces, orange and white on navy',
-      '3. HEADLINE AREA (20% height): One punchy Indonesian headline about "' + topicClean + '" — bold, large, white, max 6 words, all caps or mixed case',
-      '4. BODY AREA (20% height): 3 bullet points in Indonesian relevant to the topic, each max 5 words, with small orange arrow or checkmark icons',
-      '5. CTA AREA (15% height): One short Indonesian sentence leading to the website, on an orange rounded button',
-      '6. FOOTER (10% height): konsultasipajakgratis.com in small white or orange text',
-      '',
-      'CONTENT REQUIREMENTS:',
+      'CRITICAL RULES:',
+      '- Do NOT write brand name "Konsultasi Pajak Gratis" anywhere — only the URL konsultasipajakgratis.com in footer and CTA',
+      '- Do NOT write the word "gratis" separately anywhere except as part of the URL',
+      '- URL konsultasipajakgratis.com appears MAXIMUM 2 times total: once in CTA button, once in footer',
       '- Write ALL text in Indonesian language',
-      '- Headline must be direct and punchy about the topic',
-      '- Bullet points must be specific and relevant to the topic',
-      '- Do NOT use placeholder text — generate actual content based on the topic',
-      '- Do NOT write "gratis" separately — the domain already contains it',
-      '',
-      'Generate this flyer image now. Do not write any text response — only generate the image.'
-    ].join('\n');
+      '- Generate actual content based on the topic, no placeholder text',
+      '- No watermark, no device frame, no border',
+      '- High readability, spacious layout, optimized for mobile viewing'
+    ].join(n2);
   }
 
   if (ct === 'carousel') {
+    var n2 = '\n';
     return [
-      'You are a content creator for Indonesian tax brand "Konsultasi Pajak Gratis".',
+      'You are a content creator for an Indonesian tax brand.',
+      'Website: konsultasipajakgratis.com',
       '',
-      'Create 8 Instagram carousel slides as separate image generation prompts.',
-      'Topic: ' + topic + pillarTag,
-      'Target audience: ' + audLine,
-      'Tone: ' + toneDir,
+      'Create 8 Instagram carousel slides as image generation prompts.',
+      'Topic: ' + topic + (pillarTag ? ' ' + pillarTag : ''),
+      'Audience: ' + audLine,
+      'Tone direction: ' + toneDir,
       '',
-      'For EACH slide, write a complete image generation prompt in this format:',
+      'For EACH slide write a complete image generation prompt using this template:',
       '',
       '--- SLIDE [N] ---',
-      'Create an Instagram carousel slide image, 1080x1350px, 4:5 portrait ratio.',
-      'Brand: Konsultasi Pajak Gratis.',
-      'Style: dark navy background (#0b0f1a), bold orange accent (#f97316), clean white typography, modern flat design, professional quality, no watermark.',
-      'Slide content: [describe what this slide shows]',
-      'Main headline text on the image: "[write the actual Indonesian headline]"',
-      'Supporting text on the image: "[write actual Indonesian supporting text, max 2 lines]"',
-      'Bottom footer: konsultasipajakgratis.com in small orange text.',
-      'Visual element: [describe icon, illustration, or graphic element]',
+      'Create an Instagram carousel slide, 1080x1350px, 4:5 portrait ratio.',
+      'Style: dark navy background #0b0f1a, orange accent #f97316, white typography, modern flat design, no watermark.',
+      'Slide [N] of 8 — [slide purpose]',
+      'Main headline text: "[write actual Indonesian text max 6 words]"',
+      'Supporting text: "[write actual Indonesian text max 2 lines]"',
+      'Visual element: [describe specific flat illustration or icon]',
+      'Footer text only: konsultasipajakgratis.com in small orange — NO brand name text elsewhere',
       '',
       'Slide structure:',
-      'Slide 1 — Cover: strong hook headline, bold typography dominant',
-      'Slide 2 — Problem: introduce the pain point',
-      'Slide 3 — Point 1: first key insight',
-      'Slide 4 — Point 2: second key insight',
-      'Slide 5 — Point 3: third key insight',
-      'Slide 6 — Point 4: fourth key insight',
-      'Slide 7 — Solution/Takeaway: main conclusion',
-      'Slide 8 — CTA: soft call to action, website konsultasipajakgratis.com',
+      '1. Cover — strong hook headline, bold dominant typography',
+      '2. Problem — introduce the pain point',
+      '3. Point 1 — first key insight with icon',
+      '4. Point 2 — second key insight with icon',
+      '5. Point 3 — third key insight with icon',
+      '6. Point 4 — fourth key insight with icon',
+      '7. Takeaway — main conclusion or tip',
+      '8. CTA — soft call to action, URL konsultasipajakgratis.com on orange button',
       '',
-      'After all 8 slide prompts, add:',
+      'CRITICAL: Do NOT write brand name "Konsultasi Pajak Gratis" on any slide — only URL in footer.',
+      'Write actual Indonesian content based on the topic. No placeholder text.',
+      '',
+      'After all 8 prompts, add:',
       '=== INSTAGRAM CAPTION ===',
-      'Write a ready-to-post Indonesian caption, 150-200 words, with hook + body + CTA + 15-20 relevant hashtags.',
+      'Write ready-to-post Indonesian caption 150-200 words: hook + body + CTA (domain only, once) + 15-20 hashtags.',
       '',
-      'Important: Write actual Indonesian content based on the topic. No placeholder text.',
       'Specs: 1080x1350px per slide, 4:5 ratio, 80px safe zone.'
-    ].join('\n');
+    ].join(n2);
   }
 
   if (ct === 'threads') {
@@ -1796,7 +1792,7 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
       '- Utas 1: hook tajam, max 200 karakter, langsung masuk ke topik',
       '- Utas 2-5: satu poin per utas, max 280 karakter, konkret dan relatable',
       '- Utas 6-7: insight atau takeaway, max 280 karakter',
-      '- Utas terakhir: CTA natural ke konsultasipajakgratis.com',
+      '- Utas terakhir: CTA natural, domain konsultasipajakgratis.com sekali saja, tidak perlu tulis nama brand',
       '',
       'Aturan wajib:',
       '- Bahasa Indonesia conversational',
@@ -1905,11 +1901,9 @@ function showPromptOutput(prompt, ct) {
   if (chatgptTip) {
     chatgptTip.style.display = isImg ? 'flex' : 'none';
     if (ct === 'wa_flyer') {
-      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Langsung generate gambar flyer. Jangan tambahkan teks lain, paste as-is.</div></div>';
+      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div style="flex:1"><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em;margin-bottom:3px">CARA PAKAI — WA FLYER</div><div style="font-size:12px;color:#c4b5fd;line-height:1.6">1. Copy prompt di bawah<br>2. Buka ChatGPT (pastikan ada icon kamera/gambar = GPT-4o)<br>3. Paste prompt → tekan Enter<br>4. ChatGPT akan langsung generate gambar</div></div>';
     } else if (ct === 'carousel') {
-      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Generate 8 slide satu per satu dengan command "generate slide 1", "generate slide 2", dst.</div></div>';
-    } else {
-      chatgptTip.innerHTML = '<span style="font-size:18px">🤖</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Generate gambar via DALL-E 3</div></div>';
+      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div style="flex:1"><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em;margin-bottom:3px">CARA PAKAI — CAROUSEL</div><div style="font-size:12px;color:#c4b5fd;line-height:1.6">1. Copy prompt di bawah<br>2. Paste ke ChatGPT → tekan Enter<br>3. ChatGPT buat outline + 8 image prompt<br>4. Ketik "generate slide 1" untuk mulai generate gambar per slide</div></div>';
     }
   }
   if (canvasBadge) {
@@ -4781,7 +4775,8 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
       '- Bahasa Indonesia natural, tidak formal',
       '- Fokus pain point target audience',
       '- Langsung tulis hooknya, tanpa label tambahan\n' +
-      '- Tidak perlu CTA di bagian hook'
+      '- Tidak perlu CTA di bagian hook\n' +
+      '- Jangan sebut nama brand, cukup topik dan pain point'
     ].join(n);
   }
 
@@ -4817,7 +4812,7 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
       '- [baris kosong]',
       '- Baris 3-10: Isi konten (storytelling/tips/fakta)',
       '- Baris terakhir konten: bridge ke CTA',
-      '- CTA: 1 kalimat natural yang mengarah ke konsultasipajakgratis.com (jangan hard sell, jangan sebut kata gratis lagi),',
+      '- CTA: 1 kalimat natural, domain konsultasipajakgratis.com SEKALI saja, tidak perlu tulis nama brand',
       '- [baris kosong]',
       '- 15-20 hashtag relevan', '',
       'Aturan:',
@@ -5018,11 +5013,9 @@ function showPromptOutput(prompt, ct) {
   if (chatgptTip) {
     chatgptTip.style.display = isImg ? 'flex' : 'none';
     if (ct === 'wa_flyer') {
-      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Langsung generate gambar flyer. Jangan tambahkan teks lain, paste as-is.</div></div>';
+      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div style="flex:1"><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em;margin-bottom:3px">CARA PAKAI — WA FLYER</div><div style="font-size:12px;color:#c4b5fd;line-height:1.6">1. Copy prompt di bawah<br>2. Buka ChatGPT (pastikan ada icon kamera/gambar = GPT-4o)<br>3. Paste prompt → tekan Enter<br>4. ChatGPT akan langsung generate gambar</div></div>';
     } else if (ct === 'carousel') {
-      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Generate 8 slide satu per satu dengan command "generate slide 1", "generate slide 2", dst.</div></div>';
-    } else {
-      chatgptTip.innerHTML = '<span style="font-size:18px">🤖</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Generate gambar via DALL-E 3</div></div>';
+      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div style="flex:1"><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em;margin-bottom:3px">CARA PAKAI — CAROUSEL</div><div style="font-size:12px;color:#c4b5fd;line-height:1.6">1. Copy prompt di bawah<br>2. Paste ke ChatGPT → tekan Enter<br>3. ChatGPT buat outline + 8 image prompt<br>4. Ketik "generate slide 1" untuk mulai generate gambar per slide</div></div>';
     }
   }
   if (canvasBadge) {
