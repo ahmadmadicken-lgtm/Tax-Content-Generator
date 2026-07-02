@@ -1222,8 +1222,10 @@ function getActive(groupId) {
 
 function getContentType() {
   for (var i = 0; i < allTypeGroups.length; i++) {
-    var v = getActive(allTypeGroups[i])[0];
-    if (v) return v;
+    var g = document.getElementById(allTypeGroups[i]);
+    if (!g) continue;
+    var active = g.querySelector('.pill.on');
+    if (active && active.dataset.v) return active.dataset.v;
   }
   return 'carousel';
 }
@@ -1234,7 +1236,6 @@ function initTypeGroups() {
     if (!g) return;
     g.querySelectorAll('.pill').forEach(function(p) {
       p.addEventListener('click', function() {
-        // Deactivate all type pills across all groups
         allTypeGroups.forEach(function(id) {
           var grp = document.getElementById(id);
           if (grp) grp.querySelectorAll('.pill').forEach(function(x){ x.classList.remove('on'); });
@@ -1244,6 +1245,16 @@ function initTypeGroups() {
       });
     });
   });
+  // Ensure one pill is always active on init
+  var anyActive = false;
+  allTypeGroups.forEach(function(id) {
+    var g = document.getElementById(id);
+    if (g && g.querySelector('.pill.on')) anyActive = true;
+  });
+  if (!anyActive) {
+    var firstPill = document.querySelector('#typeIG .pill');
+    if (firstPill) firstPill.classList.add('on');
+  }
 }
 
 // ── Picker ───────────────────────────────────────────────
@@ -1583,6 +1594,12 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
     '- fear + solution',
     '- curiosity',
     '',
+    'Aturan CTA:',
+    '- CTA muncul SEKALI di akhir konten',
+    '- Cukup sebut domain: konsultasipajakgratis.com',
+    '- JANGAN tulis kata gratis secara eksplisit, sudah ada di domain',
+    '- CTA harus natural, bukan hard sell',
+    '',
     'CTA utama:',
     'konsultasipajakgratis.com'
   ].join('\n');
@@ -1671,45 +1688,50 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
 
   if (ct === 'wa_flyer') {
     var visualStyle = {
-      edukasi: 'clean modern infographic style, white background, navy and orange accents, friendly professional look, clear readable typography',
-      fear: 'dark dramatic background (#1a0a00), deep red and orange warning tones, bold urgent typography, high contrast, serious mood',
-      viral: 'high energy, bold geometric shapes, bright orange and white, eye-catching pop art feel, dynamic layout',
-      storytelling: 'warm editorial magazine style, soft warm tones, human illustration accent, approachable modern layout'
-    }[tone] || 'modern professional, dark navy background, orange accent';
+      edukasi:      'clean modern professional, dark navy (#0b0f1a) background, orange (#f97316) accents, white typography, flat vector illustration, friendly approachable mood',
+      fear:         'dark urgent, very dark navy (#0d0a0a) background, deep red-orange warning tones (#dc2626 and #f97316), bold high-contrast typography, serious alarming mood, warning icons',
+      viral:        'bold energetic, dark navy background, bright orange (#f97316) geometric shapes, eye-catching pop-art feel, dynamic diagonal layout, excitement mood',
+      storytelling: 'warm editorial, dark navy background, warm amber-orange tones, human flat illustration accent, magazine-style layout, approachable trustworthy mood'
+    }[tone] || 'modern professional, dark navy background (#0b0f1a), orange accent (#f97316), clean white typography';
+
+    var topicClean = topic.replace(/'/g, '').replace(/"/g, '');
 
     return [
-      'Create a WhatsApp Status flyer image with these exact specifications:',
+      'Create a WhatsApp Status flyer image.',
       '',
-      'SIZE: 1080 x 1920 pixels, 9:16 portrait ratio',
+      'TECHNICAL SPECS:',
+      '- Size: 1080 x 1920 pixels',
+      '- Ratio: 9:16 portrait',
+      '- Safe zone: 80px all sides',
+      '- Format: high quality, no watermark, no device frame',
       '',
-      'BRAND: Konsultasi Pajak Gratis',
-      'WEBSITE: konsultasipajakgratis.com',
+      'BRAND:',
+      '- Brand name: Konsultasi Pajak Gratis',
+      '- Website: konsultasipajakgratis.com',
+      '- Colors: dark navy background #0b0f1a, orange accent #f97316, white text',
       '',
-      'TOPIC: ' + topic,
+      'VISUAL STYLE:',
+      visualStyle,
+      '',
+      'TOPIC FOR CONTENT: ' + topicClean,
       'AUDIENCE: ' + audLine,
       '',
-      'VISUAL STYLE: ' + visualStyle,
+      'LAYOUT (strictly top to bottom):',
+      '1. TOP AREA (10% height): Small text "Konsultasi Pajak Gratis" centered, with thin orange underline',
+      '2. ILLUSTRATION AREA (25% height): Relevant flat vector illustration related to the topic "' + topicClean + '". Minimal, modern, no detailed faces, orange and white on navy',
+      '3. HEADLINE AREA (20% height): One punchy Indonesian headline about "' + topicClean + '" — bold, large, white, max 6 words, all caps or mixed case',
+      '4. BODY AREA (20% height): 3 bullet points in Indonesian relevant to the topic, each max 5 words, with small orange arrow or checkmark icons',
+      '5. CTA AREA (15% height): One short Indonesian sentence leading to the website, on an orange rounded button',
+      '6. FOOTER (10% height): konsultasipajakgratis.com in small white or orange text',
       '',
-      'LAYOUT (top to bottom):',
-      '- TOP (15%): Small brand name "Konsultasi Pajak Gratis" with thin orange underline',
-      '- UPPER MIDDLE (30%): Large bold headline in Indonesian about the topic — make it punchy and direct, max 6 words',
-      '- CENTER (30%): 3 short bullet points in Indonesian related to the topic, each max 5 words, with orange checkmark or arrow icons',
-      '- LOWER MIDDLE (15%): One clear call-to-action sentence in Indonesian',
-      '- BOTTOM (10%): Website URL konsultasipajakgratis.com in small text',
+      'CONTENT REQUIREMENTS:',
+      '- Write ALL text in Indonesian language',
+      '- Headline must be direct and punchy about the topic',
+      '- Bullet points must be specific and relevant to the topic',
+      '- Do NOT use placeholder text — generate actual content based on the topic',
+      '- Do NOT write "gratis" separately — the domain already contains it',
       '',
-      'TYPOGRAPHY:',
-      '- Headline: ultra bold, large, high contrast',
-      '- Body: clean sans-serif, readable at small size',
-      '- All text in Indonesian language',
-      '',
-      'REQUIREMENTS:',
-      '- No watermark',
-      '- No placeholder text — write actual Indonesian content based on the topic',
-      '- Text must be clearly readable',
-      '- Professional quality',
-      '- Flat design with subtle illustration or icon accents',
-      '',
-      'Generate the complete flyer image now.'
+      'Generate this flyer image now. Do not write any text response — only generate the image.'
     ].join('\n');
   }
 
@@ -1754,34 +1776,40 @@ function buildPrompt(topic, ct, tone, pillars, auds) {
   }
 
   if (ct === 'threads') {
-    return [brand, '',
-      'TUGAS: Tulis thread Threads.app SIAP POSTING untuk:',
-      'Topik: ' + topic + pillarTag,
+    return [
+      brand,
+      '',
+      '---',
+      '',
+      'Topik: ' + topic + (pillarTag ? ' ' + pillarTag : ''),
       'Target: ' + audLine,
-      'Tone: ' + tone, '',
-      toneDir, '',
-      'TULIS 6-8 UTAS SIAP POSTING.',
-      'Pisahkan setiap utas dengan baris berisi: ---', '',
-      'Aturan WAJIB:',
-      '- Utas 1: hook kuat, max 200 karakter, bikin orang mau baca lanjut',
-      '- Utas 2-6: isi poin, max 280 karakter per utas',
-      '- Utas terakhir: CTA natural + konsultasipajakgratis.com',
-      '- Bahasa Indonesia conversational, tidak formal',
-      '- Pakai emoji 1-2 per utas',
-      '- JANGAN tulis label seperti [Utas 1] atau nomor urut',
-      '- Pisahkan setiap utas HANYA dengan baris: ---', '',
-      'Contoh format output yang benar:', '',
-      'Banyak UMKM baru sadar soal pajak ini setelah kena denda. Padahal solusinya simpel banget.',
+      'Tone: ' + tone,
+      '',
+      toneDir,
       '',
       '---',
       '',
-      '[lanjutan utas 2]',
+      'Tulis thread Threads.app 6-8 utas tentang topik di atas.',
+      'Setiap utas dipisahkan dengan baris: ---',
       '',
-      '---',
+      'Aturan per utas:',
+      '- Utas 1: hook tajam, max 200 karakter, langsung masuk ke topik',
+      '- Utas 2-5: satu poin per utas, max 280 karakter, konkret dan relatable',
+      '- Utas 6-7: insight atau takeaway, max 280 karakter',
+      '- Utas terakhir: CTA natural ke konsultasipajakgratis.com',
       '',
-      '[dst hingga utas terakhir berisi CTA]'
-    ].join(n);
+      'Aturan wajib:',
+      '- Bahasa Indonesia conversational',
+      '- Emoji 1-2 per utas',
+      '- JANGAN tulis nomor atau label (1/, [Utas 1], dll)',
+      '- JANGAN tulis kata gratis — sudah ada di nama domain',
+      '- Setiap utas bisa berdiri sendiri',
+      '- Pisah antar utas HANYA dengan baris: ---',
+      '',
+      'Langsung tulis isi utasnya, dimulai dari utas pertama.'
+    ].join('\n');
   }
+
 
   return brand + n + n + 'Buat konten untuk topik: ' + topic;
 }
@@ -1826,22 +1854,25 @@ function generateVariasi() {
 }
 
 function doGenerate(topic, ct, tone, pillars, auds) {
-  // Hide both outputs
-  document.getElementById('outputPrompt').classList.remove('vis');
-  document.getElementById('outputThreads').classList.remove('vis');
+  // Hide both outputs completely
+  var elPrompt = document.getElementById('outputPrompt');
+  var elThreads = document.getElementById('outputThreads');
+  elPrompt.classList.remove('vis');
+  elPrompt.style.display = 'none';
+  elThreads.classList.remove('vis');
+  elThreads.style.display = 'none';
 
   if (ct === 'threads') {
-    try { doThreads(topic, tone, pillars, auds); } catch(e) { console.error('doThreads error:', e); }
+    doThreads(topic, tone, pillars, auds);
   } else {
+    var prompt;
     try {
-      var prompt = buildPrompt(topic, ct, tone, pillars, auds);
-      showPromptOutput(prompt, ct);
+      prompt = buildPrompt(topic, ct, tone, pillars, auds);
     } catch(e) {
-      console.error('Generate error:', e);
-      document.getElementById('promptBox').textContent = 'Error: ' + e.message;
-      document.getElementById('outputPrompt').classList.add('vis');
+      console.error('buildPrompt error:', e);
       return;
     }
+    showPromptOutput(prompt, ct);
     try { addToHistory(topic, ct, tone, prompt); } catch(e) {}
     try { trackStat(ct, tone); } catch(e) {}
     try { renderRelated(topic); } catch(e) {}
@@ -1871,7 +1902,16 @@ function showPromptOutput(prompt, ct) {
     outTitle.innerHTML = titles[ct] || '✦ Prompt Siap Dipakai';
     outTitle.style.color = isImg ? '#a78bfa' : 'var(--gr)';
   }
-  if (chatgptTip) chatgptTip.style.display = isImg ? 'flex' : 'none';
+  if (chatgptTip) {
+    chatgptTip.style.display = isImg ? 'flex' : 'none';
+    if (ct === 'wa_flyer') {
+      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Langsung generate gambar flyer. Jangan tambahkan teks lain, paste as-is.</div></div>';
+    } else if (ct === 'carousel') {
+      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Generate 8 slide satu per satu dengan command "generate slide 1", "generate slide 2", dst.</div></div>';
+    } else {
+      chatgptTip.innerHTML = '<span style="font-size:18px">🤖</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Generate gambar via DALL-E 3</div></div>';
+    }
+  }
   if (canvasBadge) {
     canvasBadge.style.display = isImg ? 'flex' : 'none';
     if (ct === 'carousel') {
@@ -1918,8 +1958,8 @@ function doThreads(topic, tone, pillars, auds) {
   var threadTitle = document.querySelector('#outputThreads .out-title');
   if (threadTitle) { threadTitle.textContent = '🧵 Prompt Threads (copy ke Claude/ChatGPT)'; }
   var thrEl = document.getElementById('outputThreads');
-  thrEl.classList.add('vis');
   thrEl.style.display = 'block';
+  thrEl.classList.add('vis');
   thrEl.scrollIntoView({ behavior:'smooth', block:'start' });
   var btn = document.getElementById('copyThreadsBtn');
   if (btn) { btn.classList.remove('ok'); btn.textContent = 'Copy Prompt'; }
@@ -4344,8 +4384,10 @@ function getActive(groupId) {
 
 function getContentType() {
   for (var i = 0; i < allTypeGroups.length; i++) {
-    var v = getActive(allTypeGroups[i])[0];
-    if (v) return v;
+    var g = document.getElementById(allTypeGroups[i]);
+    if (!g) continue;
+    var active = g.querySelector('.pill.on');
+    if (active && active.dataset.v) return active.dataset.v;
   }
   return 'carousel';
 }
@@ -4356,7 +4398,6 @@ function initTypeGroups() {
     if (!g) return;
     g.querySelectorAll('.pill').forEach(function(p) {
       p.addEventListener('click', function() {
-        // Deactivate all type pills across all groups
         allTypeGroups.forEach(function(id) {
           var grp = document.getElementById(id);
           if (grp) grp.querySelectorAll('.pill').forEach(function(x){ x.classList.remove('on'); });
@@ -4366,6 +4407,16 @@ function initTypeGroups() {
       });
     });
   });
+  // Ensure one pill is always active on init
+  var anyActive = false;
+  allTypeGroups.forEach(function(id) {
+    var g = document.getElementById(id);
+    if (g && g.querySelector('.pill.on')) anyActive = true;
+  });
+  if (!anyActive) {
+    var firstPill = document.querySelector('#typeIG .pill');
+    if (firstPill) firstPill.classList.add('on');
+  }
 }
 
 // ── Picker ───────────────────────────────────────────────
@@ -4916,22 +4967,25 @@ function generateVariasi() {
 }
 
 function doGenerate(topic, ct, tone, pillars, auds) {
-  // Hide both outputs
-  document.getElementById('outputPrompt').classList.remove('vis');
-  document.getElementById('outputThreads').classList.remove('vis');
+  // Hide both outputs completely
+  var elPrompt = document.getElementById('outputPrompt');
+  var elThreads = document.getElementById('outputThreads');
+  elPrompt.classList.remove('vis');
+  elPrompt.style.display = 'none';
+  elThreads.classList.remove('vis');
+  elThreads.style.display = 'none';
 
   if (ct === 'threads') {
-    try { doThreads(topic, tone, pillars, auds); } catch(e) { console.error('doThreads error:', e); }
+    doThreads(topic, tone, pillars, auds);
   } else {
+    var prompt;
     try {
-      var prompt = buildPrompt(topic, ct, tone, pillars, auds);
-      showPromptOutput(prompt, ct);
+      prompt = buildPrompt(topic, ct, tone, pillars, auds);
     } catch(e) {
-      console.error('Generate error:', e);
-      document.getElementById('promptBox').textContent = 'Error: ' + e.message;
-      document.getElementById('outputPrompt').classList.add('vis');
+      console.error('buildPrompt error:', e);
       return;
     }
+    showPromptOutput(prompt, ct);
     try { addToHistory(topic, ct, tone, prompt); } catch(e) {}
     try { trackStat(ct, tone); } catch(e) {}
     try { renderRelated(topic); } catch(e) {}
@@ -4961,7 +5015,16 @@ function showPromptOutput(prompt, ct) {
     outTitle.innerHTML = titles[ct] || '✦ Prompt Siap Dipakai';
     outTitle.style.color = isImg ? '#a78bfa' : 'var(--gr)';
   }
-  if (chatgptTip) chatgptTip.style.display = isImg ? 'flex' : 'none';
+  if (chatgptTip) {
+    chatgptTip.style.display = isImg ? 'flex' : 'none';
+    if (ct === 'wa_flyer') {
+      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Langsung generate gambar flyer. Jangan tambahkan teks lain, paste as-is.</div></div>';
+    } else if (ct === 'carousel') {
+      chatgptTip.innerHTML = '<span style="font-size:18px">🎨</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Generate 8 slide satu per satu dengan command "generate slide 1", "generate slide 2", dst.</div></div>';
+    } else {
+      chatgptTip.innerHTML = '<span style="font-size:18px">🤖</span><div><div style="font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.05em">CARA PAKAI</div><div style="font-size:12px;color:#c4b5fd;margin-top:1px">Copy prompt → Paste ke ChatGPT → Generate gambar via DALL-E 3</div></div>';
+    }
+  }
   if (canvasBadge) {
     canvasBadge.style.display = isImg ? 'flex' : 'none';
     if (ct === 'carousel') {
@@ -5008,8 +5071,8 @@ function doThreads(topic, tone, pillars, auds) {
   var threadTitle = document.querySelector('#outputThreads .out-title');
   if (threadTitle) { threadTitle.textContent = '🧵 Prompt Threads (copy ke Claude/ChatGPT)'; }
   var thrEl = document.getElementById('outputThreads');
-  thrEl.classList.add('vis');
   thrEl.style.display = 'block';
+  thrEl.classList.add('vis');
   thrEl.scrollIntoView({ behavior:'smooth', block:'start' });
   var btn = document.getElementById('copyThreadsBtn');
   if (btn) { btn.classList.remove('ok'); btn.textContent = 'Copy Prompt'; }
